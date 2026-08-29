@@ -130,10 +130,18 @@ Do not build the app first. The app is worth nothing without segments, and
 segments are content.
 
 1. ~~**Segment the coast.**~~ **DONE for Cornwall** — `src/data/coast-segments.ts`.
-   26 point-to-point segments, 294.5 miles, following the South West Coast Path
-   Association's own published stage list trimmed to the Cornish portion
-   (Marsland Mouth round to Cremyll). Boundaries are real places with parking
-   and a bus. Devon and the Jurassic Coast next, same method.
+   45 point-to-point segments, 294.5 miles, from Marsland Mouth round to
+   Cremyll. The backbone is the South West Coast Path Association's own
+   published stage list; most stages are split once more at a real intermediate
+   place with parking and a bus, giving 32 half days (4–7.5 miles) and 13 full
+   days (8–10 miles). Stages left whole are the ones with no sensible way off
+   in the middle, or that depend on a ferry — the ground decided the mixture.
+   Each split pair still sums to the Association's published stage distance, so
+   the totals stay sourced even where the split point is our estimate.
+
+   Adding a region is additive: set its `status` to `'live'` in `coastRegions`
+   and append its stages. Nothing else changes. Devon and the Jurassic Coast
+   next, same method.
 2. ~~**Manual ticking, no accounts.**~~ **DONE** — `/coast`. Ticks are stored in
    the visitor's browser, no backend, still on the free static host. This is
    the experiment: if people use it, build the rest. If they do not, nothing

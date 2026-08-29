@@ -1,14 +1,18 @@
 'use client';
 
-import { useCallback, useMemo, useSyncExternalStore } from 'react';
+import { useCallback, useMemo, useState, useSyncExternalStore } from 'react';
 import { buttonClass } from './ui';
 import {
   coastSegments,
+  HALF_DAY_LIMIT,
+  isHalfDay,
   milesInArea,
   segmentsByArea,
   totalCoastMiles,
   type CoastSegment,
 } from '@/data/coast-segments';
+
+type LengthFilter = 'all' | 'half' | 'full';
 
 /**
  * Manual coast-completion tracking, stored in the visitor's own browser.
@@ -59,6 +63,7 @@ function write(ids: string[]) {
 
 export function CoastTracker() {
   const raw = useSyncExternalStore(subscribe, readRaw, () => '');
+  const [lengthFilter, setLengthFilter] = useState<LengthFilter>('all');
 
   const done = useMemo(() => {
     if (!raw) return new Set<string>();
@@ -87,7 +92,23 @@ export function CoastTracker() {
     .reduce((sum, segment) => sum + segment.distanceMiles, 0);
 
   const percent = (milesDone / totalCoastMiles) * 100;
-  const groups = segmentsByArea();
+
+  const matchesFilter = useCallback(
+    (segment: CoastSegment) =>
+      lengthFilter === 'all' ||
+      (lengthFilter === 'half' ? isHalfDay(segment) : !isHalfDay(segment)),
+    [lengthFilter],
+  );
+
+  const groups = segmentsByArea()
+    .map((group) => ({
+      ...group,
+      visible: group.segments.filter(matchesFilter),
+    }))
+    .filter((group) => group.visible.length > 0);
+
+  const halfDays = coastSegments.filter(isHalfDay).length;
+  const fullDays = coastSegments.length - halfDays;
 
   return (
     <div>
@@ -149,6 +170,41 @@ export function CoastTracker() {
         </div>
       </div>
 
+      {/* ---------------------------------------------------------- filter */}
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-b border-line pb-4">
+        <div
+          className="flex flex-wrap gap-2"
+          role="group"
+          aria-label="Filter segments by length"
+        >
+          {(
+            [
+              ['all', `Everything (${coastSegments.length})`],
+              ['half', `Half days (${halfDays})`],
+              ['full', `Full days (${fullDays})`],
+            ] as [LengthFilter, string][]
+          ).map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              aria-pressed={lengthFilter === value}
+              onClick={() => setLengthFilter(value)}
+              className={`label border px-3 py-2 transition-colors ${
+                lengthFilter === value
+                  ? 'border-red bg-red text-ink'
+                  : 'border-line text-mute hover:border-mute hover:text-paper'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        <p className="text-xs text-mute">
+          Half days are up to {HALF_DAY_LIMIT} miles. Two adjacent segments in one
+          session is a full day out.
+        </p>
+      </div>
+
       {/* -------------------------------------------------------- segments */}
       {groups.map((group) => {
         const areaTotal = milesInArea(group.area);
@@ -175,7 +231,7 @@ export function CoastTracker() {
             </div>
 
             <ul className="divide-y divide-line border-b border-line">
-              {group.segments.map((segment) => (
+              {group.visible.map((segment) => (
                 <SegmentRow
                   key={segment.id}
                   segment={segment}
@@ -213,6 +269,7 @@ function SegmentRow({
   onToggle: (id: string) => void;
 }) {
   const inputId = `segment-${segment.id}`;
+  const half = isHalfDay(segment);
 
   return (
     <li className={done ? 'opacity-60' : ''}>
@@ -233,8 +290,20 @@ function SegmentRow({
           >
             {segment.name}
           </label>
+          <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
+            <span
+              className={`label ${half ? 'text-mute' : 'text-red-bright'}`}
+            >
+              {half ? 'Half day' : 'Full day'}
+            </span>
+            {segment.distanceSource === 'split' ? (
+              <span className="text-xs text-mute">
+                part of {segment.officialStage}
+              </span>
+            ) : null}
+          </p>
           {segment.note ? (
-            <p className="mt-1 text-sm leading-relaxed text-mute">
+            <p className="mt-2 text-sm leading-relaxed text-mute">
               {segment.note}
             </p>
           ) : null}
@@ -244,8 +313,15 @@ function SegmentRow({
             {segment.distanceMiles}
             <span className="text-mute"> mi</span>
           </p>
-          {segment.distanceSource === 'approximate' ? (
-            <p className="label mt-1 text-mute" title="Our split of an official stage that crosses the county border">
+          {segment.distanceSource !== 'official' ? (
+            <p
+              className="label mt-1 text-mute"
+              title={
+                segment.distanceSource === 'split'
+                  ? 'Half of an official stage — the pair sums to the published distance, but where the split falls is our estimate'
+                  : 'Our split of an official stage that crosses the county border'
+              }
+            >
               approx
             </p>
           ) : null}

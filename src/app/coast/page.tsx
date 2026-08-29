@@ -3,18 +3,23 @@ import { Container } from '@/components/Container';
 import { PageHeader } from '@/components/PageHeader';
 import { CoastTracker } from '@/components/CoastTracker';
 import { Callout } from '@/components/ui';
-import { coastSegments, totalCoastMiles } from '@/data/coast-segments';
+import {
+  coastSegments,
+  plannedRegions,
+  totalCoastMiles,
+} from '@/data/coast-segments';
 import { siteConfig } from '@/config/site';
+
+const segmentCount = coastSegments.length;
+const roundedMiles = Math.round(totalCoastMiles);
 
 export const metadata: Metadata = {
   title: 'Track the Cornish coast, segment by segment',
-  description:
-    'Tick off the South West Coast Path in Cornwall one point-to-point segment at a time — 26 segments and about 295 miles, from the Devon border at Marsland Mouth round Land’s End to the Tamar.',
+  description: `Tick off the South West Coast Path in Cornwall one point-to-point segment at a time — ${segmentCount} segments and about ${roundedMiles} miles, from the Devon border at Marsland Mouth round Land’s End to the Tamar. A mixture of half days and full days.`,
   alternates: { canonical: '/coast' },
   openGraph: {
     title: `Track the Cornish coast | ${siteConfig.titleSuffix}`,
-    description:
-      'Twenty-six point-to-point segments, about 295 miles. Tick them off as you run them.',
+    description: `${segmentCount} point-to-point segments, about ${roundedMiles} miles. Tick them off as you run them.`,
     url: '/coast',
   },
 };
@@ -25,7 +30,7 @@ export default function CoastPage() {
       <PageHeader
         eyebrow="Early prototype"
         title="Run the whole thing, a bit at a time"
-        intro={`The Cornish coast path broken into ${coastSegments.length} point-to-point segments — about ${Math.round(totalCoastMiles)} miles from the Devon border at Marsland Mouth, round Land’s End, to the Tamar. Tick them off as you run them.`}
+        intro={`The Cornish coast path broken into ${segmentCount} point-to-point segments — about ${roundedMiles} miles from the Devon border at Marsland Mouth, round Land’s End, to the Tamar. Mostly half days, a few full ones. Tick them off as you run them.`}
       />
 
       <section className="py-12 sm:py-16">
@@ -56,18 +61,25 @@ export default function CoastPage() {
             <div>
               <h2 className="text-2xl">Where the segments come from</h2>
               <p className="measure mt-4 text-base leading-relaxed text-mute">
-                The boundaries and distances follow the South West Coast Path
-                Association’s own stage list for the National Trail, trimmed to
-                the Cornish portion. Using a published list rather than inventing
-                our own means every segment starts and ends somewhere real, with
-                parking, a bus and usually a pub — and if you have already walked
-                the Trail, your history maps straight onto it.
+                The backbone is the South West Coast Path Association’s own stage
+                list for the National Trail, trimmed to the Cornish portion.
+                Their stages are walking days of nine to fourteen miles. Most are
+                split once more, at a real intermediate place with parking and
+                usually a bus, to give something you can run in a morning.
               </p>
               <p className="measure mt-4 text-base leading-relaxed text-mute">
-                Two segments are marked <span className="font-mono">approx</span>
-                : the first and last, where the official stage either side
-                straddles the county border and the Association does not publish
-                the split. Everything else is their published mileage.
+                The ones left whole are left whole for a reason — the remote
+                stretch down from the Devon border has no sensible way off it in
+                the middle, and the Helford crossing depends on a seasonal ferry.
+                That is where the mixture of half days and full days comes from:
+                the ground decided it, not us.
+              </p>
+              <p className="measure mt-4 text-base leading-relaxed text-mute">
+                Anything marked <span className="font-mono">approx</span> is our
+                estimate of where a stage divides. Each pair still adds up to the
+                Association’s published distance, so the totals stay honest even
+                where the split is a judgement call. Once we have the real route
+                geometry, those become exact.
               </p>
             </div>
 
@@ -91,7 +103,7 @@ export default function CoastPage() {
               <h2 className="text-2xl">Coming next, roughly in this order</h2>
               <ul className="measure mt-4 space-y-3">
                 {[
-                  'The rest of England, region by region — Devon and the Jurassic Coast first.',
+                  `The rest of England, region by region — ${plannedRegions.length} to go, Devon and the Jurassic Coast first.`,
                   'Accounts, so your progress follows you between your phone and your laptop.',
                   'GPX upload, so a segment can be marked verified rather than just ticked.',
                   'Leaderboards by distance covered and regions completed. Never by speed.',

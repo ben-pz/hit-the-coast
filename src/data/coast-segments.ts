@@ -1,31 +1,87 @@
 /**
- * The Cornish coast, broken into point-to-point segments.
+ * The English coast, broken into runnable point-to-point segments.
  *
- * ── WHERE THIS COMES FROM ───────────────────────────────────────────────────
+ * ── HOW THIS IS STRUCTURED ──────────────────────────────────────────────────
  *
- * The segment boundaries and distances follow the South West Coast Path
- * Association's own 52-day itinerary for the National Trail, trimmed to the
- * Cornish portion — from the Devon border at Marsland Mouth on the north coast,
- * round Land's End, to the Tamar at Cremyll. Using a published stage list
- * rather than inventing our own boundaries means every segment starts and ends
- * somewhere real, with parking, a bus and usually a pub.
+ * The source of truth is `stages` — the South West Coast Path Association's own
+ * published stage list, trimmed to the Cornish portion of the National Trail
+ * (Marsland Mouth on the Devon border, round Land's End, to the Tamar at
+ * Cremyll). Their stages are walking days of 9–14 miles.
  *
- * Two segments are marked `distanceSource: 'approximate'`: the first and last,
- * because the official stages either side of them straddle the county border
- * and the Association does not publish the split. Everything else is the
- * Association's own published mileage.
+ * Most stages are then split once, at a real intermediate place with parking
+ * and usually a bus, to give runner-sized half days. `coastSegments` is derived
+ * from that, so:
+ *
+ *   - a stage's parts always sum to its published distance — the totals stay
+ *     sourced even though the split within a stage is our estimate;
+ *   - every segment records the `officialStage` it came from, so anyone who has
+ *     walked the Trail can map their history onto it;
+ *   - changing a split means editing one line, not renumbering a list.
+ *
+ * Stages left whole are the ones with no good access point near the middle —
+ * the remote north coast, the ferry-dependent crossings — or that are already
+ * short. That is where the mixture of half days and full days comes from, and
+ * it is decided by the ground rather than by wanting a tidy list.
+ *
+ * ── DISTANCES: WHAT IS SOURCED AND WHAT IS NOT ──────────────────────────────
+ *
+ *   'official'    — the Association's published stage distance, unchanged.
+ *   'approximate' — a stage that straddles the county border, where the
+ *                   Association does not publish the Cornish split.
+ *   'split'       — one half of an official stage. The pair sums to the
+ *                   official figure; where the halfway point falls is our
+ *                   estimate until real geometry exists.
  *
  * ── WHAT IS STILL MISSING ───────────────────────────────────────────────────
  *
- * No coordinates and no route geometry. Those have to come from a real source —
- * the National Trail GPX, or OS Open Data — not from an estimate, because the
- * whole point of the tracker is that a GPX either covers a segment or it does
- * not. Until then this dataset supports manual ticking only.
+ * No coordinates and no route geometry. Those must come from the National Trail
+ * GPX or OS Open Data, never from an estimate: a GPX either covers a segment or
+ * it does not, and a guessed line would silently pass or fail real runs. Until
+ * then this supports manual ticking only.
  *
- * Longer segments can be subdivided later (Falmouth to Portloe at 14 miles is a
- * big morning). Keep the official boundaries as the parent set, so anyone who
- * has walked the Trail can map their own history onto it.
+ * ── ADDING THE REST OF ENGLAND ──────────────────────────────────────────────
+ *
+ * Add the region to `coastRegions` with `status: 'live'`, then add its stages
+ * below with that `region`. Nothing else changes — the tracker, the totals and
+ * the page all read from this file.
  */
+
+/* ------------------------------------------------------------------ regions */
+
+export type CoastRegion = {
+  id: string;
+  name: string;
+  /** 'live' regions are trackable; 'planned' ones are listed as coming. */
+  status: 'live' | 'planned';
+  /** Shown on the planned regions so the ambition is legible. */
+  blurb?: string;
+};
+
+export const coastRegions: CoastRegion[] = [
+  { id: 'cornwall', name: 'Cornwall', status: 'live' },
+  {
+    id: 'devon',
+    name: 'Devon',
+    status: 'planned',
+    blurb: 'Both coasts — Hartland to the Tamar, and Plymouth round to Lyme.',
+  },
+  {
+    id: 'dorset',
+    name: 'Dorset & the Jurassic Coast',
+    status: 'planned',
+    blurb: 'Lyme Regis to South Haven Point, the end of the South West Coast Path.',
+  },
+  {
+    id: 'somerset',
+    name: 'Somerset & the Bristol Channel',
+    status: 'planned',
+  },
+  { id: 'south-east', name: 'Sussex, Kent & the South East', status: 'planned' },
+  { id: 'east-anglia', name: 'East Anglia', status: 'planned' },
+  { id: 'yorkshire', name: 'Yorkshire & Lincolnshire', status: 'planned' },
+  { id: 'north-east', name: 'Northumberland & the North East', status: 'planned' },
+  { id: 'north-west', name: 'Cumbria & the North West', status: 'planned' },
+];
 
 export const coastAreas = [
   'North Cornwall',
@@ -38,6 +94,358 @@ export const coastAreas = [
 
 export type CoastArea = (typeof coastAreas)[number];
 
+/* ------------------------------------------------------------------- stages */
+
+type Stage = {
+  id: string;
+  start: string;
+  end: string;
+  region: string;
+  area: CoastArea;
+  miles: number;
+  source: 'official' | 'approximate';
+  note?: string;
+  /**
+   * Split this stage in two at a real intermediate place.
+   * `firstMiles` is our estimate; the second half is whatever is left, so the
+   * pair always sums to the official stage distance.
+   */
+  splitAt?: { place: string; firstMiles: number; note?: string; endNote?: string };
+};
+
+const stages: Stage[] = [
+  // ── North Cornwall ───────────────────────────────────────────────────────
+  {
+    id: 'marsland-bude',
+    start: 'Marsland Mouth',
+    end: 'Bude',
+    region: 'cornwall',
+    area: 'North Cornwall',
+    miles: 10,
+    source: 'approximate',
+    note: 'The Cornish half of the official Hartland Quay to Bude stage. Remote, relentless, and left whole because there is no sensible way off it in the middle.',
+  },
+  {
+    id: 'bude-crackington',
+    start: 'Bude',
+    end: 'Crackington Haven',
+    region: 'cornwall',
+    area: 'North Cornwall',
+    miles: 10,
+    source: 'official',
+    note: 'Big cliffs, and High Cliff — the highest point on the Cornish coast.',
+  },
+  {
+    id: 'crackington-tintagel',
+    start: 'Crackington Haven',
+    end: 'Tintagel',
+    region: 'cornwall',
+    area: 'North Cornwall',
+    miles: 11,
+    source: 'official',
+    splitAt: {
+      place: 'Boscastle',
+      firstMiles: 7,
+      endNote: 'Harbour, car park and buses at Boscastle.',
+    },
+  },
+  {
+    id: 'tintagel-port-isaac',
+    start: 'Tintagel',
+    end: 'Port Isaac',
+    region: 'cornwall',
+    area: 'North Cornwall',
+    miles: 9,
+    source: 'official',
+  },
+  {
+    id: 'port-isaac-padstow',
+    start: 'Port Isaac',
+    end: 'Padstow',
+    region: 'cornwall',
+    area: 'North Cornwall',
+    miles: 12,
+    source: 'official',
+    splitAt: {
+      place: 'Polzeath',
+      firstMiles: 7,
+      endNote: 'Ends with the Rock to Padstow ferry — check the timetable and the tide.',
+    },
+  },
+
+  // ── The Atlantic Coast ───────────────────────────────────────────────────
+  {
+    id: 'padstow-porthcothan',
+    start: 'Padstow',
+    end: 'Porthcothan',
+    region: 'cornwall',
+    area: 'The Atlantic Coast',
+    miles: 13.5,
+    source: 'official',
+    splitAt: { place: 'Harlyn Bay', firstMiles: 6.5 },
+  },
+  {
+    id: 'porthcothan-newquay',
+    start: 'Porthcothan',
+    end: 'Newquay',
+    region: 'cornwall',
+    area: 'The Atlantic Coast',
+    miles: 11,
+    source: 'official',
+    splitAt: { place: 'Mawgan Porth', firstMiles: 4 },
+  },
+  {
+    id: 'newquay-perranporth',
+    start: 'Newquay',
+    end: 'Perranporth',
+    region: 'cornwall',
+    area: 'The Atlantic Coast',
+    miles: 11,
+    source: 'official',
+    splitAt: {
+      place: 'Holywell Bay',
+      firstMiles: 6,
+      note: 'Crosses the Gannel — which crossing you use depends entirely on the tide.',
+    },
+  },
+  {
+    id: 'perranporth-portreath',
+    start: 'Perranporth',
+    end: 'Portreath',
+    region: 'cornwall',
+    area: 'The Atlantic Coast',
+    miles: 12,
+    source: 'official',
+    splitAt: {
+      place: 'St Agnes',
+      firstMiles: 7,
+      note: 'Past St Agnes Head and the engine houses. Exposed the whole way.',
+    },
+  },
+  {
+    id: 'portreath-hayle',
+    start: 'Portreath',
+    end: 'Hayle',
+    region: 'cornwall',
+    area: 'The Atlantic Coast',
+    miles: 12,
+    source: 'official',
+    splitAt: {
+      place: 'Godrevy',
+      firstMiles: 8,
+      endNote: 'National Trust car park at Godrevy, seals in the cove below.',
+    },
+  },
+  {
+    id: 'hayle-st-ives',
+    start: 'Hayle',
+    end: 'St Ives',
+    region: 'cornwall',
+    area: 'The Atlantic Coast',
+    miles: 6,
+    source: 'official',
+    note: 'The shortest segment in Cornwall, and a good first one to tick off.',
+  },
+
+  // ── West Penwith ─────────────────────────────────────────────────────────
+  {
+    id: 'st-ives-pendeen',
+    start: 'St Ives',
+    end: 'Pendeen',
+    region: 'cornwall',
+    area: 'West Penwith',
+    miles: 14,
+    source: 'official',
+    splitAt: {
+      place: 'Zennor',
+      firstMiles: 7,
+      note: 'The boulder section. Allow far longer than the distance suggests — two and a half hours is not slow.',
+    },
+  },
+  {
+    id: 'pendeen-sennen',
+    start: 'Pendeen',
+    end: 'Sennen Cove',
+    region: 'cornwall',
+    area: 'West Penwith',
+    miles: 9,
+    source: 'official',
+    note: 'The Tin Coast, with the engine houses on the cliff below the path.',
+  },
+  {
+    id: 'sennen-lamorna',
+    start: 'Sennen Cove',
+    end: 'Lamorna',
+    region: 'cornwall',
+    area: 'West Penwith',
+    miles: 12,
+    source: 'official',
+    splitAt: {
+      place: 'Porthcurno',
+      firstMiles: 6.5,
+      note: 'Round Land’s End itself.',
+    },
+  },
+  {
+    id: 'lamorna-marazion',
+    start: 'Lamorna',
+    end: 'Marazion',
+    region: 'cornwall',
+    area: 'West Penwith',
+    miles: 9,
+    source: 'official',
+    note: 'Through Mousehole, Newlyn and Penzance. Home ground for the PZX Wasters.',
+  },
+
+  // ── Mount’s Bay & the Lizard ─────────────────────────────────────────────
+  {
+    id: 'marazion-porthleven',
+    start: 'Marazion',
+    end: 'Porthleven',
+    region: 'cornwall',
+    area: 'Mount’s Bay & the Lizard',
+    miles: 11,
+    source: 'official',
+    splitAt: { place: 'Praa Sands', firstMiles: 7 },
+  },
+  {
+    id: 'porthleven-lizard',
+    start: 'Porthleven',
+    end: 'The Lizard',
+    region: 'cornwall',
+    area: 'Mount’s Bay & the Lizard',
+    miles: 13,
+    source: 'official',
+    splitAt: {
+      place: 'Mullion Cove',
+      firstMiles: 8,
+      note: 'Past Loe Bar.',
+      endNote: 'Past Kynance Cove to the most southerly point in England.',
+    },
+  },
+  {
+    id: 'lizard-coverack',
+    start: 'The Lizard',
+    end: 'Coverack',
+    region: 'cornwall',
+    area: 'Mount’s Bay & the Lizard',
+    miles: 11,
+    source: 'official',
+    splitAt: {
+      place: 'Cadgwith',
+      firstMiles: 4,
+      note: 'Serpentine underfoot — genuinely slippery when wet.',
+    },
+  },
+  {
+    id: 'coverack-helford',
+    start: 'Coverack',
+    end: 'Helford',
+    region: 'cornwall',
+    area: 'Mount’s Bay & the Lizard',
+    miles: 13,
+    source: 'official',
+    splitAt: {
+      place: 'Porthallow',
+      firstMiles: 5,
+      endNote: 'Porthallow marks the halfway point of the whole South West Coast Path.',
+    },
+  },
+
+  // ── The Fal & the Roseland ───────────────────────────────────────────────
+  {
+    id: 'helford-falmouth',
+    start: 'Helford',
+    end: 'Falmouth',
+    region: 'cornwall',
+    area: 'The Fal & the Roseland',
+    miles: 10,
+    source: 'official',
+    note: 'Needs the Helford passenger ferry, which is seasonal. Left whole because the crossing decides your day.',
+  },
+  {
+    id: 'falmouth-portloe',
+    start: 'Falmouth',
+    end: 'Portloe',
+    region: 'cornwall',
+    area: 'The Fal & the Roseland',
+    miles: 14,
+    source: 'official',
+    splitAt: {
+      place: 'Portscatho',
+      firstMiles: 9,
+      note: 'Includes the St Mawes and Place ferries.',
+    },
+  },
+  {
+    id: 'portloe-mevagissey',
+    start: 'Portloe',
+    end: 'Mevagissey',
+    region: 'cornwall',
+    area: 'The Fal & the Roseland',
+    miles: 12,
+    source: 'official',
+    splitAt: { place: 'Gorran Haven', firstMiles: 7 },
+  },
+
+  // ── South East Cornwall ──────────────────────────────────────────────────
+  {
+    id: 'mevagissey-par',
+    start: 'Mevagissey',
+    end: 'Par',
+    region: 'cornwall',
+    area: 'South East Cornwall',
+    miles: 12,
+    source: 'official',
+    splitAt: { place: 'Charlestown', firstMiles: 8 },
+  },
+  {
+    id: 'par-polperro',
+    start: 'Par',
+    end: 'Polperro',
+    region: 'cornwall',
+    area: 'South East Cornwall',
+    miles: 13,
+    source: 'official',
+    splitAt: {
+      place: 'Fowey',
+      firstMiles: 5,
+      endNote: 'Starts with the Polruan ferry.',
+    },
+  },
+  {
+    id: 'polperro-portwrinkle',
+    start: 'Polperro',
+    end: 'Portwrinkle',
+    region: 'cornwall',
+    area: 'South East Cornwall',
+    miles: 12,
+    source: 'official',
+    splitAt: {
+      place: 'Looe',
+      firstMiles: 5,
+      endNote: 'Looe has a railway station — the easiest segment in Cornwall to reach without a car.',
+    },
+  },
+  {
+    id: 'portwrinkle-cremyll',
+    start: 'Portwrinkle',
+    end: 'Cremyll',
+    region: 'cornwall',
+    area: 'South East Cornwall',
+    miles: 12,
+    source: 'approximate',
+    splitAt: {
+      place: 'Cawsand',
+      firstMiles: 8,
+      note: 'The Cornish part of the official Portwrinkle to Plymouth stage, round Rame Head.',
+      endNote: 'The ferry at Cremyll is where Cornwall ends.',
+    },
+  },
+];
+
+/* ----------------------------------------------------------------- segments */
+
 export type CoastSegment = {
   id: string;
   /** Ordering along the coast, north-east round to south-east. */
@@ -45,363 +453,121 @@ export type CoastSegment = {
   name: string;
   start: string;
   end: string;
+  region: string;
   area: CoastArea;
   distanceMiles: number;
-  /**
-   * 'official' — the SWCP Association's published stage distance.
-   * 'approximate' — our split of a stage that crosses the county border.
-   */
-  distanceSource: 'official' | 'approximate';
-  /** Anything a runner should know before choosing this one. */
+  distanceSource: 'official' | 'approximate' | 'split';
+  /** The published stage this came from, e.g. "Crackington Haven to Tintagel". */
+  officialStage: string;
   note?: string;
   /**
    * Whether this segment may ever carry a timed leaderboard.
    *
-   * DEFAULTS TO FALSE EVERYWHERE, DELIBERATELY. Most of this coast is unfenced
-   * cliff path, and a fastest-time board rewards running it fast in bad
-   * conditions. Only set this true for a segment you personally know to be safe
-   * to run hard — hard surfaces, no cliff edge, no tidal section — and never
-   * from a map. See docs/ROADMAP.md for the reasoning.
+   * FALSE EVERYWHERE, DELIBERATELY. Most of this coast is unfenced cliff path,
+   * and a fastest-time board rewards running it hard in bad conditions. Only
+   * set this true for a segment you personally know to be safe to run flat out
+   * — hard surface, no cliff edge, nothing tidal — and never from a map.
+   * See docs/ROADMAP.md.
    */
   timedSegment: boolean;
 };
 
-export const coastSegments: CoastSegment[] = [
-  // ── North Cornwall ───────────────────────────────────────────────────────
-  {
-    id: 'marsland-mouth-bude',
-    order: 1,
-    name: 'Marsland Mouth to Bude',
-    start: 'Marsland Mouth (Devon border)',
-    end: 'Bude',
-    area: 'North Cornwall',
-    distanceMiles: 10,
-    distanceSource: 'approximate',
-    note: 'The Cornish half of the official Hartland Quay to Bude stage. Remote, relentless and one of the toughest stretches on the whole trail.',
-    timedSegment: false,
-  },
-  {
-    id: 'bude-crackington-haven',
-    order: 2,
-    name: 'Bude to Crackington Haven',
-    start: 'Bude',
-    end: 'Crackington Haven',
-    area: 'North Cornwall',
-    distanceMiles: 10,
-    distanceSource: 'official',
-    note: 'Big cliffs and the highest point on the Cornish coast at High Cliff.',
-    timedSegment: false,
-  },
-  {
-    id: 'crackington-haven-tintagel',
-    order: 3,
-    name: 'Crackington Haven to Tintagel',
-    start: 'Crackington Haven',
-    end: 'Tintagel',
-    area: 'North Cornwall',
-    distanceMiles: 11,
-    distanceSource: 'official',
-    timedSegment: false,
-  },
-  {
-    id: 'tintagel-port-isaac',
-    order: 4,
-    name: 'Tintagel to Port Isaac',
-    start: 'Tintagel',
-    end: 'Port Isaac',
-    area: 'North Cornwall',
-    distanceMiles: 9,
-    distanceSource: 'official',
-    timedSegment: false,
-  },
-  {
-    id: 'port-isaac-padstow',
-    order: 5,
-    name: 'Port Isaac to Padstow',
-    start: 'Port Isaac',
-    end: 'Padstow',
-    area: 'North Cornwall',
-    distanceMiles: 12,
-    distanceSource: 'official',
-    note: 'Ends with the Rock to Padstow ferry across the Camel — check the timetable and the tide.',
-    timedSegment: false,
-  },
+function round(value: number): number {
+  return Math.round(value * 10) / 10;
+}
 
-  // ── The Atlantic Coast ───────────────────────────────────────────────────
-  {
-    id: 'padstow-porthcothan',
-    order: 6,
-    name: 'Padstow to Porthcothan',
-    start: 'Padstow',
-    end: 'Porthcothan',
-    area: 'The Atlantic Coast',
-    distanceMiles: 13.5,
-    distanceSource: 'official',
-    timedSegment: false,
-  },
-  {
-    id: 'porthcothan-newquay',
-    order: 7,
-    name: 'Porthcothan to Newquay',
-    start: 'Porthcothan',
-    end: 'Newquay',
-    area: 'The Atlantic Coast',
-    distanceMiles: 11,
-    distanceSource: 'official',
-    timedSegment: false,
-  },
-  {
-    id: 'newquay-perranporth',
-    order: 8,
-    name: 'Newquay to Perranporth',
-    start: 'Newquay',
-    end: 'Perranporth',
-    area: 'The Atlantic Coast',
-    distanceMiles: 11,
-    distanceSource: 'official',
-    note: 'Crosses the Gannel — the crossing you use depends entirely on the tide.',
-    timedSegment: false,
-  },
-  {
-    id: 'perranporth-portreath',
-    order: 9,
-    name: 'Perranporth to Portreath',
-    start: 'Perranporth',
-    end: 'Portreath',
-    area: 'The Atlantic Coast',
-    distanceMiles: 12,
-    distanceSource: 'official',
-    note: 'Past St Agnes Head and the engine houses. Exposed the whole way.',
-    timedSegment: false,
-  },
-  {
-    id: 'portreath-hayle',
-    order: 10,
-    name: 'Portreath to Hayle',
-    start: 'Portreath',
-    end: 'Hayle',
-    area: 'The Atlantic Coast',
-    distanceMiles: 12,
-    distanceSource: 'official',
-    timedSegment: false,
-  },
-  {
-    id: 'hayle-st-ives',
-    order: 11,
-    name: 'Hayle to St Ives',
-    start: 'Hayle',
-    end: 'St Ives',
-    area: 'The Atlantic Coast',
-    distanceMiles: 6,
-    distanceSource: 'official',
-    note: 'The shortest segment in Cornwall, and a good first one to tick off.',
-    timedSegment: false,
-  },
+/** Explicit loop rather than flatMap so the union type stays exact. */
+function buildSegments(): CoastSegment[] {
+  const out: CoastSegment[] = [];
 
-  // ── West Penwith ─────────────────────────────────────────────────────────
-  {
-    id: 'st-ives-pendeen',
-    order: 12,
-    name: 'St Ives to Pendeen',
-    start: 'St Ives',
-    end: 'Pendeen',
-    area: 'West Penwith',
-    distanceMiles: 14,
-    distanceSource: 'official',
-    note: 'Includes the St Ives to Zennor boulder section. Allow far longer than the distance suggests.',
-    timedSegment: false,
-  },
-  {
-    id: 'pendeen-sennen-cove',
-    order: 13,
-    name: 'Pendeen to Sennen Cove',
-    start: 'Pendeen',
-    end: 'Sennen Cove',
-    area: 'West Penwith',
-    distanceMiles: 9,
-    distanceSource: 'official',
-    note: 'The Tin Coast — engine houses on the cliff below the path.',
-    timedSegment: false,
-  },
-  {
-    id: 'sennen-cove-lamorna',
-    order: 14,
-    name: 'Sennen Cove to Lamorna',
-    start: 'Sennen Cove',
-    end: 'Lamorna',
-    area: 'West Penwith',
-    distanceMiles: 12,
-    distanceSource: 'official',
-    note: 'Round Land’s End and the whole southern tip of Penwith.',
-    timedSegment: false,
-  },
-  {
-    id: 'lamorna-marazion',
-    order: 15,
-    name: 'Lamorna to Marazion',
-    start: 'Lamorna',
-    end: 'Marazion',
-    area: 'West Penwith',
-    distanceMiles: 9,
-    distanceSource: 'official',
-    note: 'Through Mousehole and Penzance. Home ground for the PZX Wasters.',
-    timedSegment: false,
-  },
+  for (const stage of stages) {
+    const officialStage = `${stage.start} to ${stage.end}`;
 
-  // ── Mount’s Bay & the Lizard ─────────────────────────────────────────────
-  {
-    id: 'marazion-porthleven',
-    order: 16,
-    name: 'Marazion to Porthleven',
-    start: 'Marazion',
-    end: 'Porthleven',
-    area: 'Mount’s Bay & the Lizard',
-    distanceMiles: 11,
-    distanceSource: 'official',
-    timedSegment: false,
-  },
-  {
-    id: 'porthleven-the-lizard',
-    order: 17,
-    name: 'Porthleven to The Lizard',
-    start: 'Porthleven',
-    end: 'The Lizard',
-    area: 'Mount’s Bay & the Lizard',
-    distanceMiles: 13,
-    distanceSource: 'official',
-    note: 'Past Loe Bar and Kynance Cove to the most southerly point in England.',
-    timedSegment: false,
-  },
-  {
-    id: 'the-lizard-coverack',
-    order: 18,
-    name: 'The Lizard to Coverack',
-    start: 'The Lizard',
-    end: 'Coverack',
-    area: 'Mount’s Bay & the Lizard',
-    distanceMiles: 11,
-    distanceSource: 'official',
-    note: 'Serpentine underfoot — genuinely slippery when wet.',
-    timedSegment: false,
-  },
-  {
-    id: 'coverack-helford',
-    order: 19,
-    name: 'Coverack to Helford',
-    start: 'Coverack',
-    end: 'Helford',
-    area: 'Mount’s Bay & the Lizard',
-    distanceMiles: 13,
-    distanceSource: 'official',
-    timedSegment: false,
-  },
+    if (!stage.splitAt) {
+      out.push({
+        id: stage.id,
+        order: out.length + 1,
+        name: officialStage,
+        start: stage.start,
+        end: stage.end,
+        region: stage.region,
+        area: stage.area,
+        distanceMiles: stage.miles,
+        distanceSource: stage.source,
+        officialStage,
+        note: stage.note,
+        timedSegment: false,
+      });
+      continue;
+    }
 
-  // ── The Fal & the Roseland ───────────────────────────────────────────────
-  {
-    id: 'helford-falmouth',
-    order: 20,
-    name: 'Helford to Falmouth',
-    start: 'Helford',
-    end: 'Falmouth',
-    area: 'The Fal & the Roseland',
-    distanceMiles: 10,
-    distanceSource: 'official',
-    note: 'Needs the Helford passenger ferry — seasonal, so check before you go.',
-    timedSegment: false,
-  },
-  {
-    id: 'falmouth-portloe',
-    order: 21,
-    name: 'Falmouth to Portloe',
-    start: 'Falmouth',
-    end: 'Portloe',
-    area: 'The Fal & the Roseland',
-    distanceMiles: 14,
-    distanceSource: 'official',
-    note: 'Includes the St Mawes and Place ferries. The longest segment in Cornwall.',
-    timedSegment: false,
-  },
-  {
-    id: 'portloe-mevagissey',
-    order: 22,
-    name: 'Portloe to Mevagissey',
-    start: 'Portloe',
-    end: 'Mevagissey',
-    area: 'The Fal & the Roseland',
-    distanceMiles: 12,
-    distanceSource: 'official',
-    timedSegment: false,
-  },
+    const { place, firstMiles, note, endNote } = stage.splitAt;
 
-  // ── South East Cornwall ──────────────────────────────────────────────────
-  {
-    id: 'mevagissey-par',
-    order: 23,
-    name: 'Mevagissey to Par',
-    start: 'Mevagissey',
-    end: 'Par',
-    area: 'South East Cornwall',
-    distanceMiles: 12,
-    distanceSource: 'official',
-    timedSegment: false,
-  },
-  {
-    id: 'par-polperro',
-    order: 24,
-    name: 'Par to Polperro',
-    start: 'Par',
-    end: 'Polperro',
-    area: 'South East Cornwall',
-    distanceMiles: 13,
-    distanceSource: 'official',
-    note: 'Through Fowey, with the ferry to Polruan.',
-    timedSegment: false,
-  },
-  {
-    id: 'polperro-portwrinkle',
-    order: 25,
-    name: 'Polperro to Portwrinkle',
-    start: 'Polperro',
-    end: 'Portwrinkle',
-    area: 'South East Cornwall',
-    distanceMiles: 12,
-    distanceSource: 'official',
-    note: 'Crosses the Looe river; Seaton and Downderry on the way.',
-    timedSegment: false,
-  },
-  {
-    id: 'portwrinkle-cremyll',
-    order: 26,
-    name: 'Portwrinkle to Cremyll',
-    start: 'Portwrinkle',
-    end: 'Cremyll (Tamar)',
-    area: 'South East Cornwall',
-    distanceMiles: 12,
-    distanceSource: 'approximate',
-    note: 'The Cornish part of the official Portwrinkle to Plymouth stage, round Rame Head. The ferry at Cremyll is where Cornwall ends.',
-    timedSegment: false,
-  },
-];
+    out.push({
+      id: `${stage.id}-1`,
+      order: out.length + 1,
+      name: `${stage.start} to ${place}`,
+      start: stage.start,
+      end: place,
+      region: stage.region,
+      area: stage.area,
+      distanceMiles: firstMiles,
+      distanceSource: 'split',
+      officialStage,
+      note: note ?? stage.note,
+      timedSegment: false,
+    });
 
-/** Total Cornish coast path mileage covered by this segment set. */
-export const totalCoastMiles = coastSegments.reduce(
-  (sum, segment) => sum + segment.distanceMiles,
-  0,
+    out.push({
+      id: `${stage.id}-2`,
+      order: out.length + 1,
+      name: `${place} to ${stage.end}`,
+      start: place,
+      end: stage.end,
+      region: stage.region,
+      area: stage.area,
+      distanceMiles: round(stage.miles - firstMiles),
+      distanceSource: 'split',
+      officialStage,
+      note: endNote,
+      timedSegment: false,
+    });
+  }
+
+  return out;
+}
+
+export const coastSegments: CoastSegment[] = buildSegments();
+
+/* ------------------------------------------------------------------ helpers */
+
+/** Anything up to 7.5 miles reads as a morning; beyond that, a proper day out. */
+export const HALF_DAY_LIMIT = 7.5;
+
+export function isHalfDay(segment: CoastSegment): boolean {
+  return segment.distanceMiles <= HALF_DAY_LIMIT;
+}
+
+export const totalCoastMiles = round(
+  coastSegments.reduce((sum, segment) => sum + segment.distanceMiles, 0),
 );
 
 export function segmentsByArea(): { area: CoastArea; segments: CoastSegment[] }[] {
   return coastAreas
     .map((area) => ({
       area,
-      segments: coastSegments
-        .filter((segment) => segment.area === area)
-        .sort((a, b) => a.order - b.order),
+      segments: coastSegments.filter((segment) => segment.area === area),
     }))
     .filter((group) => group.segments.length > 0);
 }
 
 export function milesInArea(area: CoastArea): number {
-  return coastSegments
-    .filter((segment) => segment.area === area)
-    .reduce((sum, segment) => sum + segment.distanceMiles, 0);
+  return round(
+    coastSegments
+      .filter((segment) => segment.area === area)
+      .reduce((sum, segment) => sum + segment.distanceMiles, 0),
+  );
 }
+
+export const liveRegions = coastRegions.filter((r) => r.status === 'live');
+export const plannedRegions = coastRegions.filter((r) => r.status === 'planned');
