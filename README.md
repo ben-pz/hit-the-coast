@@ -189,6 +189,10 @@ at build time.
 
 ## Built to extend, not built yet
 
+Future ideas — including the coast-completion tracking app, and the Strava and
+safety constraints found while researching it — are written up in
+[`docs/ROADMAP.md`](docs/ROADMAP.md).
+
 The structure supports these without rework: a CMS behind `src/data`, ticketing
 or booking on events (`ticketStatus` already exists), disclosed affiliate links
 in reviews, featured/paid listings (`featured` already exists), and sponsorship
