@@ -129,19 +129,33 @@ if cheating actually becomes a problem:
 Do not build the app first. The app is worth nothing without segments, and
 segments are content.
 
-1. **Segment the coast.** Break the Coast Path into named, sensible
-   point-to-point sections. This is the real asset and it is a data job, not a
-   code job. Cornwall first — perhaps 40 segments — then outward.
-2. **Manual ticking, no accounts.** Let people mark segments done, stored in
-   their own browser. Zero backend, still shippable on the free static host.
-   This tells you whether anyone actually wants it before you build accounts.
-3. **Accounts and GPX upload.** Now you need a real backend and a database.
-   Supabase or Cloudflare D1 both have usable free tiers.
+1. ~~**Segment the coast.**~~ **DONE for Cornwall** — `src/data/coast-segments.ts`.
+   26 point-to-point segments, 294.5 miles, following the South West Coast Path
+   Association's own published stage list trimmed to the Cornish portion
+   (Marsland Mouth round to Cremyll). Boundaries are real places with parking
+   and a bus. Devon and the Jurassic Coast next, same method.
+2. ~~**Manual ticking, no accounts.**~~ **DONE** — `/coast`. Ticks are stored in
+   the visitor's browser, no backend, still on the free static host. This is
+   the experiment: if people use it, build the rest. If they do not, nothing
+   was wasted.
+3. **Accounts and GPX upload.** ← you are here. Now you need a real backend and
+   a database; Supabase or Cloudflare D1 both have usable free tiers. This is
+   also where segment geometry becomes essential — see below.
 4. **Verification and leaderboards** by coverage.
 5. **Opt-in timing** on the small set of safe segments, if people ask for it.
 6. **Native app**, only if the web version proves people use it on the move.
    A well-built responsive web app covers most of this, and skipping the app
    stores avoids review cycles and a second codebase for a long while.
+
+### The next real blocker: geometry
+
+`coast-segments.ts` carries names and distances but no coordinates and no route
+line, because those cannot be estimated — a GPX either covers a segment or it
+does not, and a guessed polyline would silently pass or fail people's runs.
+
+Get the geometry from the National Trail GPX or OS Open Data, split it at the
+segment boundaries, and store a simplified polyline per segment. That single
+piece of work unlocks the map, the verification and everything downstream.
 
 ### Open questions
 

@@ -36,6 +36,7 @@ export const siteConfig = {
 } as const;
 
 export const mainNav = [
+  { label: 'The Coast', href: '/coast' },
   { label: 'Events', href: '/events' },
   { label: 'Routes', href: '/routes' },
   { label: 'Stories & Gear', href: '/stories' },
@@ -46,6 +47,7 @@ export const footerNav = [
   {
     heading: 'Discover',
     links: [
+      { label: 'Track the coast', href: '/coast' },
       { label: 'Coastal events', href: '/events' },
       { label: 'Cornish routes', href: '/routes' },
       { label: 'Stories & gear', href: '/stories' },
