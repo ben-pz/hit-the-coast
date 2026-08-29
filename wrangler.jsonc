@@ -1,0 +1,23 @@
+{
+  // Cloudflare Workers deployment config.
+  //
+  // This site is a pure static export — `npm run build` writes a folder of
+  // HTML, CSS, JS and images to ./out and there is no server code at all.
+  // So there is no `main` Worker script here: Cloudflare just serves the
+  // files. Requests to static assets are free and unlimited.
+  //
+  // Deploying: Cloudflare runs `npm run build` then `npx wrangler deploy`,
+  // which uploads ./out. Nothing else to configure.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hit-the-coast",
+  "compatibility_date": "2026-08-28",
+  "assets": {
+    "directory": "./out",
+
+    // Serve out/404.html, with a real 404 status, for anything unmatched.
+    "not_found_handling": "404-page",
+
+    // /about serves about.html; /coast/ serves coast/index.html.
+    "html_handling": "auto-trailing-slash"
+  }
+}
