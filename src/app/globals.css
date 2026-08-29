@@ -1,26 +1,172 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* -------------------------------------------------------------------------
+   Design tokens
+   Deep charcoal ground, off-white paper sections, one confident red.
+   Contrast notes (WCAG AA):
+     paper on ink            ~16.0:1
+     mute on ink              ~8.0:1
+     red on ink               ~4.9:1
+     ink on red               ~5.4:1   <- primary buttons use ink text on red
+     ink on paper            ~16.0:1
+     red-ink on paper         ~4.9:1   <- darker red reserved for light sections
+   ------------------------------------------------------------------------- */
+
+@theme {
+  --color-ink: #0b0c0e;
+  --color-ink-800: #121418;
+  --color-ink-700: #191c21;
+  --color-ink-600: #22262d;
+  --color-line: #2b3038;
+  --color-line-soft: #1f2429;
+
+  --color-paper: #f4f1ec;
+  --color-paper-dim: #e6e1d8;
+  --color-paper-line: #d5cec2;
+
+  --color-mute: #a7abb2;
+  --color-mute-dark: #5f6570;
+
+  --color-red: #e64a33;
+  --color-red-bright: #f4785f;
+  --color-red-deep: #c73a26;
+
+  --font-display: 'Archivo Variable', 'Archivo', 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI',
+    sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo,
+    monospace;
+
+  --spacing-gutter: 1.25rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Visible, high-contrast focus for every interactive element. */
+  :focus-visible {
+    outline: 3px solid var(--color-red-bright);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-red);
+    color: var(--color-ink);
+  }
+
+  hr {
+    border-color: var(--color-line);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Small uppercase label used for metadata, waymarker-style. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* Contour-line texture: subtle repeating rules, like a map's isolines. */
+  .contours {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-line) 85%, transparent) 0 1px,
+      transparent 1px 14px
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 120% 80% at 50% 40%,
+      #000 0%,
+      transparent 78%
+    );
+    mask-image: radial-gradient(
+      ellipse 120% 80% at 50% 40%,
+      #000 0%,
+      transparent 78%
+    );
+  }
+
+  .contours-paper {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--color-paper-line) 90%, transparent) 0 1px,
+      transparent 1px 14px
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 120% 80% at 50% 40%,
+      #000 0%,
+      transparent 78%
+    );
+    mask-image: radial-gradient(
+      ellipse 120% 80% at 50% 40%,
+      #000 0%,
+      transparent 78%
+    );
+  }
+
+  /* Tactile lift used on cards and tiles. */
+  .lift {
+    transition:
+      transform 180ms cubic-bezier(0.2, 0.7, 0.3, 1),
+      border-color 180ms ease,
+      background-color 180ms ease;
+  }
+
+  .lift:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* Utility: prose column for editorial content. */
+@utility measure {
+  max-width: 68ch;
 }
