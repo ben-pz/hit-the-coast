@@ -45,3 +45,7 @@ next-env.d.ts
 
 # static export output
 /out/
+
+# packaged archives (kept on disk, not in the repo)
+*.tar.gz
+*.zip
