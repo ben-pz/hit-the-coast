@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Container } from './Container';
 import { Wordmark } from './Wordmark';
 import { ButtonLink } from './ui';
-import { footerNav, siteConfig } from '@/config/site';
+import { footerNav, newsletterConnected, siteConfig } from '@/config/site';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -60,10 +60,12 @@ export function Footer() {
             <ButtonLink href="/newsletter" className="mt-6 w-full sm:w-auto">
               Join the list
             </ButtonLink>
-            <p className="mt-4 text-xs leading-relaxed text-mute">
-              No email provider is connected yet, so the form cannot store your
-              address — it says so rather than pretending.
-            </p>
+            {!newsletterConnected ? (
+              <p className="mt-4 text-xs leading-relaxed text-mute">
+                No mailing list is connected yet, so the form cannot store your
+                address — it says so rather than pretending.
+              </p>
+            ) : null}
           </div>
         </div>
 

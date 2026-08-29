@@ -1,8 +1,9 @@
 # Coastal Running — by PZX Wasters
 
 Marketing and directory site for coastal running in England. Next.js 16 (App
-Router), TypeScript, Tailwind CSS v4. No CMS, no database, no auth — content
-lives in typed files under `src/data`.
+Router), TypeScript, Tailwind CSS v4, built as a **static export** — a plain
+folder of HTML and assets with no server behind it. No CMS, no database, no
+auth; content lives in typed files under `src/data`.
 
 **Run the edge of England.**
 
@@ -13,13 +14,51 @@ lives in typed files under `src/data`.
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm run build      # production build
-npm start          # serve the production build
+npm run build      # writes the whole site to ./out
+npm run preview    # serve ./out at http://localhost:3000
 npm run lint       # eslint
-npx tsc --noEmit   # type-check
+npm run typecheck  # tsc --noEmit
+npm run art        # regenerate the placeholder artwork
 ```
 
-Deploys to Vercel with no configuration.
+`npm run build` produces `./out`. That folder *is* the website — upload it
+anywhere.
+
+## Deploying
+
+Anything that serves static files will host this, free.
+
+**Cloudflare Pages** (recommended — free tier permits commercial use):
+
+1. Push the repo to GitHub.
+2. Cloudflare dashboard → Workers & Pages → Create → Pages → connect the repo.
+3. Build command `npm run build`, output directory `out`. Leave the rest.
+4. Add your domain under Custom domains.
+
+No adapter, no serverless functions, no config file. Pushing to `main`
+redeploys.
+
+**Anywhere else:** Netlify (publish directory `out`), GitHub Pages, or literally
+drag the `out` folder onto Cloudflare Pages' upload box.
+
+**A note on Vercel:** it works and deploys with zero config, but the free Hobby
+plan is restricted to non-commercial use under Vercel's fair-use guidelines.
+Once the site earns anything — affiliate income, a sponsored newsletter slot —
+that means the $20/month Pro plan. Cloudflare's free tier has no such
+restriction, which is why the build targets static output.
+
+## Running costs
+
+| Piece | Service | Cost |
+| --- | --- | --- |
+| Hosting | Cloudflare Pages free tier | £0 |
+| Newsletter | Kit free tier (10,000 subscribers, unlimited sends) | £0 |
+| Email `hello@…` | Cloudflare Email Routing → forwards to any inbox | £0 |
+| Analytics | Cloudflare Web Analytics (optional) | £0 |
+| Domain | `.co.uk`, registered at cost | ~£5/year |
+
+Prices move; check before buying. Avoid registrars whose cheap first year
+renews at three times the price.
 
 ---
 
@@ -29,7 +68,7 @@ Deploys to Vercel with no configuration.
 | --- | --- |
 | Site name, tagline, domain, email addresses, social links | `src/config/site.ts` |
 | Main and footer navigation | `src/config/site.ts` |
-| Newsletter provider wiring | `src/app/api/newsletter/route.ts` |
+| Newsletter (Kit form ID) | `src/config/site.ts` → `newsletterConfig.kitFormId` |
 | Events | `src/data/events.ts` |
 | Routes | `src/data/routes.ts` |
 | Articles | `src/data/articles.ts` |
@@ -45,11 +84,15 @@ controls the `<title>` suffix on every page.
 
 These are deliberate. Do not "fix" them by making the UI more optimistic.
 
-- **The newsletter does not store anything.** `/api/newsletter` validates the
-  address and returns `501`. The UI says the list is not live yet. See the
-  comment at the top of that file for the exact change to connect Mailchimp,
-  Kit, Beehiiv or Brevo, then set `newsletterConfig.providerConnected` to
-  `true`.
+- **The newsletter stores nothing until you connect it.** With no `kitFormId`
+  set, the form validates and then tells the visitor plainly that the list is
+  not connected and nothing was stored. Paste a Kit form ID into
+  `src/config/site.ts` and it starts working; every "not live yet" notice on
+  the site removes itself. The form posts straight to Kit from the browser, so
+  there is no server and no API key in this repo — the form ID is public by
+  design, the same value Kit puts in its own embed code. The `<form>` carries a
+  real `action` and `method`, so it still subscribes people if JavaScript
+  fails.
 - **Event submission has no backend.** The form on `/submit-event` composes a
   structured email and opens the visitor's mail client. It tells them nothing
   was stored.
@@ -68,20 +111,24 @@ These are deliberate. Do not "fix" them by making the UI more optimistic.
 
 ## Placeholders to replace before launch
 
-1. **Domain** — `siteConfig.url` is `coastalrunning.example.com`. Needed for
-   canonical URLs, Open Graph and the sitemap.
-2. **Email addresses** — `siteConfig.email.*` are all `example.com`.
-3. **Social links** — `siteConfig.social` point at bare profile URLs.
-4. **Photography** — every image under `public/images/` is generated
+1. **Domain** — `siteConfig.url` is a placeholder. Needed for canonical URLs,
+   Open Graph and the sitemap. Note that **Run The Edge®** is an existing
+   registered running brand in the US and owns `runtheedge.com`, so pick a name
+   that does not read as that mark.
+2. **Email addresses** — `siteConfig.email.*` are all `example.com`. Cloudflare
+   Email Routing forwards `hello@yourdomain` to any inbox for free.
+3. **Kit form ID** — `newsletterConfig.kitFormId`, to switch the list on.
+4. **Social links** — `siteConfig.social` point at bare profile URLs.
+5. **Photography** — every image under `public/images/` is generated
    placeholder artwork (see below). Filenames match their content, so a real
    photograph dropped at the same path needs no code change.
-5. **Open Graph image** — `public/og/coastal-running-og.png` is generated
+6. **Open Graph image** — `public/og/coastal-running-og.png` is generated
    artwork plus type.
-6. **Event and route data** — all sample; nothing has been confirmed with an
+7. **Event and route data** — all sample; nothing has been confirmed with an
    organiser.
-7. **Club run details** — the Thursday time and meeting point on `/about` are
+8. **Club run details** — the Thursday time and meeting point on `/about` are
    placeholders.
-8. **Maps and GPX** — `/routes/[slug]` has a ready-made map container and a
+9. **Maps and GPX** — `/routes/[slug]` has a ready-made map container and a
    disabled GPX button. `gpxUrl` is `null` on every route.
 
 ### The placeholder artwork
@@ -97,9 +144,10 @@ node scripts/generate-placeholder-art.mjs
 `scripts/generate-og-image.py` builds the Open Graph image (needs Pillow and
 fontTools; it pins the variable fonts to fixed weights in `.font-cache/`).
 
-Because these are SVGs, `next.config.ts` enables `dangerouslyAllowSVG` with a
-restrictive CSP and `contentDispositionType: 'attachment'`. Once real
-photography replaces them, that whole `images` block can be deleted.
+A static export ships images as-is (`images.unoptimized` in `next.config.ts`),
+which suits SVG placeholders exactly. When real photography arrives, export it
+at sensible dimensions — roughly 1200px wide for cards, 2000px for the hero —
+and compress it to WebP before committing, since nothing will resize it for you.
 
 ---
 
@@ -108,7 +156,6 @@ photography replaces them, that whole `images` block can be deleted.
 ```
 src/
   app/                    routes (App Router)
-    api/newsletter/       the one server endpoint
     events/               directory with client-side filters
     routes/[slug]/        route guides
     stories/[slug]/       editorial
@@ -120,7 +167,8 @@ src/
 ```
 
 Client components are only where interactivity requires them: the header menu,
-the events filters, and the two forms. Everything else is a server component.
+the events filters, and the two forms. Everything else is prerendered to HTML
+at build time.
 
 ---
 

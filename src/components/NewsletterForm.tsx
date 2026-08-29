@@ -2,7 +2,7 @@
 
 import { useId, useState } from 'react';
 import { buttonClass } from './ui';
-import { newsletterConfig } from '@/config/site';
+import { newsletterConfig, newsletterConnected } from '@/config/site';
 
 type Status =
   | { kind: 'idle' }
@@ -11,6 +11,16 @@ type Status =
   | { kind: 'notice'; message: string }
   | { kind: 'error'; message: string };
 
+/**
+ * Signup form.
+ *
+ * Progressive enhancement: the <form> has a real `action` and `method`, so it
+ * still subscribes people if JavaScript fails — the browser just navigates to
+ * Kit's confirmation page. When JS is available we intercept, post in the
+ * background and keep the visitor on the page.
+ *
+ * With no form ID configured it submits nothing and says so.
+ */
 export function NewsletterForm({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
   const introId = useId();
   const emailId = useId();
@@ -25,49 +35,66 @@ export function NewsletterForm({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
     : 'border-paper-line bg-paper text-ink placeholder:text-mute-dark/70';
   const helpClass = dark ? 'text-mute' : 'text-mute-dark';
 
+  const action = newsletterConnected
+    ? newsletterConfig.endpoint(newsletterConfig.kitFormId)
+    : undefined;
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    const address = email.trim();
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address)) {
+      setStatus({
+        kind: 'error',
+        message: 'That does not look like an email address. Have another go.',
+      });
+      return;
+    }
+
+    if (!consent) {
+      setStatus({
+        kind: 'error',
+        message: 'Please tick the box to confirm you are happy to hear from us.',
+      });
+      return;
+    }
+
+    if (!action) {
+      setStatus({
+        kind: 'notice',
+        message:
+          'The mailing list is not connected yet, so your address has not been stored. Nothing was sent anywhere.',
+      });
+      return;
+    }
+
     setStatus({ kind: 'submitting' });
 
     try {
-      const response = await fetch('/api/newsletter', {
+      const body = new FormData();
+      body.append(newsletterConfig.emailField, address);
+
+      const response = await fetch(action, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), consent }),
+        headers: { Accept: 'application/json' },
+        body,
       });
 
-      const data: { message?: string } = await response.json().catch(() => ({}));
-
-      if (response.ok) {
-        setStatus({
-          kind: 'success',
-          message: data.message ?? 'You’re in. Check your inbox to confirm.',
-        });
-        setEmail('');
-        setConsent(false);
-        return;
-      }
-
-      // 501 = no provider connected. Say so plainly rather than faking success.
-      if (response.status === 501) {
-        setStatus({
-          kind: 'notice',
-          message:
-            data.message ??
-            'The mailing list is not connected yet, so your address has not been stored.',
-        });
-        return;
-      }
+      if (!response.ok) throw new Error(String(response.status));
 
       setStatus({
-        kind: 'error',
-        message: data.message ?? 'Something went wrong. Try again in a moment.',
+        kind: 'success',
+        message:
+          'You’re in. Check your inbox — there’s a confirmation email to click before we can send you anything.',
       });
+      setEmail('');
+      setConsent(false);
     } catch {
       setStatus({
         kind: 'error',
         message:
-          'Could not reach the server. Check your connection and try again.',
+          'We could not reach the mailing list just then. Try again in a moment.',
       });
     }
   }
@@ -84,7 +111,13 @@ export function NewsletterForm({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
     status.kind === 'error';
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="w-full">
+    <form
+      action={action}
+      method="post"
+      onSubmit={handleSubmit}
+      noValidate
+      className="w-full"
+    >
       <p id={introId} className={`mb-6 text-sm leading-relaxed ${helpClass}`}>
         {newsletterConfig.consentCopy}
       </p>
@@ -95,7 +128,7 @@ export function NewsletterForm({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
         </label>
         <input
           id={emailId}
-          name="email"
+          name={newsletterConfig.emailField}
           type="email"
           inputMode="email"
           autoComplete="email"
@@ -146,13 +179,12 @@ export function NewsletterForm({ tone = 'dark' }: { tone?: 'dark' | 'light' }) {
         {showStatus ? (status as { message: string }).message : null}
       </p>
 
-      {!newsletterConfig.providerConnected ? (
+      {!newsletterConnected ? (
         <p className={`mt-5 text-xs leading-relaxed ${helpClass}`}>
-          <strong className="font-semibold">Heads up:</strong> no email provider
-          is connected yet, so this form cannot store your address. It is wired
-          and ready — see{' '}
-          <code className="font-mono">src/app/api/newsletter/route.ts</code> for
-          the three lines that connect Mailchimp, Kit, Beehiiv or Brevo.
+          <strong className="font-semibold">Heads up:</strong> no mailing list is
+          connected yet, so this form cannot store your address. Paste a Kit form
+          ID into <code className="font-mono">kitFormId</code> in{' '}
+          <code className="font-mono">src/config/site.ts</code> to switch it on.
         </p>
       ) : null}
     </form>

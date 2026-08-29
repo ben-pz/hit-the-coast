@@ -3,7 +3,7 @@ import { Container } from '@/components/Container';
 import { PageHeader } from '@/components/PageHeader';
 import { NewsletterForm } from '@/components/NewsletterForm';
 import { Callout } from '@/components/ui';
-import { siteConfig } from '@/config/site';
+import { newsletterConnected, siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Join the movement — the coastal running newsletter',
@@ -74,31 +74,26 @@ export default function NewsletterPage() {
                 </div>
               </div>
 
-              <div className="mt-8">
-                <Callout title="Connecting a provider">
-                  <p>
-                    No email provider is connected yet, so this form deliberately
-                    does not claim to have stored anything. The form, validation,
-                    consent handling and error states are all built.
-                  </p>
-                  <p>
-                    To go live, add your provider credentials to the environment
-                    and replace the single{' '}
-                    <code className="font-mono">return notImplemented()</code>{' '}
-                    line in{' '}
-                    <code className="font-mono">
-                      src/app/api/newsletter/route.ts
-                    </code>{' '}
-                    with a call to Mailchimp, Kit, Beehiiv or Brevo — the exact
-                    endpoints are listed in that file’s comment. Then set{' '}
-                    <code className="font-mono">
-                      newsletterConfig.providerConnected
-                    </code>{' '}
-                    to <code className="font-mono">true</code> in{' '}
-                    <code className="font-mono">src/config/site.ts</code>.
-                  </p>
-                </Callout>
-              </div>
+              {/* Pre-launch only: disappears the moment a form ID is set. */}
+              {!newsletterConnected ? (
+                <div className="mt-8">
+                  <Callout title="Not live yet">
+                    <p>
+                      No mailing list is connected, so this form deliberately
+                      does not claim to have stored anything. The form,
+                      validation, consent handling and error states are all
+                      built and working.
+                    </p>
+                    <p>
+                      To switch it on: create a free Kit form, then paste its ID
+                      into{' '}
+                      <code className="font-mono">kitFormId</code> in{' '}
+                      <code className="font-mono">src/config/site.ts</code> and
+                      redeploy. This notice removes itself.
+                    </p>
+                  </Callout>
+                </div>
+              ) : null}
 
               <p className="mt-8 text-sm leading-relaxed text-mute">
                 Prefer to just email us?{' '}

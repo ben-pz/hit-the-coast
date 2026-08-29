@@ -3,6 +3,9 @@ import { siteConfig } from '@/config/site';
 import { routes } from '@/data/routes';
 import { articles } from '@/data/articles';
 
+// Required by `output: 'export'` — generated once at build time.
+export const dynamic = 'force-static';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url.replace(/\/$/, '');
   const now = new Date();

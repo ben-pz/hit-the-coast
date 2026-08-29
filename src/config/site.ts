@@ -62,20 +62,46 @@ export const footerNav = [
 ] as const;
 
 /**
- * Newsletter provider wiring.
+ * Newsletter wiring — Kit (formerly ConvertKit).
  *
- * The form at /newsletter and the inline signup blocks post to the internal
- * route handler at `/api/newsletter`. That handler is deliberately honest: with
- * no provider configured it returns a 501 and the UI says the list is not live
- * yet. See `src/app/api/newsletter/route.ts` for the exact three lines to change
- * when you connect Mailchimp, Kit, Beehiiv or Brevo.
+ * ── HOW TO GO LIVE (about five minutes) ─────────────────────────────────────
+ *
+ *   1. Create a free Kit account. The free tier covers 10,000 subscribers with
+ *      unlimited sends.
+ *   2. Create a form in Kit (any style — we only use its endpoint, not its
+ *      markup).
+ *   3. Open that form in Kit. Its URL ends in a number, e.g.
+ *        https://app.kit.com/forms/designers/8391234/edit
+ *      That number — 8391234 — is your form ID.
+ *   4. Paste it into `kitFormId` below and redeploy.
+ *
+ * Until a form ID is set, the signup form deliberately tells visitors that the
+ * list is not connected and that nothing was stored. It does not pretend.
+ *
+ * Because the form posts straight to Kit from the browser, there is no server,
+ * no API key in this repo, and nothing secret to leak. The form ID is public by
+ * design — it is the same value Kit puts in its own embed code.
+ *
+ * Using a different provider? Beehiiv, MailerLite and Brevo all accept a plain
+ * form POST too; change `endpoint` and `emailField` to match their docs.
  */
 export const newsletterConfig = {
-  /** Flip to true only once a provider is actually connected. */
-  providerConnected: false,
-  /** Shown under the form so nobody is misled about where their address goes. */
+  /** PLACEHOLDER — paste your Kit form ID here to switch the list on. */
+  kitFormId: '',
+
+  /** Kit's public form-submission endpoint. `app.convertkit.com` also works. */
+  endpoint: (formId: string) =>
+    `https://app.kit.com/forms/${formId}/subscriptions`,
+
+  /** The field name Kit expects. */
+  emailField: 'email_address',
+
+  /** Shown above the form so nobody is misled about where their address goes. */
   consentCopy:
     'One email a month or so: new coastal events, routes worth the drive, and the odd honest kit review. No spam, unsubscribe in one click.',
 } as const;
+
+/** True only when a real form ID is configured. Drives the honesty notice. */
+export const newsletterConnected = newsletterConfig.kitFormId.trim().length > 0;
 
 export type SiteConfig = typeof siteConfig;

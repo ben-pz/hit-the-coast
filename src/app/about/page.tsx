@@ -184,9 +184,9 @@ export default function AboutPage() {
               <p>
                 There is no ticketing, no membership system and no shop. Events,
                 routes and some articles are clearly marked sample entries while
-                we verify listings with organisers. The newsletter form is wired
-                but no provider is connected, so it cannot store your address
-                yet — and it says so rather than pretending.
+                we verify listings with organisers. The newsletter form is
+                wired but no mailing list is connected yet, so it cannot store
+                your address — and it says so rather than pretending.
               </p>
             </Callout>
           </div>
