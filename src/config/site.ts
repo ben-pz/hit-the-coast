@@ -92,7 +92,7 @@ export const footerNav = [
  */
 export const newsletterConfig = {
   /** PLACEHOLDER — paste your Kit form ID here to switch the list on. */
-  kitFormId: '',
+  kitFormId:'9859527',
 
   /** Kit's public form-submission endpoint. `app.convertkit.com` also works. */
   endpoint: (formId: string) =>
