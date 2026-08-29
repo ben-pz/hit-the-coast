@@ -53,15 +53,18 @@ export default function HomePage() {
             </p>
 
             <h1 className="mt-6 max-w-4xl text-[clamp(2.5rem,8vw,5.5rem)] leading-[0.94]">
-              Run the edge
+              Run it.
               <br />
-              of <span className="text-red">England.</span>
+              Track it.
+              <br />
+              <span className="text-red">Complete it.</span>
             </h1>
 
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-paper/85 sm:text-xl">
-              Then keep a record of every mile of it you have done. The coast
-              path, broken into {segmentCount} runnable segments — tick them off
-              one at a time and watch the map fill in.
+              England’s coast path, broken into {segmentCount} runnable
+              segments. Tick them off one at a time and watch your map fill in —
+              {' '}{roundedMiles} miles of Cornwall to start, the rest of the
+              country to follow.
             </p>
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">

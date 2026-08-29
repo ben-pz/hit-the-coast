@@ -1,11 +1,11 @@
-# Coastal Running — by PZX Wasters
+# Hit the Coast — by PZX Wasters
 
 Marketing and directory site for coastal running in England. Next.js 16 (App
 Router), TypeScript, Tailwind CSS v4, built as a **static export** — a plain
 folder of HTML and assets with no server behind it. No CMS, no database, no
 auth; content lives in typed files under `src/data`.
 
-**Run the edge of England.**
+**Run it. Track it. Complete it.** — [hitthecoast.com](https://hitthecoast.com)
 
 ---
 
@@ -55,7 +55,7 @@ restriction, which is why the build targets static output.
 | Newsletter | Kit free tier (10,000 subscribers, unlimited sends) | £0 |
 | Email `hello@…` | Cloudflare Email Routing → forwards to any inbox | £0 |
 | Analytics | Cloudflare Web Analytics (optional) | £0 |
-| Domain | `.co.uk`, registered at cost | ~£5/year |
+| Domain | `hitthecoast.com` — bought | ~£10/year |
 
 Prices move; check before buying. Avoid registrars whose cheap first year
 renews at three times the price.
@@ -111,19 +111,18 @@ These are deliberate. Do not "fix" them by making the UI more optimistic.
 
 ## Placeholders to replace before launch
 
-1. **Domain** — `siteConfig.url` is a placeholder. Needed for canonical URLs,
-   Open Graph and the sitemap. Note that **Run The Edge®** is an existing
-   registered running brand in the US and owns `runtheedge.com`, so pick a name
-   that does not read as that mark.
-2. **Email addresses** — `siteConfig.email.*` are all `example.com`. Cloudflare
-   Email Routing forwards `hello@yourdomain` to any inbox for free.
+1. ~~**Domain**~~ — done: `hitthecoast.com`, set in `siteConfig.url`.
+2. **Email addresses** — `siteConfig.email.*` are set to `@hitthecoast.com` but
+   the mailboxes do not exist yet. Set them up free with Cloudflare Email
+   Routing (your domain → Email → Email Routing) forwarding to an inbox you
+   already read.
 3. **Kit form ID** — `newsletterConfig.kitFormId`, to switch the list on.
 4. **Social links** — `siteConfig.social` point at bare profile URLs.
 5. **Photography** — every image under `public/images/` is generated
    placeholder artwork (see below). Filenames match their content, so a real
    photograph dropped at the same path needs no code change.
-6. **Open Graph image** — `public/og/coastal-running-og.png` is generated
-   artwork plus type.
+6. **Open Graph image** — `public/og/hit-the-coast-og.png` is generated artwork
+   plus type. Regenerate with `python3 scripts/generate-og-image.py`.
 7. **Event and route data** — all sample; nothing has been confirmed with an
    organiser.
 8. **Club run details** — the Thursday time and meeting point on `/about` are
@@ -156,6 +155,8 @@ and compress it to WebP before committing, since nothing will resize it for you.
 ```
 src/
   app/                    routes (App Router)
+    coast/                the tracker — the main feature
+    coast/[segment]/      one page per segment: tips now, reviews later
     events/               directory with client-side filters
     routes/[slug]/        route guides
     stories/[slug]/       editorial
@@ -163,6 +164,7 @@ src/
   components/             shared UI
   config/site.ts          central configuration
   data/                   typed seed content
+  lib/coast-progress.ts   where ticks live — swap for an API when accounts land
   lib/format.ts           date and distance formatting
 ```
 

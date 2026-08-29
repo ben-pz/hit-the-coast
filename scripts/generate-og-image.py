@@ -1,5 +1,5 @@
 """
-Generates the default Open Graph image at public/og/coastal-running-og.png.
+Generates the default Open Graph image at public/og/hit-the-coast-og.png.
 
 PLACEHOLDER ASSET. Replace with a real photograph plus the wordmark when
 photography is available; nothing in the app depends on how it was produced.
@@ -104,24 +104,25 @@ if os.path.exists(logo_path):
     img.paste(logo, (72, 64))
     draw.rectangle([72, 64, 144, 136], outline=(43, 48, 56), width=1)
 
-draw.text((164, 74), "COASTAL RUNNING", font=display_small, fill=PAPER)
+draw.text((164, 74), "HIT THE COAST", font=display_small, fill=PAPER)
 draw.text((166, 118), "BY PZX WASTERS", font=label, fill=MUTE)
 
 # --- Headline --------------------------------------------------------------
-draw.text((72, 300), "Run the edge", font=display, fill=PAPER)
-draw.text((72, 396), "of England.", font=display, fill=RED)
+draw.text((72, 268), "Run it.", font=display, fill=PAPER)
+draw.text((72, 358), "Track it.", font=display, fill=PAPER)
+draw.text((72, 448), "Complete it.", font=display, fill=RED)
 
 draw.text(
-    (72, 518),
-    "Coastal races, club runs, routes and stories —",
+    (72, 544),
+    "Every mile of England\u2019s coast path you have run,",
     font=body,
     fill=MUTE,
 )
-draw.text((72, 552), "from first trail miles to full ultras.", font=body, fill=MUTE)
+draw.text((72, 578), "tracked segment by segment.", font=body, fill=MUTE)
 
-draw.line([(72, 268), (300, 268)], fill=RED, width=3)
+draw.line([(72, 236), (300, 236)], fill=RED, width=3)
 
 os.makedirs(os.path.join(ROOT, "public/og"), exist_ok=True)
-out = os.path.join(ROOT, "public/og/coastal-running-og.png")
+out = os.path.join(ROOT, "public/og/hit-the-coast-og.png")
 img.save(out, "PNG", optimize=True)
 print("Wrote", out)

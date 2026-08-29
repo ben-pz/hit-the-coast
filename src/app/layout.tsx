@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [
       {
-        url: '/og/coastal-running-og.png',
+        url: '/og/hit-the-coast-og.png',
         width: 1200,
         height: 630,
         alt: `${siteConfig.name} — ${siteConfig.tagline}`,
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
-    images: ['/og/coastal-running-og.png'],
+    images: ['/og/hit-the-coast-og.png'],
   },
   icons: {
     icon: '/images/brand/pzx-wasters-logo.png',

@@ -8,23 +8,26 @@
  */
 
 export const siteConfig = {
-  /** Temporary site descriptor. Change this one value to rename the site. */
-  name: 'Coastal Running',
+  /** Change this one value to rename the site. */
+  name: 'Hit the Coast',
   /** Club name. */
   clubName: 'PZX Wasters',
-  /** Used in page titles: "<page> | Coastal Running by PZX Wasters" */
-  titleSuffix: 'Coastal Running by PZX Wasters',
-  tagline: 'Run the edge of England.',
+  /** Used in page titles: "<page> | Hit the Coast" */
+  titleSuffix: 'Hit the Coast',
+  tagline: 'Run it. Track it. Complete it.',
   description:
-    'Coastal races, ultras, club runs, routes and honest stories from England’s coast. Started in Cornwall by the PZX Wasters, heading everywhere the sea does.',
-  /** PLACEHOLDER — replace with the real production domain before launch. */
-  url: 'https://coastalrunning.example.com',
+    'Track every mile of England’s coast path you have run. 45 point-to-point segments in Cornwall to start, with the rest of England to follow — plus coastal races, club runs and honest writing from the PZX Wasters.',
+  /** The live domain. */
+  url: 'https://hitthecoast.com',
   locale: 'en_GB',
-  /** PLACEHOLDER — replace with real contact addresses. */
+  /**
+   * Set these up free with Cloudflare Email Routing (your domain → Email →
+   * Email Routing) and forward them to an inbox you already read.
+   */
   email: {
-    general: 'hello@coastalrunning.example.com',
-    events: 'events@coastalrunning.example.com',
-    press: 'press@coastalrunning.example.com',
+    general: 'hello@hitthecoast.com',
+    events: 'events@hitthecoast.com',
+    press: 'press@hitthecoast.com',
   },
   /** PLACEHOLDER — replace with real profiles, or delete the ones you don't use. */
   social: [

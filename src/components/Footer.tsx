@@ -14,8 +14,8 @@ export function Footer() {
           <div>
             <Wordmark size="md" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-mute">
-              {siteConfig.tagline} Coastal races, club runs, routes and stories,
-              starting in {siteConfig.basedIn.split(', ')[1]}.
+              {siteConfig.tagline} Every mile of England’s coast path you have
+              run, tracked — starting in {siteConfig.basedIn.split(', ')[1]}.
             </p>
             <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
               {siteConfig.social.map((item) => (
