@@ -60,10 +60,10 @@ export function Header() {
               </Link>
             ))}
             <Link
-              href="/newsletter"
+              href="/coast"
               className={`${buttonClass('primary', 'md')} ml-3`}
             >
-              Join the list
+              Track your coast
             </Link>
           </nav>
 
@@ -114,11 +114,11 @@ export function Header() {
               Submit an event
             </Link>
             <Link
-              href="/newsletter"
+              href="/coast"
               onClick={() => setOpen(false)}
               className={`${buttonClass('primary', 'lg')} mt-6`}
             >
-              Join the list
+              Track your coast
             </Link>
           </nav>
         </Container>

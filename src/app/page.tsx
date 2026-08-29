@@ -3,16 +3,25 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { Container } from '@/components/Container';
 import { ButtonLink, Callout, SectionHeader, Tag } from '@/components/ui';
-import { ArticleCard, EventCard, RouteCard } from '@/components/cards';
+import { CoastTracker } from '@/components/CoastTracker';
+import { ArticleCard, EventCard } from '@/components/cards';
 import { NewsletterForm } from '@/components/NewsletterForm';
 import { events, sortByDate } from '@/data/events';
-import { featuredRoutes } from '@/data/routes';
 import { sortedArticles } from '@/data/articles';
+import {
+  coastSegments,
+  plannedRegions,
+  totalCoastMiles,
+} from '@/data/coast-segments';
+import { totalTips } from '@/data/segment-tips';
 import { siteConfig } from '@/config/site';
 
+const segmentCount = coastSegments.length;
+const roundedMiles = Math.round(totalCoastMiles);
+
 export const metadata: Metadata = {
-  title: `${siteConfig.name} — coastal races, routes and club runs in England`,
-  description: siteConfig.description,
+  title: `${siteConfig.name} — track every mile of England’s coast you’ve run`,
+  description: `Tick off the coast path segment by segment. ${segmentCount} point-to-point segments and ${roundedMiles} miles in Cornwall to start, with the rest of England to follow. Plus coastal races, club runs and honest writing.`,
   alternates: { canonical: '/' },
 };
 
@@ -35,137 +44,106 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/10" />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
-          <div className="contours absolute inset-0 opacity-40" />
         </div>
 
         <Container width="wide">
-          <div className="relative py-24 sm:py-32 lg:py-44">
+          <div className="relative py-20 sm:py-24 lg:py-28">
             <p className="label text-red">
-              Cornwall first · the whole English coast next
+              {roundedMiles} miles in Cornwall · the rest of England to come
             </p>
 
-            <h1 className="mt-6 max-w-4xl text-[clamp(2.75rem,9vw,6.5rem)] leading-[0.92]">
+            <h1 className="mt-6 max-w-4xl text-[clamp(2.5rem,8vw,5.5rem)] leading-[0.94]">
               Run the edge
               <br />
               of <span className="text-red">England.</span>
             </h1>
 
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-paper/85 sm:text-xl">
-              Coastal races, local run clubs, routes and stories — from first
-              trail miles to full ultras. Built by the {siteConfig.clubName},
-              who are still not entirely sure how this happened.
+              Then keep a record of every mile of it you have done. The coast
+              path, broken into {segmentCount} runnable segments — tick them off
+              one at a time and watch the map fill in.
             </p>
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href="/events" size="lg">
+              <ButtonLink href="/coast" size="lg">
+                Start tracking your coast
+              </ButtonLink>
+              <ButtonLink href="/events" variant="secondary" size="lg">
                 Find an event
               </ButtonLink>
-              <ButtonLink href="/routes" variant="secondary" size="lg">
-                Explore the routes
-              </ButtonLink>
             </div>
-
-            <dl className="mt-16 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-6 border-t border-line pt-8 sm:grid-cols-3">
-              <div>
-                <dt className="label text-mute">Coast Path length</dt>
-                <dd className="mt-2 font-display text-2xl font-extrabold">
-                  ~2,700 miles
-                </dd>
-              </div>
-              <div>
-                <dt className="label text-mute">Inaugurated</dt>
-                <dd className="mt-2 font-display text-2xl font-extrabold">
-                  March 2026
-                </dd>
-              </div>
-              <div className="col-span-2 sm:col-span-1">
-                <dt className="label text-mute">Where we start</dt>
-                <dd className="mt-2 font-display text-2xl font-extrabold">
-                  Penwith, Cornwall
-                </dd>
-              </div>
-            </dl>
           </div>
         </Container>
       </section>
 
-      {/* --------------------------------------------- What this site is */}
-      <section className="border-b border-line py-20">
-        <Container width="wide">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr]">
+      {/* ------------------------------------------------- The main feature */}
+      <section className="border-b border-line py-16 sm:py-20">
+        <Container width="default">
+          <SectionHeader
+            eyebrow="The coast tracker"
+            title="How much of it have you run?"
+            intro={`${segmentCount} point-to-point segments, from the Devon border round Land’s End to the Tamar. Mostly half days, a few full ones, all starting and ending somewhere with parking and a bus.`}
+            action={{ label: 'Open the tracker', href: '/coast' }}
+          />
+
+          <CoastTracker compact />
+
+          <div className="mt-12 grid gap-8 sm:grid-cols-3">
             <div>
-              <span className="label text-red">The short version</span>
-              <h2 className="mt-5 text-3xl sm:text-4xl">
-                One place for running England’s coast.
+              <h3 className="text-lg text-red-bright">Tick it off</h3>
+              <p className="mt-3 text-sm leading-relaxed text-mute">
+                Every segment is a real outing you can run in a morning or a day.
+                Mark them as you go and the strip above fills in.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg text-red-bright">Leave a tip</h3>
+              <p className="mt-3 text-sm leading-relaxed text-mute">
+                Where to park, which crossing works at which tide, what the
+                ground is really like. {totalTips} so far and every one read by a
+                human before it goes up.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-lg text-red-bright">Then the rest of England</h3>
+              <p className="mt-3 text-sm leading-relaxed text-mute">
+                Cornwall first because that is what we know. {plannedRegions.length}{' '}
+                more regions to come, all the way round to the Tamar and beyond.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ------------------------------------------------------- Newsletter */}
+      <section className="border-b border-line bg-ink-800">
+        <Container width="wide">
+          <div className="grid gap-12 py-16 sm:py-20 lg:grid-cols-2 lg:items-start">
+            <div>
+              <span className="label text-red">Take part properly</span>
+              <h2 className="mt-5 text-4xl sm:text-5xl">
+                Join in, and your coast comes with you.
               </h2>
-            </div>
-            <div className="grid gap-8 sm:grid-cols-3">
-              <div>
-                <h3 className="text-lg text-red-bright">Races and ultras</h3>
-                <p className="mt-3 text-sm leading-relaxed text-mute">
-                  Coastal trail races, road races and ultras, in one directory
-                  you can actually filter — by region, distance and month.
-                </p>
-              </div>
-              <div>
-                <h3 className="text-lg text-red-bright">Club and social runs</h3>
-                <p className="mt-3 text-sm leading-relaxed text-mute">
-                  The friendly stuff. Weekly club runs, no-drop groups and
-                  sunrise sociables, listed next to the big events rather than
-                  hidden behind them.
-                </p>
-              </div>
-              <div>
-                <h3 className="text-lg text-red-bright">Routes and honesty</h3>
-                <p className="mt-3 text-sm leading-relaxed text-mute">
-                  Proper route notes: parking, water, what the ground is really
-                  like, and where it gets serious. Plus kit reviews written by
-                  people who wore the thing out.
-                </p>
+              <p className="mt-6 max-w-lg text-lg leading-relaxed text-mute">
+                The tracker works right now with no account at all — but your
+                ticks live in this browser only. Put your name down and you get
+                an account the moment they exist, so your progress follows you
+                between your phone and your laptop, and you can see what your
+                mates have run.
+              </p>
+              <div className="mt-8">
+                <Callout title="What you are signing up for">
+                  <p>
+                    First in line for accounts and friends on the tracker, one
+                    email a month or so with new segments and routes, and nothing
+                    else. Unsubscribe in one click.
+                  </p>
+                </Callout>
               </div>
             </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* -------------------------------------------------- Featured events */}
-      <section className="py-20">
-        <Container width="wide">
-          <SectionHeader
-            eyebrow="Coming up"
-            title="Featured coastal events"
-            intro="Races, ultras and club runs along the English coast. Sample entries for now — every listing is marked until we have confirmed it with the organiser."
-            action={{ label: 'All events', href: '/events' }}
-          />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {upcoming.map((event, index) => (
-              <EventCard key={event.id} event={event} priority={index === 0} />
-            ))}
-          </div>
-          <div className="mt-10 flex flex-wrap gap-3">
-            <ButtonLink href="/events" variant="secondary">
-              Browse and filter all events
-            </ButtonLink>
-            <ButtonLink href="/submit-event" variant="ghost">
-              Submit an event
-            </ButtonLink>
-          </div>
-        </Container>
-      </section>
-
-      {/* -------------------------------------------------- Featured routes */}
-      <section className="border-t border-line py-20">
-        <Container width="wide">
-          <SectionHeader
-            eyebrow="Cornwall to start"
-            title="Routes worth the drive"
-            intro="Written by people who run them in February as well as August. Distances, ascent, parking, water — and where it stops being a nice jog."
-            action={{ label: 'All routes', href: '/routes' }}
-          />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredRoutes.map((route, index) => (
-              <RouteCard key={route.slug} route={route} priority={index === 0} />
-            ))}
+            <div className="border border-line bg-ink p-6 sm:p-8">
+              <NewsletterForm />
+            </div>
           </div>
         </Container>
       </section>
@@ -177,24 +155,25 @@ export default function HomePage() {
             <div>
               <span className="label text-red-deep">Who this is for</span>
               <h2 className="mt-5 text-4xl sm:text-5xl">
-                Your first 5K on a cliff path counts just as much as your first
-                100K.
+                Four miles counts just as much as forty.
               </h2>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-mute-dark">
-                Coastal running has a reputation problem. It looks like it
-                belongs to lean people in expensive vests who talk about vert.
-                It does not. Most of us walk the steep bits, take photos, and
-                stop for chips.
+                Covering the whole Cornish coast takes most people years, and
+                every single mile of it counts the same whether you ran it or
+                walked the steep bits. There is no clock. That is the point.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <ButtonLink href="/stories/first-coast-path-run-nine-things" variant="onPaper">
+                <ButtonLink
+                  href="/stories/first-coast-path-run-nine-things"
+                  variant="onPaper"
+                >
                   Start here if you’re new
                 </ButtonLink>
                 <Link
-                  href="/events"
+                  href="/coast"
                   className="label self-center text-red-deep hover:text-ink"
                 >
-                  Find a social run →
+                  Find your first segment →
                 </Link>
               </div>
             </div>
@@ -203,19 +182,19 @@ export default function HomePage() {
               {[
                 {
                   title: 'Never run off-road',
-                  body: 'Start with a flat promenade route and a no-drop social run. Nobody is timing you.',
+                  body: 'Hayle to St Ives is six miles, both ends on the railway line. Start there.',
                 },
                 {
                   title: 'Road runner, curious',
                   body: 'Expect your pace to fall off a cliff, not your fitness. Ascent is the number that matters.',
                 },
                 {
-                  title: 'First trail race',
-                  body: 'Pick something under 20K with a generous cut-off and a route you can recce first.',
+                  title: 'Chasing something big',
+                  body: 'Forty-five segments and 294 miles. Nobody has done the lot yet.',
                 },
                 {
-                  title: 'Chasing the long stuff',
-                  body: 'The Penwith and Exmoor coast will happily take everything you have got.',
+                  title: 'Just want company',
+                  body: 'Club night is Thursday, and half the segments are better with someone to talk to.',
                 },
               ].map((item) => (
                 <div
@@ -233,8 +212,25 @@ export default function HomePage() {
         </Container>
       </section>
 
+      {/* ------------------------------------------------------------ Events */}
+      <section className="py-20">
+        <Container width="wide">
+          <SectionHeader
+            eyebrow="Coming up"
+            title="Coastal events"
+            intro="Races, ultras and club runs along the English coast. Sample entries for now — every listing is marked until we have confirmed it with the organiser."
+            action={{ label: 'All events', href: '/events' }}
+          />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {upcoming.map((event) => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </div>
+        </Container>
+      </section>
+
       {/* -------------------------------------------------------- The story */}
-      <section className="border-b border-line py-20">
+      <section className="border-t border-line py-20">
         <Container width="wide">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div className="relative aspect-[4/3] border border-line">
@@ -258,16 +254,10 @@ export default function HomePage() {
                   one of us could run to Mousehole. He could not.
                 </p>
                 <p>
-                  We went anyway. Somewhere around the harbour we stopped being
-                  able to speak and started laughing instead, and the coast did
-                  the rest. Now there is a Thursday night run, two groups,
-                  nobody dropped, and headtorches from October.
-                </p>
-                <p>
-                  We built this site because finding a coastal race in England is
-                  still stupidly hard, and because the friendly runs that
-                  actually get people outdoors are almost invisible next to the
-                  ultras.
+                  We went anyway, and the coast did the rest. We built the
+                  tracker because we wanted to know how much of it we had
+                  actually done — and then realised everyone else would want to
+                  know too.
                 </p>
               </div>
               <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -282,7 +272,7 @@ export default function HomePage() {
       </section>
 
       {/* -------------------------------------------------------- Editorial */}
-      <section className="py-20">
+      <section className="border-t border-line py-20">
         <Container width="wide">
           <SectionHeader
             eyebrow="Stories & gear"
@@ -294,38 +284,6 @@ export default function HomePage() {
             {latestArticles.map((article) => (
               <ArticleCard key={article.slug} article={article} />
             ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* ------------------------------------------------------- Newsletter */}
-      <section className="border-t border-line bg-ink-800">
-        <Container width="wide">
-          <div className="grid gap-12 py-20 lg:grid-cols-2 lg:items-start">
-            <div>
-              <span className="label text-red">Join the movement</span>
-              <h2 className="mt-5 text-4xl sm:text-5xl">
-                One email a month. Mostly cliffs.
-              </h2>
-              <p className="mt-6 max-w-lg text-lg leading-relaxed text-mute">
-                New coastal events as we verify them, routes worth the drive, and
-                the occasional honest opinion about a waterproof that leaked.
-              </p>
-              <div className="mt-8">
-                <Callout title="Where the path stands">
-                  <p>
-                    The King Charles III England Coast Path was inaugurated on 19
-                    March 2026 and will run for around 2,700 miles when complete.
-                    Not every stretch is finished — around 2,100 miles had full
-                    access rights in place at inauguration. Check the National
-                    Trails pages for the section you want before you travel.
-                  </p>
-                </Callout>
-              </div>
-            </div>
-            <div className="border border-line bg-ink p-6 sm:p-8">
-              <NewsletterForm />
-            </div>
           </div>
         </Container>
       </section>

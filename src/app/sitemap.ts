@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { siteConfig } from '@/config/site';
 import { routes } from '@/data/routes';
 import { articles } from '@/data/articles';
+import { coastSegments } from '@/data/coast-segments';
 
 // Required by `output: 'export'` — generated once at build time.
 export const dynamic = 'force-static';
@@ -28,6 +29,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const segmentPages: MetadataRoute.Sitemap = coastSegments.map((segment) => ({
+    url: `${base}/coast/${segment.id}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
   const articlePages: MetadataRoute.Sitemap = articles.map((article) => ({
     url: `${base}/stories/${article.slug}`,
     lastModified: new Date(`${article.date}T00:00:00Z`),
@@ -35,5 +43,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...routePages, ...articlePages];
+  return [...staticPages, ...segmentPages, ...routePages, ...articlePages];
 }

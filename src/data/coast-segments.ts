@@ -569,5 +569,31 @@ export function milesInArea(area: CoastArea): number {
   );
 }
 
+export function getSegment(id: string): CoastSegment | undefined {
+  return coastSegments.find((segment) => segment.id === id);
+}
+
+/** The segments either side, for walking the coast page by page. */
+export function neighbours(id: string): {
+  previous?: CoastSegment;
+  next?: CoastSegment;
+} {
+  const index = coastSegments.findIndex((segment) => segment.id === id);
+  if (index === -1) return {};
+  return {
+    previous: coastSegments[index - 1],
+    next: coastSegments[index + 1],
+  };
+}
+
+/** The other half of a split stage, where there is one. */
+export function siblingSegment(segment: CoastSegment): CoastSegment | undefined {
+  if (segment.distanceSource !== 'split') return undefined;
+  return coastSegments.find(
+    (other) =>
+      other.officialStage === segment.officialStage && other.id !== segment.id,
+  );
+}
+
 export const liveRegions = coastRegions.filter((r) => r.status === 'live');
 export const plannedRegions = coastRegions.filter((r) => r.status === 'planned');

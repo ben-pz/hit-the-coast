@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Container } from '@/components/Container';
 import { PageHeader } from '@/components/PageHeader';
 import { NewsletterForm } from '@/components/NewsletterForm';
@@ -6,34 +7,34 @@ import { Callout } from '@/components/ui';
 import { newsletterConnected, siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'Join the movement — the coastal running newsletter',
+  title: 'Take part — get an account on the coast tracker',
   description:
-    'One email a month: new coastal races and club runs in England, routes worth the drive, and honest kit reviews from the PZX Wasters.',
+    'Put your name down for an account on the coast tracker, so your progress follows you between devices and you can see what your friends have run. Plus one email a month with new segments, events and routes.',
   alternates: { canonical: '/newsletter' },
   openGraph: {
-    title: `Join the movement | ${siteConfig.titleSuffix}`,
+    title: `Take part | ${siteConfig.titleSuffix}`,
     description:
-      'New coastal events, routes and honest writing about running England’s coast. About once a month.',
+      'Get an account on the coast tracker when they land, plus one email a month about running England’s coast.',
     url: '/newsletter',
   },
 };
 
 const promises = [
   {
-    title: 'New events, verified',
-    body: 'Coastal races, ultras and club runs as we confirm them with organisers — not a scrape of everything on the internet.',
+    title: 'First in line for an account',
+    body: 'Your ticked segments stop living in one browser and start following you around. This is the main reason to sign up.',
   },
   {
-    title: 'Routes worth the drive',
-    body: 'One properly written route each time, with the parking, the water, the tides and the bits that are harder than they look.',
+    title: 'Friends, when they land',
+    body: 'See what the people you run with have covered, and how much of the coast your lot have done between you.',
   },
   {
-    title: 'Honest kit notes',
-    body: 'Only about gear club members have actually worn out. Any affiliate link will be disclosed. There are none today.',
+    title: 'New segments as they open',
+    body: 'Cornwall is done. Devon, the Jurassic Coast and the rest of England follow, and you will hear first.',
   },
   {
     title: 'No filler',
-    body: 'About once a month. No motivational quotes, no countdown timers, no “last chance” emails. Unsubscribe in one click.',
+    body: 'About one email a month. No motivational quotes, no countdown timers, no “last chance” emails. Unsubscribe in one click.',
   },
 ];
 
@@ -41,9 +42,9 @@ export default function NewsletterPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Join the movement"
-        title="One email a month. Mostly cliffs."
-        intro="The simplest way to keep up with coastal running in England: new events as we verify them, new routes as we write them up, and the odd honest opinion about kit."
+        eyebrow="Take part"
+        title="Your coast, on every device"
+        intro="The tracker works right now without an account. Put your name down and you get one the moment they exist — so your progress follows you between your phone and your laptop, and you can see what your mates have covered."
       />
 
       <section className="py-12 sm:py-16">
@@ -67,7 +68,8 @@ export default function NewsletterPage() {
               <div className="border border-line bg-ink-800 p-6 sm:p-10">
                 <h2 className="text-2xl">Sign up</h2>
                 <p className="mt-3 text-sm leading-relaxed text-mute">
-                  Your address is used only to send you this newsletter.
+                  Your address is used to give you a tracker account and to send
+                  the newsletter. Nothing else, ever.
                 </p>
                 <div className="mt-8">
                   <NewsletterForm />
@@ -96,6 +98,17 @@ export default function NewsletterPage() {
               ) : null}
 
               <p className="mt-8 text-sm leading-relaxed text-mute">
+                You do not need to sign up to use{' '}
+                <Link
+                  href="/coast"
+                  className="text-red-bright underline underline-offset-4 hover:text-paper"
+                >
+                  the tracker
+                </Link>{' '}
+                — it works right now, it just cannot follow you between devices
+                yet.
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-mute">
                 Prefer to just email us?{' '}
                 <a
                   href={`mailto:${siteConfig.email.general}`}

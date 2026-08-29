@@ -54,11 +54,11 @@ export function Footer() {
           <div>
             <h2 className="label text-red">The newsletter</h2>
             <p className="mt-5 text-sm leading-relaxed text-mute">
-              New coastal events, routes worth the drive, and the odd honest kit
-              review. About once a month, and never anything else.
+              Sign up and you get an account on the coast tracker the moment
+              they exist, plus one email a month with new segments and routes.
             </p>
             <ButtonLink href="/newsletter" className="mt-6 w-full sm:w-auto">
-              Join the list
+              Take part
             </ButtonLink>
             {!newsletterConnected ? (
               <p className="mt-4 text-xs leading-relaxed text-mute">

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Container } from '@/components/Container';
 import { PageHeader } from '@/components/PageHeader';
 import { CoastTracker } from '@/components/CoastTracker';
@@ -59,6 +60,23 @@ export default function CoastPage() {
 
           <div className="mt-16 space-y-10 border-t border-line pt-12">
             <div>
+              <h2 className="text-2xl">Tips beat ratings</h2>
+              <p className="measure mt-4 text-base leading-relaxed text-mute">
+                Every segment has its own page, and the useful thing on it is the
+                tips — where to park, which crossing works at which tide, what
+                the ground is actually like. One good tip helps everyone who
+                reads it. A single rating helps nobody until there are fifty of
+                them, which is why tips are here now and ratings are waiting for
+                accounts.
+              </p>
+              <p className="measure mt-4 text-base leading-relaxed text-mute">
+                If you have run a segment, you know something the next person
+                does not. Open its page and send it over — every tip is read by
+                a person before it goes up.
+              </p>
+            </div>
+
+            <div>
               <h2 className="text-2xl">Where the segments come from</h2>
               <p className="measure mt-4 text-base leading-relaxed text-mute">
                 The backbone is the South West Coast Path Association’s own stage
@@ -105,6 +123,8 @@ export default function CoastPage() {
                 {[
                   `The rest of England, region by region — ${plannedRegions.length} to go, Devon and the Jurassic Coast first.`,
                   'Accounts, so your progress follows you between your phone and your laptop.',
+                  'Friends — see what the people you run with have covered, and how much your lot have done between you.',
+                  'Ratings and reviews on each segment, once there are enough people for a rating to mean anything.',
                   'GPX upload, so a segment can be marked verified rather than just ticked.',
                   'Leaderboards by distance covered and regions completed. Never by speed.',
                   'A real map, replacing the strip at the top of this page.',
@@ -119,14 +139,15 @@ export default function CoastPage() {
                 ))}
               </ul>
               <p className="mt-6 text-sm leading-relaxed text-mute">
-                If you want this to exist,{' '}
-                <a
+                Want an account, and your friends on here?{' '}
+                <Link
                   href="/newsletter"
                   className="text-red-bright underline underline-offset-4 hover:text-paper"
                 >
-                  join the list
-                </a>{' '}
-                — that is how we will know it is worth building.
+                  Put your name down
+                </Link>{' '}
+                — it is the only way we will know it is worth building, and you
+                get first go at it.
               </p>
             </div>
           </div>

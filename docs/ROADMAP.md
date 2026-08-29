@@ -1,8 +1,13 @@
 # Roadmap — beyond the MVP
 
 Ideas captured for later, with the research already done on the parts that
-turn out to have constraints. Nothing here is built. The MVP deliberately
-stops at content and an email list.
+turn out to have constraints.
+
+**The coast tracker is the site's main feature.** It leads the homepage, it is
+first in the navigation, and signing up to the newsletter is how someone gets an
+account on it when accounts exist. Events, routes and editorial sit underneath
+it — they are what makes the site worth finding, but the tracker is what makes
+it worth returning to.
 
 ---
 
@@ -164,6 +169,108 @@ does not, and a guessed polyline would silently pass or fail people's runs.
 Get the geometry from the National Trail GPX or OS Open Data, split it at the
 segment boundaries, and store a simplified polyline per segment. That single
 piece of work unlocks the map, the verification and everything downstream.
+
+---
+
+## The social layer: tips, ratings, reviews, friends
+
+**Benjamin's idea (August 2026):**
+
+> The ability for people to leave a rating and a review, or more importantly a
+> tip, on the part of the coast they completed. And to add friends, so there is
+> a social element. The coast tracker is the main feature.
+
+### Tips are not the same product as ratings
+
+These get lumped together and they should not be. The difference decides the
+build order:
+
+| | Useful when? | Needs accounts? | Moderation |
+| --- | --- | --- | --- |
+| **Tip** | Immediately, from one person | No | Read every one |
+| **Rating** | Only at ~30+ per segment | Yes | Rate-limit, dedupe |
+| **Review** | ~5+ per segment | Yes | Report + remove |
+
+A tip — "the lower car park floods on a spring tide, use the one at the top" —
+is worth the whole page on its own, forever, to everyone who reads it. A single
+rating is noise. So tips ship first, and they shipped: `src/data/segment-tips.ts`,
+shown on each segment page, submitted by email and read by a human before going
+up. Manual is a feature at this size, not a shortcut — the value of the page is
+that everything on it is true.
+
+Ratings and reviews wait for accounts, because without an identity you cannot
+rate-limit, dedupe or remove anything.
+
+### Data model for when accounts land
+
+```
+User          id, displayName, avatar, homeRegion, createdAt,
+              visibility ('private' | 'friends' | 'public')
+
+Friendship    requesterId, addresseeId, status ('pending'|'accepted'|'blocked'),
+              createdAt, respondedAt
+              -- one row per pair, ordered ids, so it cannot duplicate
+
+Completion    userId, segmentId, date, source ('manual'|'gpx'), verified
+
+Tip           id, segmentId, userId, category, text, status
+              ('pending'|'published'|'rejected'), publishedAt
+              -- keep the moderation queue even when it is self-serve
+
+Review        id, segmentId, userId, rating 1-5, text, createdAt,
+              editedAt, reportCount
+              -- one per user per segment, editable, never anonymous
+
+SegmentStats  segmentId, ratingCount, ratingMean, tipCount
+              -- denormalised, recomputed on write; never aggregate on read
+```
+
+Three constraints worth designing in from the start:
+
+1. **One review per person per segment**, editable. Stops the obvious gaming and
+   means the average actually means something.
+2. **Ratings hidden until a threshold** (say 5). Showing "5.0 from one review"
+   is worse than showing nothing.
+3. **Friendship is mutual and requires acceptance.** A follow model would be
+   simpler, but this is a small community of people who actually know each other
+   — mutual is the right shape and avoids one-way surveillance.
+
+### Friends: the privacy decisions to make before writing any of it
+
+This is the part that is easy to get wrong and hard to undo, because it is
+inherently about location history. Somebody's completed segments plus dates is a
+map of where they run and when.
+
+- **Default to private.** A new account shows nothing to anyone until the person
+  chooses otherwise. Never default to public on a location product.
+- **Three visibility levels, set by the user:** private, friends only, public.
+  Applied per account, with a per-completion override if it is ever needed.
+- **Friends see completions, not timestamps to the minute.** "Ran this in
+  March" is sociable; "Tuesday 07:14 every week" is a pattern somebody could
+  use.
+- **Leaderboards are opt-in**, separately from profile visibility. Wanting to
+  compare with your mates is not the same as wanting to be on a public board.
+- **Blocking must actually block** — no completions, no profile, no appearing in
+  the same friend list view.
+- **Deletion means deletion.** One button that removes the account and its
+  completions. Cheap to build now, expensive to retrofit.
+
+None of this is legal advice, and if the site ever holds accounts for people in
+the UK it is worth half an hour reading the ICO's guidance on personal data —
+location history for identifiable people is squarely in scope.
+
+### The build order this implies
+
+1. ~~**Tips, manually curated.**~~ **DONE** — no backend, useful immediately.
+2. **Accounts.** Everything social is blocked on this. Supabase or Cloudflare D1;
+   both have free tiers that comfortably cover a few hundred friends-and-family
+   users.
+3. **Progress syncing.** Move `lib/coast-progress.ts` from localStorage to the
+   API. Deliberately the only file that needs to change.
+4. **Friends**, with the privacy defaults above.
+5. **Self-serve tips**, still with a moderation queue.
+6. **Reviews**, then ratings once there is enough volume for an average to mean
+   something.
 
 ### Open questions
 
