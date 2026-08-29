@@ -8,7 +8,6 @@
   //
   // Deploying: Cloudflare runs `npm run build` then `npx wrangler deploy`,
   // which uploads ./out. Nothing else to configure.
-  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "hit-the-coast",
   "compatibility_date": "2026-08-28",
   "assets": {
