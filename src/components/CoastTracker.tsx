@@ -21,6 +21,7 @@ import {
   type CoastSegment,
 } from '@/data/coast-segments';
 import { tipCountFor } from '@/data/segment-tips';
+import { photoCountFor } from '@/data/segment-photos';
 
 type LengthFilter = 'all' | 'half' | 'full';
 
@@ -235,6 +236,16 @@ function SegmentRow({
   const inputId = `segment-${segment.id}`;
   const half = isHalfDay(segment);
   const tips = tipCountFor(segment.id);
+  const photos = photoCountFor(segment.id);
+
+  const infoParts = [
+    tips > 0 ? `${tips} tip${tips === 1 ? '' : 's'}` : null,
+    photos > 0 ? `${photos} photo${photos === 1 ? '' : 's'}` : null,
+  ].filter((part): part is string => part !== null);
+  const infoLabel =
+    infoParts.length > 0
+      ? `Segment info · ${infoParts.join(', ')}`
+      : 'Segment info, tips & photos';
 
   return (
     <li className={done ? 'opacity-60' : ''}>
@@ -263,7 +274,7 @@ function SegmentRow({
               href={`/coast/${segment.id}`}
               className="label text-mute underline underline-offset-4 hover:text-red-bright"
             >
-              {tips > 0 ? `${tips} tip${tips === 1 ? '' : 's'}` : 'Add a tip'}
+              {infoLabel} →
             </Link>
             {segment.distanceSource === 'split' ? (
               <span className="text-xs text-mute">
