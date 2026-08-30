@@ -120,7 +120,7 @@ if os.path.exists(logo_path):
 draw_tracked_text(
     draw, (152, mark_top + 6), "HIT THE COAST", wordmark_font, PAPER, 12
 )
-draw.text((154, mark_top + 46), "In association with PZ×RC", font=label, fill=MUTE)
+draw.text((154, mark_top + 46), "Inspired by PZ×RC", font=label, fill=MUTE)
 
 # --- Headline --------------------------------------------------------------
 draw.text((72, 268), "Run it.", font=display, fill=PAPER)

@@ -8,8 +8,7 @@ import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
   title: 'Stories, route guides and honest gear reviews',
-  description:
-    'Club stories, coastal route guides, race reports, beginner advice and honest running-equipment reviews, in association with PZ×RC.',
+  description: `Club stories, coastal route guides, race reports, beginner advice and honest running-equipment reviews, ${siteConfig.clubRelation.toLowerCase()} ${siteConfig.clubName}.`,
   alternates: { canonical: '/stories' },
   openGraph: {
     title: `Stories & gear | ${siteConfig.titleSuffix}`,

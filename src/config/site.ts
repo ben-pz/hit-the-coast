@@ -27,12 +27,12 @@ export const siteConfig = {
    * Inter and JetBrains Mono, so U+2715 would render in a fallback font and
    * break the lockup. Change both together if you ever swap the typefaces.
    */
-  clubRelation: 'In association with',
+  clubRelation: 'Inspired by',
   /** Used in page titles: "<page> | Hit the Coast" */
   titleSuffix: 'Hit the Coast',
   tagline: 'Run it. Track it. Complete it.',
   description:
-    'Track every mile of England’s coast path you have run. 45 point-to-point segments in Cornwall to start, with the rest of England to follow — plus coastal races, club runs and honest writing, in association with PZ×RC.',
+    'Track every mile of England’s coast path you have run. 45 point-to-point segments in Cornwall to start, with the rest of England to follow — plus coastal races, club runs and honest writing, inspired by PZ×RC.',
   /** The live domain. */
   url: 'https://hitthecoast.com',
   locale: 'en_GB',
