@@ -129,6 +129,77 @@ if cheating actually becomes a problem:
 3. Does the elevation profile roughly match the known profile?
 4. Manual review for anything that lands in the top ten.
 
+### Profiles, badges and sharing
+
+**Benjamin's idea (August 2026):**
+
+> Visitors have their own profile, mostly so they can see the % of the coast
+> they have covered and share it with friends. They can also get Bronze
+> (25%), Silver (50%) and Gold (100%) badges for completing an area of the
+> coast, and the same three badges again for the whole coast. Each badge can
+> have its own name representing that stretch.
+
+**Why it's worth building.** The coverage percentage is already the site's
+headline number — this asks for two things on top of it: a page worth
+linking to, and a reason to link to it. A private tracker only motivates the
+person using it; a shareable one also markets the site every time someone
+posts their progress. Badges give the percentage shape and stakes, the same
+trick that makes Munro bagging, Park Run milestones and Duolingo streaks
+work — a round number people chase for its own sake.
+
+It also costs almost nothing extra to build, once accounts exist. A badge is
+not a new kind of data — it is a threshold read off numbers the tracker
+already computes: miles done in an area, divided by that area's total, the
+same arithmetic behind the percentage already shown on `/coast` today. There
+is no `Badge` table to design or keep in sync; a badge is derived at request
+time from `Completion` rows plus the static area totals in
+`coast-segments.ts`, so it can never drift the way a stored, cached badge
+could.
+
+**How the tiers work.**
+
+- **Per area:** Bronze at 25% of that area's miles done, Silver at 50%, Gold
+  at 100%. The site already groups the 45 segments into six areas — North
+  Cornwall, The Atlantic Coast, West Penwith, Mount's Bay & the Lizard, The
+  Fal & the Roseland, South East Cornwall — so this is six bronze, six
+  silver, six gold badges to start, no new grouping to invent.
+- **Whole coast:** the same three tiers again, against all 294.5 miles. Gold
+  here is the big one — every segment ticked — and is worth a visibly
+  different treatment on the profile from an area gold, since it is a much
+  bigger achievement.
+- **Naming:** the idea is that each badge carries a name of its own, rather
+  than "North Cornwall — Gold" repeated three times. That's branding work,
+  not engineering — a deliberate naming pass across the six areas is worth
+  doing properly rather than inventing names on the fly when the feature
+  gets built, in keeping with the site's rule against anything that reads as
+  more official or more established than it actually is.
+
+**What it needs.** This sits directly on top of the accounts work the
+tracker already calls for (Build order step 3, below) — it doesn't add a new
+prerequisite, it's mostly what falls out once that step is done:
+
+- **Accounts and synced progress**, so a percentage belongs to a person and
+  not just a browser. Nothing here works before that.
+- **A public profile page** (`/u/[handle]` or similar) showing the headline
+  percentage, the per-area breakdown, and earned badges. Reuses the
+  `visibility` field already sketched in the social layer's `User` model
+  below — private by default, like everything else location-shaped on this
+  site.
+- **A shareable image, not just a link.** A badge someone can screenshot is
+  fine; a badge the site generates as a clean image — name, percentage,
+  badge — so it posts well to Instagram or WhatsApp without a screenshot is
+  what actually gets shared. Cloudflare Workers can render this server-side
+  reasonably cheaply — worth scoping properly once profiles exist, not
+  before.
+
+Open questions worth settling before building rather than during: whether
+the whole-coast Gold gets a distinct name and look as the rarest badge
+(probably yes); whether badges are public by default or only appear on a
+share image the person explicitly generates, keeping the profile itself
+private-by-default (leans towards the latter, consistent with the privacy
+defaults in the social layer below); and whether badges carry the date
+completed, the way a race medal would (a nice detail, not required for v1).
+
 ### Build order
 
 Do not build the app first. The app is worth nothing without segments, and
@@ -284,87 +355,10 @@ location history for identifiable people is squarely in scope.
 
 ---
 
-## Segment photos
-
-**Benjamin's idea (August 2026):**
-
-> The ability for users to post photos of each section. Would need content
-> moderation, I guess. But it would help motivate people to run.
-
-It is a good idea, and for the same reason tips are: a car park and a distance
-tell you nothing about a segment. A photo of the actual headland tells you
-whether it is worth getting up for. "See what you are running towards" is a
-stronger motivator than a mileage counter on its own, and it is exactly the
-kind of content a directory site cannot fake — it has to come from someone who
-was actually there.
-
-### Ship the useful version now; the automated version waits on accounts
-
-This splits the same way tips did, and for the same reason: self-serve upload
-needs somewhere to put the moderation queue, which needs accounts, which are
-not built yet. But the *value* of "see the segment before you commit to it"
-does not need self-serve upload to exist — it needs photos on the page.
-
-**Now, no backend — the tips playbook again:**
-Add a "Send us a photo from this section" mailto link next to the existing
-"Add a tip" one (`src/data/segment-tips.ts` already carries the pattern).
-Someone sends a photo from their run; Benjamin looks at it, and if it is a
-genuine shot of that stretch it goes into a new `segment-photos.ts` with the
-file committed under `public/images/segments/`. Zero backend, zero moderation
-risk — Benjamin *is* the moderation, the same trust model the site already
-runs on for tips — and it ships today rather than waiting on the accounts
-work below. At "a base of friends" volume this is a handful of emails a week,
-which is not a queue, it is an inbox.
-
-**Later, self-serve — once accounts and a backend exist anyway:**
-True in-browser upload needs three things the tracker's own next stage
-(*Accounts and GPX upload*, above) already requires, so it should not be
-built before that: an identity to attribute a photo to and rate-limit;
-storage (Cloudflare Images or R2 — R2 has no egress fee, Images' free tier
-covers 5,000 transforms a month, comfortably enough at this scale); and a
-moderation step before anything goes public.
-
-On moderation specifically: Cloudflare Workers AI does not currently ship a
-purpose-built moderation model — the image classifier available there
-(ResNet-50) sorts into the standard 1,000 ImageNet categories (dog breeds,
-household objects), not moderation categories. Dedicated moderation APIs exist
-(AWS Rekognition Moderation, Google Cloud Vision SafeSearch, Sightengine) at
-roughly $1 per 1,000 images, which is genuinely cheap even at real volume —
-but it is also more than this site needs on day one.
-
-Follow the same escalating-effort rule the GPX verification above already
-uses — ship the cheap version, add the expensive one only once volume makes it
-necessary:
-
-1. **Everything lands in a private "pending" queue.** Nothing is public until
-   an admin approves it. This alone is a real backstop, and for a
-   friends-and-club site it will likely stay sufficient for a long time —
-   manual review only becomes the bottleneck once submissions are constant,
-   which is a good problem to have.
-2. **An automated pre-filter**, only once (1) is genuinely too slow — one of
-   the moderation APIs above, run before anything reaches the queue, so a
-   human only ever sees borderline cases.
-
-A photo also fits naturally onto the `Completion` model already sketched
-above — optional evidence attached when someone marks a segment done, not
-necessarily a separate gallery feature. "Here is proof, and here is what it
-looked like" is one upload, not two.
-
-### Build order this implies
-
-1. **Photos, manually curated** — mailto plus a data file, same shape as tips.
-   Ship this next; it needs nothing the site does not already have.
-2. Everything else waits on **Accounts** (already the first blocker for the
-   social layer above) and **storage** (Cloudflare Images or R2).
-3. **Self-serve upload** into a private moderation queue.
-4. **Automated pre-filtering**, only if queue volume actually demands it.
-
----
-
 ## Smaller things, easier wins
 
-- ~~**Event JSON-LD**~~ **DONE** — shipped alongside the three verified
-  events; see `StructuredData.tsx`.
+- **Event JSON-LD** once listings carry `verified: true` — real search
+  visibility for the directory.
 - **GPX downloads** on route pages. The container and the `gpxUrl` field are
   already in place.
 - **A real map** on route detail pages. The container is built and sized;
