@@ -35,7 +35,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden border-b border-line">
         <div className="absolute inset-0" aria-hidden="true">
           <Image
-            src="/images/brand/hero-coast-path-runner.svg"
+            src="/images/brand/hero-coast-path-runner.webp"
             alt=""
             fill
             priority
@@ -238,8 +238,8 @@ export default function HomePage() {
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div className="relative aspect-[4/3] border border-line">
               <Image
-                src="/images/brand/about-club-portrait.svg"
-                alt="Placeholder artwork: a contour map of the coast around Penzance"
+                src="/images/brand/about-club-portrait.webp"
+                alt="Three PZX Wasters climbing coast-path steps in fancy dress \u2014 one in a Santa suit, one in a three-piece suit"
                 fill
                 sizes="(min-width: 1024px) 560px, 100vw"
                 className="object-cover"
@@ -253,8 +253,9 @@ export default function HomePage() {
               <div className="mt-6 space-y-4 text-base leading-relaxed text-mute">
                 <p>
                   The {siteConfig.clubName} began with a group of mates in
-                  Penzance, some Cornish roots, and a very confident claim that
-                  one of us could run to Mousehole. He could not.
+                  Penzance who worked out, slowly, that running the coast path
+                  together beat the alternative — and who needed something to
+                  put in the space where the big nights used to be.
                 </p>
                 <p>
                   We went anyway, and the coast did the rest. We built the

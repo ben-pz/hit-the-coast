@@ -157,11 +157,7 @@ function build(slug, options = {}) {
 }
 
 const targets = [
-  ['events', [
-    'arc-of-attrition',
-    'cousin-jack',
-    'classic-quarter',
-  ]],
+  ['events', []],
   ['routes', [
     'lands-end-to-sennen-and-back',
     'st-ives-to-zennor',
@@ -172,13 +168,14 @@ const targets = [
   ]],
   ['stories', [
     'england-coast-path-what-it-means-for-runners',
-    'how-pzx-wasters-started',
     'first-coast-path-run-nine-things',
-    'penwith-ultra-race-report',
     'trail-shoes-for-cornish-granite',
     'st-ives-to-zennor-route-guide',
   ]],
-  ['brand', ['hero-coast-path-runner', 'about-club-portrait', 'newsletter-cove']],
+  // No 'events' or 'brand' entries any more, and two stories are gone from the
+  // list above: those slugs carry real photographs now. Adding a slug back here
+  // would overwrite the photograph with generated artwork.
+  ['brand', []],
 ];
 
 /** Brand images sit behind headlines, so they carry more line contrast. */

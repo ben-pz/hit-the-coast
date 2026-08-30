@@ -111,23 +111,23 @@ export const articles: Article[] = [
     title: 'How the PZX Wasters started, more or less',
     category: 'Club story',
     excerpt:
-      'Nobody set out to found a running club. It began with a bet, a hangover and a very poor decision about the weather.',
+      'Nobody set out to found a running club. It began with a group of mates in Penzance, a shared love of the coast path, and a need to put something in the space where the big nights used to be.',
     author: 'PZX Wasters',
     date: '2026-07-22',
     readingMinutes: 4,
-    image: '/images/stories/how-pzx-wasters-started.svg',
+    image: '/images/stories/how-pzx-wasters-started.webp',
     imageAlt:
-      'Placeholder artwork: a looping line around a harbour, drawn like a contour map',
+      'Three PZX Wasters in hooded jackets on the coast path in heavy rain, pulling faces at the camera',
     featured: true,
     containsAffiliateLinks: false,
     body: [
       {
         type: 'paragraph',
-        text: 'There was no founding meeting. There was a group of mates in Penzance who had spent a long time being very good at Friday nights and less good at Saturday mornings, and one of whom announced, with total confidence and no evidence, that he could run to Mousehole.',
+        text: 'There was no founding meeting. There was a group of mates in Penzance who had spent a long time being very good at Friday nights and rather less good at Saturday mornings, and who worked out \u2014 slowly, and not all at once \u2014 that running the coast path together was better than the alternative.',
       },
       {
         type: 'paragraph',
-        text: 'He could not. But four of us went anyway, in cotton, in a headwind, and somewhere around the harbour we stopped being able to speak and started laughing instead. That was the whole thing. That was the beginning.',
+        text: 'That is genuinely the whole origin story. A shared love of the path, and a need to put something in the space where the big nights used to be. With the odd big night still chucked in, in fairness. Nobody has ever pretended otherwise.',
       },
       {
         type: 'quote',
@@ -204,56 +204,68 @@ export const articles: Article[] = [
     ],
   },
   {
-    slug: 'penwith-ultra-race-report',
-    title: 'Penwith Ultra: 100K, one bin bag and a very late pasty',
-    category: 'Race report',
+    slug: 'the-ultra-i-did-not-run',
+    title: 'The ultra I didn\u2019t run',
+    category: 'Club story',
     excerpt:
-      'A sample race report from the club, written the way we actually talk about these things — including the bits that went badly.',
-    author: 'PZX Wasters',
-    date: '2026-06-30',
-    readingMinutes: 7,
-    image: '/images/stories/penwith-ultra-race-report.svg',
+      'The Classic Quarter was going to be my first ultra. Six weeks out, my back went. Four months later I am starting again from close to nothing \u2014 and building this thing in the meantime.',
+    author: 'Benjamin',
+    date: '2026-08-30',
+    readingMinutes: 4,
+    image: '/images/stories/the-ultra-i-did-not-run.webp',
     imageAlt:
-      'Placeholder artwork: a long jagged elevation profile with 3,200 metres of climbing',
-    featured: false,
+      'A runner sitting against a granite South West Coast Path waymarker, sea and cliffs behind, stretching out one leg',
+    featured: true,
     containsAffiliateLinks: false,
     body: [
       {
-        type: 'note',
-        title: 'Sample content',
-        text: 'This is illustrative content written to show how race reports will look. It is not a report of a real event, and the event details in it have not been verified with any organiser.',
+        type: 'paragraph',
+        text: 'The Classic Quarter 2026 was going to be my first ultra. Lizard Point to Land\u2019s End, forty-four miles along the bottom edge of Cornwall. I had spent a couple of years building towards something like it without ever quite admitting that was what I was doing \u2014 a couple of marathons, more halves than I can be bothered to count, and a Cousin Jack, which is eighteen miles of the Penwith coast path and the first time I properly understood what this terrain does to a pace chart. The Quarter was the next step up. I had the training in. I was ready for it.',
       },
       {
         type: 'paragraph',
-        text: 'Everything went well for about sixty kilometres, which in ultrarunning terms is the same as saying everything went well until it did not.',
+        text: 'Six weeks out, my back went.',
       },
       {
         type: 'paragraph',
-        text: 'The Penwith loop is 100K around the peninsula with something like 3,200 metres of climbing, and the climbing is the point. There is no long steady ascent. There are roughly nine hundred short vicious ones, and by the time you reach the Zennor section your legs have been asked the same question too many times.',
+        text: 'Not a niggle. Four months of not running at all. I pulled out of the race, and then I spent a summer doing rehab and watching other people\u2019s photos come through from the start line I should have been standing on.',
       },
-      { type: 'heading', text: 'The good part' },
+      {
+        type: 'heading',
+        text: 'Starting again is its own thing',
+      },
       {
         type: 'paragraph',
-        text: 'Leaving Penzance in the dark with a line of headtorches strung out along the seafront is one of the better sights in running. The sun came up somewhere past Lamorna and for four hours it was as good as this sport gets: firm ground, cold air, the whole coast to ourselves.',
+        text: 'I have tentatively started running again. Tentatively is the word. I am a few kilos heavier than I was in May and most of the fitness has quietly left the building, which is what four months off does whether you deserve it or not. The distances I was doing without thinking about them are now the distances I have to think about.',
       },
-      { type: 'heading', text: 'The other part' },
       {
         type: 'paragraph',
-        text: 'It started raining at 60K and did not stop. The bin bag came out of the vest at 70K, which is not a proud moment but is a warm one. The boulder field between St Ives and Zennor in the wet, at night, on tired legs, is a genuine test of whether you enjoy your hobby.',
+        text: 'It turns out this is a much less interesting story to tell than a race report, and a much more common one. Most runners spend more time coming back from something than they do on a start line. Nobody writes that bit down.',
       },
       {
         type: 'quote',
-        text: 'Somewhere on that section I decided to stop running ultras. By the finish I had entered another one.',
+        text: 'The plan is not complicated. Get the weight back off, build very slowly through the winter, and be at Lizard Point in June 2027 in a state to enjoy it.',
       },
-      { type: 'heading', text: 'What we would do differently' },
       {
-        type: 'list',
-        items: [
-          'Start slower. Everybody says it. Everybody ignores it.',
-          'Eat before you feel like eating. Once you are behind on food on this course you do not catch up.',
-          'Pack the waterproof you actually want, not the light one that packs small.',
-          'Recce the Zennor section in daylight first, so that at night you are only dealing with one unfamiliar thing.',
-        ],
+        type: 'heading',
+        text: 'The 2027 plan, and where this site came from',
+      },
+      {
+        type: 'paragraph',
+        text: 'I am signed up for the 2027 Classic Quarter. Between now and then the plan is to cover as much of the Cornish coast path as I possibly can \u2014 not as training blocks, but as a thing to tick off. Which is exactly how the tracker on this site came about. I wanted to know how much of it I had actually done, section by section, and there was no good way to find out. So we built one.',
+      },
+      {
+        type: 'paragraph',
+        text: 'I should say where I am writing this from, because it matters. I live in Amsterdam. I grew up near Land\u2019s End, just outside Sennen, and this site is unashamedly a way of keeping a line open to home. Building a map of the Cornish coast from a flat country with no cliffs in it is either very sensible or slightly ridiculous, and I have stopped trying to work out which.',
+      },
+      {
+        type: 'paragraph',
+        text: 'The other half of it is the friends. A lot of them are in the PZX Wasters, a group that formed out of a shared love of running the coast path and a need to fill the old party days with something new. With the odd party day still chucked in, in fairness. They are the reason a tracker is worth building at all \u2014 nobody ticks off two hundred and ninety-four miles on their own.',
+      },
+      {
+        type: 'note',
+        title: 'If you are coming back from something too',
+        text: 'Four miles counts. That is not a consolation prize, it is the actual design of this site: every segment on the tracker is a real outing, and the shortest ones fill the map in exactly the same colour as the long ones.',
       },
     ],
   },

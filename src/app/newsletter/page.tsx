@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Container } from '@/components/Container';
 import { PageHeader } from '@/components/PageHeader';
@@ -51,6 +52,15 @@ export default function NewsletterPage() {
         <Container width="wide">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
             <div>
+              <div className="relative mb-10 aspect-[4/3] border border-line">
+                <Image
+                  src="/images/brand/newsletter-cove.webp"
+                  alt="A PZX Wasters runner mid-air over a rut in a sunken coast-path track, arms out, bracken either side"
+                  fill
+                  sizes="(min-width: 1024px) 520px, 100vw"
+                  className="object-cover"
+                />
+              </div>
               <h2 className="text-3xl">What you actually get</h2>
               <dl className="mt-8 space-y-8">
                 {promises.map((item) => (

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import type { Metadata } from 'next';
 import { Container } from '@/components/Container';
 import { PageHeader } from '@/components/PageHeader';
@@ -9,7 +10,7 @@ import { siteConfig } from '@/config/site';
 export const metadata: Metadata = {
   title: 'About PZX Wasters and the coastal running mission',
   description:
-    'PZX Wasters started in Penzance with a group of mates, some Cornish roots and a bad idea about running to Mousehole. Here is the club, and why we are building a home for coastal running in England.',
+    'PZX Wasters started in Penzance with a group of mates and a shared love of the coast path. Here is the club, why we are building a home for coastal running in England, and who is writing it.',
   alternates: { canonical: '/about' },
   openGraph: {
     title: `About ${siteConfig.clubName} | ${siteConfig.titleSuffix}`,
@@ -53,16 +54,16 @@ export default function AboutPage() {
             <div className="measure space-y-6 text-lg leading-relaxed text-paper/90">
               <p>
                 There was no founding meeting. There was a group of mates in
-                Penzance with Cornish roots, a long and distinguished record of
-                excellent Friday nights, and one member who announced with total
-                confidence and no supporting evidence that he could run to
-                Mousehole.
+                Penzance with a long and distinguished record of excellent
+                Friday nights, who worked out — slowly, and not all at once —
+                that running the coast path together was better than the
+                alternative.
               </p>
               <p>
-                He could not. Four of us went anyway, in cotton, into a
-                headwind. Somewhere around the harbour we stopped being able to
-                speak and started laughing instead, and that was the whole thing.
-                That was the beginning.
+                That is genuinely the whole origin story: a shared love of the
+                path, and a need to put something in the space where the big
+                nights used to be. With the odd big night still chucked in, in
+                fairness. Nobody is pretending otherwise.
               </p>
               <p>
                 What kept it going was the coast. Once you have run out towards
@@ -80,6 +81,28 @@ export default function AboutPage() {
                 turn up to a club run expecting a lecture on lactate threshold,
                 you will be disappointed. If you turn up expecting to be told
                 where the good chips are, you are in the right place.
+              </p>
+
+              <h2 className="pt-6 text-3xl">Who is writing this</h2>
+              <p>
+                Mostly Benjamin, who grew up just outside Sennen, near Land’s
+                End, and now lives in Amsterdam. Building a map of the Cornish
+                coast from a country with no cliffs in it is either very sensible
+                or slightly ridiculous, and the jury is still out — but it is an
+                honest reason for a site to exist: keeping a line open to home.
+                The 2027{' '}
+                <Link href="/events" className="text-red-bright hover:text-paper">
+                  Classic Quarter
+                </Link>{' '}
+                is the thing at the end of it, after a back injury took out the
+                2026 attempt. That story is{' '}
+                <Link
+                  href="/stories/the-ultra-i-did-not-run"
+                  className="text-red-bright hover:text-paper"
+                >
+                  written up here
+                </Link>
+                .
               </p>
 
               <h2 className="pt-6 text-3xl">Why we built this site</h2>
@@ -124,8 +147,8 @@ export default function AboutPage() {
             <aside className="space-y-8 lg:sticky lg:top-28 lg:self-start">
               <div className="relative aspect-[4/5] border border-line">
                 <Image
-                  src="/images/brand/about-club-portrait.svg"
-                  alt="Placeholder artwork: a contour map of the coast around Penzance. Replace with a photograph of the club."
+                  src="/images/brand/about-club-portrait.webp"
+                  alt="Three PZX Wasters climbing coast-path steps in fancy dress \u2014 one in a Santa suit, one in a three-piece suit"
                   fill
                   priority
                   sizes="(min-width: 1024px) 380px, 100vw"
