@@ -7,6 +7,15 @@
  * PLACEHOLDER values are marked. Replace them before launch.
  */
 
+export type SocialLink = {
+  label: string;
+  href: string;
+  handle: string;
+};
+
+/** Social profiles. Empty until real accounts exist — see the note below. */
+const social: SocialLink[] = [];
+
 export const siteConfig = {
   /** Change this one value to rename the site. */
   name: 'Hit the Coast',
@@ -29,12 +38,15 @@ export const siteConfig = {
     events: 'events@hitthecoast.com',
     press: 'press@hitthecoast.com',
   },
-  /** PLACEHOLDER — replace with real profiles, or delete the ones you don't use. */
-  social: [
-    { label: 'Instagram', href: 'https://instagram.com/', handle: '@pzxwasters' },
-    { label: 'Strava', href: 'https://www.strava.com/', handle: 'PZX Wasters' },
-    { label: 'Facebook', href: 'https://facebook.com/', handle: 'PZX Wasters' },
-  ],
+  /**
+   * No accounts yet, so nothing is shown. When you make one, add it here and
+   * it appears in the footer and in the site's structured data:
+   *
+   *   { label: 'Instagram', href: 'https://instagram.com/hitthecoast', handle: '@hitthecoast' },
+   *
+   * Only ever list a profile that exists — a dead link is worse than no link.
+   */
+  social,
   basedIn: 'Penzance, Cornwall',
 } as const;
 

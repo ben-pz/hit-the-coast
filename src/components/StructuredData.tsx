@@ -24,7 +24,11 @@ export function StructuredData() {
         logo: `${base}/images/brand/pzx-wasters-logo.png`,
         email: siteConfig.email.general,
         areaServed: 'England',
-        sameAs: siteConfig.social.map((item) => item.href),
+        // Omitted entirely while there are no profiles: an empty sameAs is
+        // worse than no sameAs.
+        ...(siteConfig.social.length > 0
+          ? { sameAs: siteConfig.social.map((item) => item.href) }
+          : {}),
       },
       {
         '@type': 'WebSite',

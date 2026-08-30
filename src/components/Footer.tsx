@@ -17,20 +17,22 @@ export function Footer() {
               {siteConfig.tagline} Every mile of England’s coast path you have
               run, tracked — starting in {siteConfig.basedIn.split(', ')[1]}.
             </p>
-            <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
-              {siteConfig.social.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="label text-mute hover:text-red-bright"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            {siteConfig.social.length > 0 ? (
+              <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2">
+                {siteConfig.social.map((item) => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="label text-mute hover:text-red-bright"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
 
           {footerNav.map((group) => (

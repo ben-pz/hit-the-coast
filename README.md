@@ -117,7 +117,8 @@ These are deliberate. Do not "fix" them by making the UI more optimistic.
    Routing (your domain → Email → Email Routing) forwarding to an inbox you
    already read.
 3. **Kit form ID** — `newsletterConfig.kitFormId`, to switch the list on.
-4. **Social links** — `siteConfig.social` point at bare profile URLs.
+4. ~~**Social links**~~ — done: `siteConfig.social` is empty, so the footer
+   shows none. Add a profile there when an account actually exists.
 5. **Photography** — every image under `public/images/` is generated
    placeholder artwork (see below). Filenames match their content, so a real
    photograph dropped at the same path needs no code change.
