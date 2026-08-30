@@ -239,7 +239,7 @@ export default function HomePage() {
             <div className="relative aspect-[4/3] border border-line">
               <Image
                 src="/images/brand/about-club-portrait.webp"
-                alt="Three PZX Wasters climbing coast-path steps in fancy dress \u2014 one in a Santa suit, one in a three-piece suit"
+                alt="Three PZ×RC runners climbing coast-path steps in fancy dress \u2014 one in a Santa suit, one in a three-piece suit"
                 fill
                 sizes="(min-width: 1024px) 560px, 100vw"
                 className="object-cover"

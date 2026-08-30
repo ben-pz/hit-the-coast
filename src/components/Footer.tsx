@@ -86,7 +86,8 @@ export function Footer() {
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs text-mute">
-              © {year} {siteConfig.clubName}. Made on the coast, usually in the
+              © {year} {siteConfig.name}, in association with {siteConfig.clubName}.
+              Made on the coast, usually in the
               wind.
             </p>
             <p className="text-xs text-mute">

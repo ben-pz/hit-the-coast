@@ -55,7 +55,7 @@ export default function NewsletterPage() {
               <div className="relative mb-10 aspect-[4/3] border border-line">
                 <Image
                   src="/images/brand/newsletter-cove.webp"
-                  alt="A PZX Wasters runner mid-air over a rut in a sunken coast-path track, arms out, bracken either side"
+                  alt="A PZ×RC runner mid-air over a rut in a sunken coast-path track, arms out, bracken either side"
                   fill
                   sizes="(min-width: 1024px) 520px, 100vw"
                   className="object-cover"

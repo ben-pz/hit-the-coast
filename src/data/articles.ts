@@ -53,7 +53,7 @@ export const articles: Article[] = [
     category: 'Route guide',
     excerpt:
       'A 2,700-mile National Trail around the edge of the country, inaugurated in March 2026. Not all of it is finished. Here is the honest version.',
-    author: 'PZX Wasters',
+    author: 'Hit the Coast',
     date: '2026-08-14',
     readingMinutes: 6,
     image: '/images/stories/england-coast-path-what-it-means-for-runners.svg',
@@ -108,16 +108,16 @@ export const articles: Article[] = [
   },
   {
     slug: 'how-pzx-wasters-started',
-    title: 'How the PZX Wasters started, more or less',
+    title: 'How PZ×RC started, more or less',
     category: 'Club story',
     excerpt:
       'Nobody set out to found a running club. It began with a group of mates in Penzance, a shared love of the coast path, and a need to put something in the space where the big nights used to be.',
-    author: 'PZX Wasters',
+    author: 'Hit the Coast',
     date: '2026-07-22',
     readingMinutes: 4,
     image: '/images/stories/how-pzx-wasters-started.webp',
     imageAlt:
-      'Three PZX Wasters in hooded jackets on the coast path in heavy rain, pulling faces at the camera',
+      'Three PZ×RC runners in hooded jackets on the coast path in heavy rain, pulling faces at the camera',
     featured: true,
     containsAffiliateLinks: false,
     body: [
@@ -163,7 +163,7 @@ export const articles: Article[] = [
     category: 'Beginner advice',
     excerpt:
       'Coastal running is not road running with a view. Here is what surprises people on their first go, and how not to have a miserable time.',
-    author: 'PZX Wasters',
+    author: 'Hit the Coast',
     date: '2026-08-02',
     readingMinutes: 5,
     image: '/images/stories/first-coast-path-run-nine-things.svg',
@@ -260,7 +260,7 @@ export const articles: Article[] = [
       },
       {
         type: 'paragraph',
-        text: 'The other half of it is the friends. A lot of them are in the PZX Wasters, a group that formed out of a shared love of running the coast path and a need to fill the old party days with something new. With the odd party day still chucked in, in fairness. They are the reason a tracker is worth building at all \u2014 nobody ticks off two hundred and ninety-four miles on their own.',
+        text: 'The other half of it is the friends. A lot of them are in PZ×RC, a group that formed out of a shared love of running the coast path and a need to fill the old party days with something new. With the odd party day still chucked in, in fairness. They are the reason a tracker is worth building at all \u2014 nobody ticks off two hundred and ninety-four miles on their own.',
       },
       {
         type: 'note',
@@ -275,7 +275,7 @@ export const articles: Article[] = [
     category: 'Gear review',
     excerpt:
       'Wet granite, bog and gorse destroy shoes in a specific way. Notes from the club on what has held up — and what has not.',
-    author: 'PZX Wasters',
+    author: 'Hit the Coast',
     date: '2026-08-19',
     readingMinutes: 6,
     image: '/images/stories/trail-shoes-for-cornish-granite.svg',
@@ -339,7 +339,7 @@ export const articles: Article[] = [
     category: 'Route guide',
     excerpt:
       'Everybody underestimates this stretch. A practical guide to running it without hurting yourself or missing the last bus.',
-    author: 'PZX Wasters',
+    author: 'Hit the Coast',
     date: '2026-05-18',
     readingMinutes: 5,
     image: '/images/stories/st-ives-to-zennor-route-guide.svg',

@@ -9,7 +9,7 @@ import { siteConfig } from '@/config/site';
 export const metadata: Metadata = {
   title: 'Stories, route guides and honest gear reviews',
   description:
-    'Club stories, coastal route guides, race reports, beginner advice and honest running-equipment reviews from the PZX Wasters.',
+    'Club stories, coastal route guides, race reports, beginner advice and honest running-equipment reviews, in association with PZ×RC.',
   alternates: { canonical: '/stories' },
   openGraph: {
     title: `Stories & gear | ${siteConfig.titleSuffix}`,

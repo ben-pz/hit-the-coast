@@ -45,8 +45,9 @@ export function StructuredData() {
       {
         '@type': 'Organization',
         '@id': `${base}/#organization`,
-        name: siteConfig.clubName,
-        alternateName: siteConfig.titleSuffix,
+        name: siteConfig.name,
+        // The running club the site is made with, not the publisher of it.
+        memberOf: { '@type': 'SportsOrganization', name: siteConfig.clubName },
         url: base,
         logo: `${base}/images/brand/pzx-wasters-logo.png`,
         email: siteConfig.email.general,

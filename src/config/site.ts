@@ -20,12 +20,19 @@ export const siteConfig = {
   /** Change this one value to rename the site. */
   name: 'Hit the Coast',
   /** Club name. */
-  clubName: 'PZX Wasters',
+  clubName: 'PZ×RC',
+  /**
+   * How the site relates to the club, shown under the wordmark.
+   * The cross is U+00D7 (×), not U+2715 (✕) — only U+00D7 exists in Archivo,
+   * Inter and JetBrains Mono, so U+2715 would render in a fallback font and
+   * break the lockup. Change both together if you ever swap the typefaces.
+   */
+  clubRelation: 'In association with',
   /** Used in page titles: "<page> | Hit the Coast" */
   titleSuffix: 'Hit the Coast',
   tagline: 'Run it. Track it. Complete it.',
   description:
-    'Track every mile of England’s coast path you have run. 45 point-to-point segments in Cornwall to start, with the rest of England to follow — plus coastal races, club runs and honest writing from the PZX Wasters.',
+    'Track every mile of England’s coast path you have run. 45 point-to-point segments in Cornwall to start, with the rest of England to follow — plus coastal races, club runs and honest writing, in association with PZ×RC.',
   /** The live domain. */
   url: 'https://hitthecoast.com',
   locale: 'en_GB',
@@ -73,7 +80,7 @@ export const footerNav = [
     links: [
       { label: 'Join the newsletter', href: '/newsletter' },
       { label: 'Submit an event', href: '/submit-event' },
-      { label: 'About PZX Wasters', href: '/about' },
+      { label: 'About us', href: '/about' },
     ],
   },
 ] as const;

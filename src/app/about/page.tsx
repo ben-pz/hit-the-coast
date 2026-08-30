@@ -8,9 +8,9 @@ import { NewsletterForm } from '@/components/NewsletterForm';
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'About PZX Wasters and the coastal running mission',
+  title: 'About PZ×RC and the coastal running mission',
   description:
-    'PZX Wasters started in Penzance with a group of mates and a shared love of the coast path. Here is the club, why we are building a home for coastal running in England, and who is writing it.',
+    'PZ×RC started in Penzance with a group of mates and a shared love of the coast path. Here is the club, why we are building a home for coastal running in England, and who is writing it.',
   alternates: { canonical: '/about' },
   openGraph: {
     title: `About ${siteConfig.clubName} | ${siteConfig.titleSuffix}`,
@@ -45,7 +45,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow={`About ${siteConfig.clubName}`}
         title="A running club that started as a bad idea"
-        intro="We started running for better mornings and stayed for the cliffs, the weather and the people. PZX Wasters began in Cornwall. Now we want to help more runners find their place on England’s coast."
+        intro="We started running for better mornings and stayed for the cliffs, the weather and the people. PZ×RC began in Cornwall. Now we want to help more runners find their place on England’s coast."
       />
 
       <section className="py-12 sm:py-16">
@@ -148,7 +148,7 @@ export default function AboutPage() {
               <div className="relative aspect-[4/5] border border-line">
                 <Image
                   src="/images/brand/about-club-portrait.webp"
-                  alt="Three PZX Wasters climbing coast-path steps in fancy dress \u2014 one in a Santa suit, one in a three-piece suit"
+                  alt="Three PZ×RC runners climbing coast-path steps in fancy dress \u2014 one in a Santa suit, one in a three-piece suit"
                   fill
                   priority
                   sizes="(min-width: 1024px) 380px, 100vw"

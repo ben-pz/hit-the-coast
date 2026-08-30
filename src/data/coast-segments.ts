@@ -294,7 +294,7 @@ const stages: Stage[] = [
     area: 'West Penwith',
     miles: 9,
     source: 'official',
-    note: 'Through Mousehole, Newlyn and Penzance. Home ground for the PZX Wasters.',
+    note: 'Through Mousehole, Newlyn and Penzance. Home ground for PZ×RC.',
   },
 
   // ── Mount’s Bay & the Lizard ─────────────────────────────────────────────

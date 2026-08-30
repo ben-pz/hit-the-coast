@@ -1,4 +1,4 @@
-# Hit the Coast — by PZX Wasters
+# Hit the Coast — in association with PZ×RC
 
 Marketing and directory site for coastal running in England. Next.js 16 (App
 Router), TypeScript, Tailwind CSS v4, built as a **static export** — a plain
@@ -66,7 +66,7 @@ renews at three times the price.
 
 | What | File |
 | --- | --- |
-| Site name, tagline, domain, email addresses, social links | `src/config/site.ts` |
+| Site name, club name, tagline, domain, email addresses, social links | `src/config/site.ts` |
 | Main and footer navigation | `src/config/site.ts` |
 | Newsletter (Kit form ID) | `src/config/site.ts` → `newsletterConfig.kitFormId` |
 | Events (check `verified` and `ticketStatus`) | `src/data/events.ts` |

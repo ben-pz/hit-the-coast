@@ -30,8 +30,8 @@ export const metadata: Metadata = {
     'England Coast Path running',
     'running club Cornwall',
   ],
-  authors: [{ name: siteConfig.clubName }],
-  creator: siteConfig.clubName,
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
   alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
