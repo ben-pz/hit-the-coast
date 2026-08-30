@@ -18,5 +18,17 @@
 
     // /about serves about.html; /coast/ serves coast/index.html.
     "html_handling": "auto-trailing-slash"
-  }
+  },
+
+  // hitthecoast.com itself is attached as a Custom Domain from the Cloudflare
+  // dashboard (Worker → Settings → Domains & Routes), so it does not appear
+  // here. www.hitthecoast.com is a plain Route instead: a CNAME record for
+  // "www" → hitthecoast.com already exists in DNS (Proxied), and this tells
+  // that hostname which Worker to hit. Provisioned this way because the
+  // dashboard's "Add Route" / "Add Custom Domain" search box was not finding
+  // the zone by itself — deploying this config creates the route directly via
+  // the API instead, which does not go through that search box.
+  "routes": [
+    { "pattern": "www.hitthecoast.com/*", "zone_name": "hitthecoast.com" }
+  ]
 }
