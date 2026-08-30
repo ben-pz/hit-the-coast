@@ -1,5 +1,6 @@
 'use client';
 
+import type { SVGProps } from 'react';
 import {
   COAST_MAP_VIEWBOX,
   coastMapSegments,
@@ -29,25 +30,31 @@ export function CoastMap({ done }: { done: Set<string> }) {
       {coastMapSegments.map((mapSegment) => {
         const isDone = done.has(mapSegment.id);
         const segment = getSegment(mapSegment.id);
-        return (
-          <polyline
-            key={mapSegment.id}
-            points={pointsAttr(mapSegment)}
-            fill="none"
-            stroke={isDone ? 'var(--color-red)' : 'var(--color-ink-600)'}
-            strokeWidth={isDone ? 5 : 4}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            style={{ transition: 'stroke 300ms' }}
-          >
-            {segment ? (
-              <title>
-                {segment.name}
-                {isDone ? ' (done)' : ''}
-              </title>
-            ) : null}
-          </polyline>
-        );
+        // A `title` attribute, not a nested SVG <title> element: the latter
+        // collides with Next's own streaming-metadata title handling in dev
+        // (it scans the tree for <title> tags) and triggers a hydration
+        // mismatch. The attribute gives the same native hover tooltip
+        // without being a tag Next goes looking for.
+        const label = segment
+          ? `${segment.name}${isDone ? ' (done)' : ''}`
+          : undefined;
+        // `title` is a valid attribute on any SVG element (native hover
+        // tooltip) but React's SVGProps type omits it — it only appears in
+        // its own typing as the <title> child element. Widen locally rather
+        // than reintroducing that element.
+        const polylineProps: SVGProps<SVGPolylineElement> & {
+          title?: string;
+        } = {
+          points: pointsAttr(mapSegment),
+          title: label,
+          fill: 'none',
+          stroke: isDone ? 'var(--color-red)' : 'var(--color-ink-600)',
+          strokeWidth: isDone ? 5 : 4,
+          strokeLinecap: 'round',
+          strokeLinejoin: 'round',
+          style: { transition: 'stroke 300ms' },
+        };
+        return <polyline key={mapSegment.id} {...polylineProps} />;
       })}
     </svg>
   );
