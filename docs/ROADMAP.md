@@ -135,9 +135,11 @@ if cheating actually becomes a problem:
 
 > Visitors have their own profile, mostly so they can see the % of the coast
 > they have covered and share it with friends. They can also get Bronze
-> (25%), Silver (50%) and Gold (100%) badges for completing an area of the
+> (25%), Silver (50%) and Gold (100%) badges for completing counties of the
 > coast, and the same three badges again for the whole coast. Each badge can
-> have its own name representing that stretch.
+> have its own name representing the county. (Counties, not the site's
+> internal areas — more counties are being added after Cornwall, working
+> towards the full 2,700 miles.)
 
 **Why it's worth building.** The coverage percentage is already the site's
 headline number — this asks for two things on top of it: a page worth
@@ -149,30 +151,43 @@ work — a round number people chase for its own sake.
 
 It also costs almost nothing extra to build, once accounts exist. A badge is
 not a new kind of data — it is a threshold read off numbers the tracker
-already computes: miles done in an area, divided by that area's total, the
-same arithmetic behind the percentage already shown on `/coast` today. There
-is no `Badge` table to design or keep in sync; a badge is derived at request
-time from `Completion` rows plus the static area totals in
+already computes: miles done in a county, divided by that county's total,
+the same arithmetic behind the percentage already shown on `/coast` today.
+There is no `Badge` table to design or keep in sync; a badge is derived at
+request time from `Completion` rows plus the static county totals in
 `coast-segments.ts`, so it can never drift the way a stored, cached badge
 could.
 
 **How the tiers work.**
 
-- **Per area:** Bronze at 25% of that area's miles done, Silver at 50%, Gold
-  at 100%. The site already groups the 45 segments into six areas — North
-  Cornwall, The Atlantic Coast, West Penwith, Mount's Bay & the Lizard, The
-  Fal & the Roseland, South East Cornwall — so this is six bronze, six
-  silver, six gold badges to start, no new grouping to invent.
-- **Whole coast:** the same three tiers again, against all 294.5 miles. Gold
-  here is the big one — every segment ticked — and is worth a visibly
-  different treatment on the profile from an area gold, since it is a much
-  bigger achievement.
+- **Per county, not per area.** Bronze at 25% of that county's miles done,
+  Silver at 50%, Gold at 100%. This is the `coastRegions` grouping already in
+  `coast-segments.ts` — Cornwall, then Devon, Dorset & the Jurassic Coast,
+  Somerset & the Bristol Channel, and on round the country — not the finer
+  six-way split (North Cornwall, The Atlantic Coast, etc.) the tracker uses
+  for browsing within a county. Counties are the unit the site is actually
+  built to grow by: `coastRegions` already lists nine, one `'live'`
+  (Cornwall) and eight `'planned'`, and going live is already just a status
+  flip plus appending stages (see **Build order** item 1, above). A new
+  county's badge set falls out of that same flip — nothing extra to build
+  per county, beyond a `milesInRegion()` helper alongside the `milesInArea()`
+  that already exists, grouping by `region` instead of `area`.
+- **Whole coast:** the same three tiers again, against the full route —
+  ~2,700 miles once every county is live. Today, with only Cornwall live,
+  the whole-coast total and Cornwall's are the same number, so the
+  whole-coast badges and Cornwall's are briefly identical until Devon ships;
+  worth a note on the profile UI so that isn't confusing early on. Once
+  there is more than one county, whole-coast Gold — the entire path,
+  every county — is the big one, and should look visibly bigger than any
+  single county's gold.
 - **Naming:** the idea is that each badge carries a name of its own, rather
-  than "North Cornwall — Gold" repeated three times. That's branding work,
-  not engineering — a deliberate naming pass across the six areas is worth
-  doing properly rather than inventing names on the fly when the feature
-  gets built, in keeping with the site's rule against anything that reads as
-  more official or more established than it actually is.
+  than "Cornwall — Gold" repeated three times. That's branding work, not
+  engineering — a deliberate naming pass, one name per county reused across
+  its own bronze/silver/gold, is worth doing properly as each county goes
+  live rather than inventing names on the fly, in keeping with the site's
+  rule against anything that reads as more official or more established
+  than it actually is. Nine counties, eventually, means nine names to find
+  — no rush, since they only need to exist once a county is live.
 
 **What it needs.** This sits directly on top of the accounts work the
 tracker already calls for (Build order step 3, below) — it doesn't add a new
@@ -181,7 +196,7 @@ prerequisite, it's mostly what falls out once that step is done:
 - **Accounts and synced progress**, so a percentage belongs to a person and
   not just a browser. Nothing here works before that.
 - **A public profile page** (`/u/[handle]` or similar) showing the headline
-  percentage, the per-area breakdown, and earned badges. Reuses the
+  percentage, the per-county breakdown, and earned badges. Reuses the
   `visibility` field already sketched in the social layer's `User` model
   below — private by default, like everything else location-shaped on this
   site.
