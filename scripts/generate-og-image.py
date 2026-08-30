@@ -52,7 +52,7 @@ mono = os.path.join(
 )
 
 display = ImageFont.truetype(static_instance(archivo, 800, "archivo-800.ttf"), 92)
-wordmark_font = ImageFont.truetype(static_instance(inter, 300, "inter-300.ttf"), 34)
+wordmark_font = ImageFont.truetype(static_instance(inter, 800, "inter-800.ttf"), 34)
 body = ImageFont.truetype(static_instance(inter, 400, "inter-400.ttf"), 26)
 label = ImageFont.truetype(static_instance(mono, 500, "mono-500.ttf"), 20)
 
