@@ -49,7 +49,7 @@ export function StructuredData() {
         // The running club the site is made with, not the publisher of it.
         memberOf: { '@type': 'SportsOrganization', name: siteConfig.clubName },
         url: base,
-        logo: `${base}/images/brand/pzx-wasters-logo.png`,
+        logo: `${base}/images/brand/coast-path-mark.png`,
         email: siteConfig.email.general,
         areaServed: 'England',
         // Omitted entirely while there are no profiles: an empty sameAs is

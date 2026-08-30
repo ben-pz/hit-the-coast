@@ -98,7 +98,7 @@ img = Image.composite(Image.new("RGB", (W, H), INK), img, fade)
 draw = ImageDraw.Draw(img)
 
 # --- Brand mark ------------------------------------------------------------
-logo_path = os.path.join(ROOT, "public/images/brand/pzx-wasters-logo.png")
+logo_path = os.path.join(ROOT, "public/images/brand/coast-path-mark.png")
 if os.path.exists(logo_path):
     logo = Image.open(logo_path).convert("RGB").resize((72, 72), Image.LANCZOS)
     img.paste(logo, (72, 64))

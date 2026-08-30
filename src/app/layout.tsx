@@ -56,8 +56,8 @@ export const metadata: Metadata = {
     images: ['/og/hit-the-coast-og.png'],
   },
   icons: {
-    icon: '/images/brand/pzx-wasters-logo.png',
-    apple: '/images/brand/pzx-wasters-logo.png',
+    icon: '/images/brand/coast-path-mark.png',
+    apple: '/images/brand/coast-path-mark.png',
   },
   robots: { index: true, follow: true },
 };

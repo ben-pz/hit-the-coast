@@ -1,11 +1,12 @@
-import Image from 'next/image';
 import { siteConfig } from '@/config/site';
+import { CoastLogoMark } from './CoastLogoMark';
 
 /**
- * Text-based wordmark plus the supplied PZ×RC mark.
+ * Text-based wordmark plus the site's mark.
  *
- * The mark lives at /public/images/brand/pzx-wasters-logo.png. Swap that file
- * for a vector version when one exists; nothing else needs to change.
+ * The mark is `CoastLogoMark` — the traced coast path, standing in for a
+ * real club badge for now. See that component for where the shape comes
+ * from.
  */
 export function Wordmark({
   size = 'md',
@@ -23,13 +24,9 @@ export function Wordmark({
 
   return (
     <span className="flex items-center gap-3">
-      <Image
-        src="/images/brand/pzx-wasters-logo.png"
-        alt=""
-        width={dimensions}
-        height={dimensions}
+      <CoastLogoMark
         className="shrink-0 border border-line"
-        priority
+        style={{ width: dimensions, height: dimensions }}
       />
       <span className="flex flex-col leading-none">
         <span
