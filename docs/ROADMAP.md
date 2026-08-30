@@ -284,10 +284,87 @@ location history for identifiable people is squarely in scope.
 
 ---
 
+## Segment photos
+
+**Benjamin's idea (August 2026):**
+
+> The ability for users to post photos of each section. Would need content
+> moderation, I guess. But it would help motivate people to run.
+
+It is a good idea, and for the same reason tips are: a car park and a distance
+tell you nothing about a segment. A photo of the actual headland tells you
+whether it is worth getting up for. "See what you are running towards" is a
+stronger motivator than a mileage counter on its own, and it is exactly the
+kind of content a directory site cannot fake — it has to come from someone who
+was actually there.
+
+### Ship the useful version now; the automated version waits on accounts
+
+This splits the same way tips did, and for the same reason: self-serve upload
+needs somewhere to put the moderation queue, which needs accounts, which are
+not built yet. But the *value* of "see the segment before you commit to it"
+does not need self-serve upload to exist — it needs photos on the page.
+
+**Now, no backend — the tips playbook again:**
+Add a "Send us a photo from this section" mailto link next to the existing
+"Add a tip" one (`src/data/segment-tips.ts` already carries the pattern).
+Someone sends a photo from their run; Benjamin looks at it, and if it is a
+genuine shot of that stretch it goes into a new `segment-photos.ts` with the
+file committed under `public/images/segments/`. Zero backend, zero moderation
+risk — Benjamin *is* the moderation, the same trust model the site already
+runs on for tips — and it ships today rather than waiting on the accounts
+work below. At "a base of friends" volume this is a handful of emails a week,
+which is not a queue, it is an inbox.
+
+**Later, self-serve — once accounts and a backend exist anyway:**
+True in-browser upload needs three things the tracker's own next stage
+(*Accounts and GPX upload*, above) already requires, so it should not be
+built before that: an identity to attribute a photo to and rate-limit;
+storage (Cloudflare Images or R2 — R2 has no egress fee, Images' free tier
+covers 5,000 transforms a month, comfortably enough at this scale); and a
+moderation step before anything goes public.
+
+On moderation specifically: Cloudflare Workers AI does not currently ship a
+purpose-built moderation model — the image classifier available there
+(ResNet-50) sorts into the standard 1,000 ImageNet categories (dog breeds,
+household objects), not moderation categories. Dedicated moderation APIs exist
+(AWS Rekognition Moderation, Google Cloud Vision SafeSearch, Sightengine) at
+roughly $1 per 1,000 images, which is genuinely cheap even at real volume —
+but it is also more than this site needs on day one.
+
+Follow the same escalating-effort rule the GPX verification above already
+uses — ship the cheap version, add the expensive one only once volume makes it
+necessary:
+
+1. **Everything lands in a private "pending" queue.** Nothing is public until
+   an admin approves it. This alone is a real backstop, and for a
+   friends-and-club site it will likely stay sufficient for a long time —
+   manual review only becomes the bottleneck once submissions are constant,
+   which is a good problem to have.
+2. **An automated pre-filter**, only once (1) is genuinely too slow — one of
+   the moderation APIs above, run before anything reaches the queue, so a
+   human only ever sees borderline cases.
+
+A photo also fits naturally onto the `Completion` model already sketched
+above — optional evidence attached when someone marks a segment done, not
+necessarily a separate gallery feature. "Here is proof, and here is what it
+looked like" is one upload, not two.
+
+### Build order this implies
+
+1. **Photos, manually curated** — mailto plus a data file, same shape as tips.
+   Ship this next; it needs nothing the site does not already have.
+2. Everything else waits on **Accounts** (already the first blocker for the
+   social layer above) and **storage** (Cloudflare Images or R2).
+3. **Self-serve upload** into a private moderation queue.
+4. **Automated pre-filtering**, only if queue volume actually demands it.
+
+---
+
 ## Smaller things, easier wins
 
-- **Event JSON-LD** once listings carry `verified: true` — real search
-  visibility for the directory.
+- ~~**Event JSON-LD**~~ **DONE** — shipped alongside the three verified
+  events; see `StructuredData.tsx`.
 - **GPX downloads** on route pages. The container and the `gpxUrl` field are
   already in place.
 - **A real map** on route detail pages. The container is built and sized;
