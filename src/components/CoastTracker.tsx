@@ -22,6 +22,7 @@ import {
 } from '@/data/coast-segments';
 import { tipCountFor } from '@/data/segment-tips';
 import { photoCountFor } from '@/data/segment-photos';
+import { CoastMap } from './CoastMap';
 
 type LengthFilter = 'all' | 'half' | 'full';
 
@@ -88,34 +89,23 @@ export function CoastTracker({ compact = false }: { compact?: boolean }) {
           </p>
         </div>
 
-        {/* One block per segment, width by distance. A schematic, not a map. */}
-        <div className="mt-8">
-          <div
-            className="flex h-10 gap-px overflow-hidden border border-line"
-            role="img"
-            aria-label={`Coast completion: ${percent.toFixed(1)} per cent, ${milesDone.toFixed(
-              1,
-            )} of ${totalCoastMiles.toFixed(1)} miles.`}
-          >
-            {coastSegments.map((segment) => (
-              <span
-                key={segment.id}
-                title={`${segment.name} — ${segment.distanceMiles} miles${
-                  done.has(segment.id) ? ' (done)' : ''
-                }`}
-                style={{ flexGrow: segment.distanceMiles }}
-                className={
-                  done.has(segment.id)
-                    ? 'bg-red transition-colors duration-300'
-                    : 'bg-ink-600 transition-colors duration-300'
-                }
-              />
-            ))}
-          </div>
-          <div className="mt-2 flex justify-between">
-            <span className="label text-mute">Marsland Mouth</span>
-            <span className="label text-mute">Land’s End</span>
-            <span className="label text-mute">Cremyll</span>
+        {/* The real shape of the coast path, coloured in as segments are ticked off. */}
+        <div className="mt-8 border border-line bg-ink-700 p-3 sm:p-4">
+          <CoastMap done={done} />
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+            <span className="label text-mute">
+              Marsland Mouth to Cremyll, via Land’s End
+            </span>
+            <span className="flex items-center gap-4">
+              <span className="label flex items-center gap-1.5 text-mute">
+                <span aria-hidden="true" className="h-0.5 w-4 bg-red" />
+                Run
+              </span>
+              <span className="label flex items-center gap-1.5 text-mute">
+                <span aria-hidden="true" className="h-0.5 w-4 bg-ink-600" />
+                Left to run
+              </span>
+            </span>
           </div>
         </div>
 

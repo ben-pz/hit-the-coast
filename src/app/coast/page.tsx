@@ -127,7 +127,6 @@ export default function CoastPage() {
                   'Ratings and reviews on each segment, once there are enough people for a rating to mean anything.',
                   'GPX upload, so a segment can be marked verified rather than just ticked.',
                   'Leaderboards by distance covered and regions completed. Never by speed.',
-                  'A real map, replacing the strip at the top of this page.',
                 ].map((item) => (
                   <li key={item} className="flex gap-3 text-base leading-relaxed">
                     <span
