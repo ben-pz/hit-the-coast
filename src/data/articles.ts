@@ -140,7 +140,7 @@ export const articles: Article[] = [
       { type: 'heading', text: 'What we are now' },
       {
         type: 'paragraph',
-        text: 'A Thursday night club run that anyone can turn up to. Two groups, nobody left behind, headtorches from October. Some of us race ultras. Some of us have never run further than 5K and have no plans to. Both are entirely the point.',
+        text: 'No fixed club night, no membership form, no subs. Some of us race ultras. Some of us have never run further than 5K and have no plans to. Both are entirely the point.',
       },
       {
         type: 'paragraph',

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 const principles = [
   {
     title: 'Nobody gets dropped',
-    body: 'Two groups on club night, and the faster one loops back. It is not a race. Some of us are quite bad at this and intend to stay that way.',
+    body: 'When we run together the faster ones loop back. It is not a race. Some of us are quite bad at this and intend to stay that way.',
   },
   {
     title: 'Honest before impressive',
@@ -91,10 +91,10 @@ export default function AboutPage() {
                 can actually do, in the month I am free?
               </p>
               <p>
-                And because the friendly stuff is almost invisible. Social runs
-                and no-drop club nights are what actually get people outdoors,
-                but they are buried underneath the ultras. We wanted them side by
-                side, treated as equally worth doing.
+                And because the friendly stuff is almost invisible. A four-mile
+                stretch of coast with a mate is what actually gets people
+                outdoors, but it is buried underneath the ultras. We wanted them
+                side by side, treated as equally worth doing.
               </p>
               <p>
                 The King Charles III England Coast Path — inaugurated in March
@@ -138,15 +138,14 @@ export default function AboutPage() {
                 <DataList
                   items={[
                     { label: 'Based', value: siteConfig.basedIn },
-                    { label: 'Club run', value: 'Thursdays, 6.30pm' },
-                    { label: 'Meeting point', value: 'Penzance harbour' },
-                    { label: 'Groups', value: '5K and 8K, no-drop' },
+                    { label: 'Coast covered', value: 'Cornwall, 45 segments' },
+                    { label: 'Runs', value: 'Whenever the weather allows' },
                     { label: 'Cost', value: 'Free' },
                   ]}
                 />
                 <p className="mt-4 text-xs leading-relaxed text-mute">
-                  Club run details are a placeholder while we confirm the meeting
-                  point and winter timings. Email before travelling.
+                  There is no fixed club night. We go when we go — the tracker is
+                  how you join in.
                 </p>
               </div>
 

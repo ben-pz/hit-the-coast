@@ -69,7 +69,7 @@ renews at three times the price.
 | Site name, tagline, domain, email addresses, social links | `src/config/site.ts` |
 | Main and footer navigation | `src/config/site.ts` |
 | Newsletter (Kit form ID) | `src/config/site.ts` → `newsletterConfig.kitFormId` |
-| Events | `src/data/events.ts` |
+| Events (check `verified` and `ticketStatus`) | `src/data/events.ts` |
 | Routes | `src/data/routes.ts` |
 | Articles | `src/data/articles.ts` |
 | Regions, event types, distance bands, difficulty | `src/data/taxonomy.ts` |
@@ -124,10 +124,13 @@ These are deliberate. Do not "fix" them by making the UI more optimistic.
    photograph dropped at the same path needs no code change.
 6. **Open Graph image** — `public/og/hit-the-coast-og.png` is generated artwork
    plus type. Regenerate with `python3 scripts/generate-og-image.py`.
-7. **Event and route data** — all sample; nothing has been confirmed with an
-   organiser.
-8. **Club run details** — the Thursday time and meeting point on `/about` are
-   placeholders.
+7. ~~**Event data**~~ — done: the three events in `src/data/events.ts` were
+   checked against the organisers' own pages in August 2026 and carry
+   `verified: true`, with the check date in a comment on each. **Route data is
+   still sample.** Re-check `ticketStatus` a few times a year — entries open and
+   races sell out, and a stale badge is a small lie.
+8. ~~**Club run details**~~ — done: there is no club run, and every claim of a
+   Thursday club night has been removed.
 9. **Maps and GPX** — `/routes/[slug]` has a ready-made map container and a
    disabled GPX button. `gpxUrl` is `null` on every route.
 

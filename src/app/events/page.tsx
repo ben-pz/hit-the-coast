@@ -7,14 +7,14 @@ import { events, sortByDate } from '@/data/events';
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'Coastal races, ultras and club runs in England',
+  title: 'Coastal races and ultras in England',
   description:
-    'A filterable directory of coastal running events in England — trail races, ultramarathons, road races, club runs and social runs. Filter by region, type, distance and month.',
+    'A checked directory of coastal running events in England — trail races, ultramarathons, road races and social runs. Filter by region, type, distance and month. Three Cornish classics to start.',
   alternates: { canonical: '/events' },
   openGraph: {
     title: `Coastal running events in England | ${siteConfig.titleSuffix}`,
     description:
-      'Trail races, ultras, club runs and social runs along the English coast. Filter by region, type, distance and month.',
+      'Trail races and ultras along the English coast, checked against the organisers. Filter by region, type, distance and month.',
     url: '/events',
   },
 };
@@ -27,7 +27,7 @@ export default function EventsPage() {
       <PageHeader
         eyebrow="The directory"
         title="Coastal events in England"
-        intro="Competitive races, ultras, club runs and friendly social runs, all on or near the coast. Filter by region, type, distance and month."
+        intro="Races and ultras on or near the English coast, checked against the organiser before they go up. Cornwall first — send us the ones we are missing."
       >
         <div className="flex flex-wrap gap-3">
           <ButtonLink href="/submit-event">Submit an event</ButtonLink>
@@ -42,16 +42,19 @@ export default function EventsPage() {
           <div className="mb-10">
             <Callout title="About these listings">
               <p>
-                Every entry below is a clearly marked{' '}
-                <strong className="text-paper">sample</strong> created to build
-                and test the directory. Dates, distances and entry links have not
-                been confirmed with organisers, and the linked sites are
-                placeholders. Always check details with the organiser before
-                entering or travelling.
+                Three to start with, and every date, distance and link below was
+                checked against the organiser&rsquo;s own page in August 2026.
+                Entries open and sell out, courses get tweaked and winter dates
+                move — so{' '}
+                <strong className="text-paper">
+                  always confirm with the organiser
+                </strong>{' '}
+                before you enter or travel.
               </p>
               <p>
-                Organising something on the English coast? Send it to us and we
-                will verify and list it.
+                We would rather list three races we have checked than fifty we
+                have not. Organising something on the English coast? Send it
+                over and we will verify it and add it.
               </p>
             </Callout>
           </div>

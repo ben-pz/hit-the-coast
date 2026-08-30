@@ -56,7 +56,9 @@ export type TicketStatus = (typeof ticketStatuses)[number];
 /** Rough helper so distance filters stay consistent with the numbers shown. */
 export function distanceCategoryFor(km: number): DistanceCategory {
   if (km >= 50) return 'Ultra (50K+)';
-  if (km >= 35) return 'Marathon-ish';
+  // 25km up, so an 18-mile coast-path race lands here rather than in
+  // "10K–Half", which would badly undersell it.
+  if (km >= 25) return 'Marathon-ish';
   if (km >= 10) return '10K–Half';
   return 'Under 10K';
 }

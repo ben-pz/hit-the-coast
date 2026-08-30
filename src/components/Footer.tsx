@@ -76,12 +76,13 @@ export function Footer() {
             <strong className="font-semibold text-paper">
               About the content on this site.
             </strong>{' '}
-            Events, routes and some articles are currently sample entries,
-            clearly marked, created to demonstrate the layout ahead of launch.
-            Always check event details with the organiser and current conditions
-            with local authorities before you travel or run. Facts about the King
-            Charles III England Coast Path are taken from GOV.UK, Natural England
-            and National Trails.
+            Event listings are checked against the organiser&rsquo;s own page
+            before they go up, and dated in the source. Routes and some articles
+            are still clearly marked sample entries. Always check event details
+            with the organiser, and current conditions with local authorities,
+            before you travel or run. Facts about the King Charles III England
+            Coast Path are taken from GOV.UK, Natural England and National
+            Trails.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs text-mute">

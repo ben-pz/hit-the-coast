@@ -158,18 +158,9 @@ function build(slug, options = {}) {
 
 const targets = [
   ['events', [
-    'lizard-point-coastal-30',
-    'penwith-ultra-100k',
-    'pzx-thursday-harbour-loop',
-    'st-agnes-sunrise-social',
-    'jurassic-cliffs-marathon',
-    'exmoor-sea-to-sky-45k',
-    'seven-sisters-half',
-    'northumberland-castles-50',
-    'norfolk-saltmarsh-20',
-    'yorkshire-cinder-track-10k',
-    'cumbria-estuary-weekender',
-    'somerset-levels-coastal-16k',
+    'arc-of-attrition',
+    'cousin-jack',
+    'classic-quarter',
   ]],
   ['routes', [
     'lands-end-to-sennen-and-back',

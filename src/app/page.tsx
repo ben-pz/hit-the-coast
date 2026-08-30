@@ -197,7 +197,7 @@ export default function HomePage() {
                 },
                 {
                   title: 'Just want company',
-                  body: 'Club night is Thursday, and half the segments are better with someone to talk to.',
+                  body: 'Half the segments are better with someone to talk to. Pick one, send it to a mate, compare notes afterwards.',
                 },
               ].map((item) => (
                 <div
@@ -221,7 +221,7 @@ export default function HomePage() {
           <SectionHeader
             eyebrow="Coming up"
             title="Coastal events"
-            intro="Races, ultras and club runs along the English coast. Sample entries for now — every listing is marked until we have confirmed it with the organiser."
+            intro="Races and ultras on the English coast. Three Cornish classics to start, each checked against the organiser’s own page — always confirm the details before you enter."
             action={{ label: 'All events', href: '/events' }}
           />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -267,7 +267,7 @@ export default function HomePage() {
                 <ButtonLink href="/about" variant="secondary">
                   Read the full story
                 </ButtonLink>
-                <Tag>Thursdays, 6.30pm, Penzance harbour</Tag>
+                <Tag>Penzance, Cornwall</Tag>
               </div>
             </div>
           </div>

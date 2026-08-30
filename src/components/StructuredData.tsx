@@ -1,16 +1,43 @@
+import { events } from '@/data/events';
 import { siteConfig } from '@/config/site';
 
 /**
- * Organisation and site-level structured data.
+ * Organisation, site and event structured data.
  *
- * Deliberately no `Event` structured data yet. Every listing in
- * src/data/events.ts is flagged `verified: false`, and publishing unverified
- * dates and locations as machine-readable facts would push sample content into
- * search results as though it were confirmed. Add an Event graph here once
- * listings carry `verified: true`.
+ * Only events flagged `verified: true` are published. An unverified listing is
+ * sample content, and publishing sample dates and locations as machine-readable
+ * facts would push them into search results as though they were confirmed.
+ *
+ * No `image` on events yet: every event picture is generated placeholder SVG,
+ * and search engines want a real photograph in a raster format. Add it here the
+ * day real photography lands.
  */
 export function StructuredData() {
   const base = siteConfig.url.replace(/\/$/, '');
+
+  const eventGraph = events
+    .filter((event) => event.verified)
+    .map((event) => ({
+      '@type': 'Event',
+      '@id': `${base}/events/#${event.id}`,
+      name: event.name,
+      startDate: event.date,
+      ...(event.endDate ? { endDate: event.endDate } : {}),
+      description: event.description,
+      url: event.url,
+      eventStatus: 'https://schema.org/EventScheduled',
+      eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      location: {
+        '@type': 'Place',
+        name: event.location,
+        address: {
+          '@type': 'PostalAddress',
+          addressRegion: event.region,
+          addressCountry: 'GB',
+        },
+      },
+      organizer: { '@type': 'Organization', name: event.organiser },
+    }));
 
   const graph = {
     '@context': 'https://schema.org',
@@ -39,6 +66,7 @@ export function StructuredData() {
         inLanguage: 'en-GB',
         publisher: { '@id': `${base}/#organization` },
       },
+      ...eventGraph,
     ],
   };
 
