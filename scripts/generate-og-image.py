@@ -52,9 +52,19 @@ mono = os.path.join(
 )
 
 display = ImageFont.truetype(static_instance(archivo, 800, "archivo-800.ttf"), 92)
-display_small = ImageFont.truetype(static_instance(archivo, 800, "archivo-800.ttf"), 40)
+wordmark_font = ImageFont.truetype(static_instance(inter, 300, "inter-300.ttf"), 34)
 body = ImageFont.truetype(static_instance(inter, 400, "inter-400.ttf"), 26)
 label = ImageFont.truetype(static_instance(mono, 500, "mono-500.ttf"), 20)
+
+
+def draw_tracked_text(draw, xy, text, font, fill, tracking):
+    """PIL has no letter-spacing option, so advance manually — matches the
+    `tracking-[0.35em]` used for the live wordmark in Wordmark.tsx."""
+    x, y = xy
+    for ch in text:
+        draw.text((x, y), ch, font=font, fill=fill)
+        x += draw.textlength(ch, font=font) + tracking
+    return x
 
 img = Image.new("RGB", (W, H), INK)
 draw = ImageDraw.Draw(img)
@@ -97,15 +107,20 @@ for x in range(W):
 img = Image.composite(Image.new("RGB", (W, H), INK), img, fade)
 draw = ImageDraw.Draw(img)
 
-# --- Brand mark ------------------------------------------------------------
+# --- Brand mark --------------------------------------------------------------
+# Plain line-art mark, no badge/border — matches the lockup in Wordmark.tsx.
+# The source PNG is transparent, so paste with its own alpha as the mask
+# rather than flattening to RGB first (which would fill the gaps black).
 logo_path = os.path.join(ROOT, "public/images/brand/coast-path-mark.png")
+mark_top = 68
 if os.path.exists(logo_path):
-    logo = Image.open(logo_path).convert("RGB").resize((72, 72), Image.LANCZOS)
-    img.paste(logo, (72, 64))
-    draw.rectangle([72, 64, 144, 136], outline=(43, 48, 56), width=1)
+    logo = Image.open(logo_path).convert("RGBA").resize((64, 64), Image.LANCZOS)
+    img.paste(logo, (72, mark_top), logo)
 
-draw.text((164, 74), "HIT THE COAST", font=display_small, fill=PAPER)
-draw.text((166, 118), "BY PZX WASTERS", font=label, fill=MUTE)
+draw_tracked_text(
+    draw, (152, mark_top + 6), "HIT THE COAST", wordmark_font, PAPER, 12
+)
+draw.text((154, mark_top + 46), "In association with PZ×RC", font=label, fill=MUTE)
 
 # --- Headline --------------------------------------------------------------
 draw.text((72, 268), "Run it.", font=display, fill=PAPER)

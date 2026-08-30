@@ -56,8 +56,11 @@ export const metadata: Metadata = {
     images: ['/og/hit-the-coast-og.png'],
   },
   icons: {
+    // Transparent line-art mark for the browser tab; a solid-background
+    // version for the apple touch icon, since iOS renders that one on its
+    // own rounded square with no control over what's behind it.
     icon: '/images/brand/coast-path-mark.png',
-    apple: '/images/brand/coast-path-mark.png',
+    apple: '/images/brand/apple-touch-icon.png',
   },
   robots: { index: true, follow: true },
 };
