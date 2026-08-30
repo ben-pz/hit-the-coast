@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
@@ -13,6 +14,7 @@ import {
   siblingSegment,
 } from '@/data/coast-segments';
 import { tipsForSegment } from '@/data/segment-tips';
+import { photosForSegment } from '@/data/segment-photos';
 import { siteConfig } from '@/config/site';
 
 type Props = { params: Promise<{ segment: string }> };
@@ -53,6 +55,7 @@ export default async function SegmentPage({ params }: Props) {
   if (!segment) notFound();
 
   const tips = tipsForSegment(segment.id);
+  const photos = photosForSegment(segment.id);
   const { previous, next } = neighbours(segment.id);
   const sibling = siblingSegment(segment);
   const half = isHalfDay(segment);
@@ -76,6 +79,22 @@ export default async function SegmentPage({ params }: Props) {
   const tipMailto = `mailto:${siteConfig.email.general}?subject=${encodeURIComponent(
     tipSubject,
   )}&body=${encodeURIComponent(tipBody)}`;
+
+  const photoSubject = `Photo from ${segment.name}`;
+  const photoBody = [
+    `Segment: ${segment.name}`,
+    '',
+    'Attach a photo from this stretch to this email.',
+    '',
+    'First name to credit it to:',
+    '',
+    '',
+    'Anything worth saying about the shot (optional):',
+    '',
+  ].join('\n');
+  const photoMailto = `mailto:${siteConfig.email.general}?subject=${encodeURIComponent(
+    photoSubject,
+  )}&body=${encodeURIComponent(photoBody)}`;
 
   return (
     <>
@@ -117,8 +136,62 @@ export default async function SegmentPage({ params }: Props) {
       <section className="py-12 sm:py-16">
         <Container width="default">
           <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr] lg:items-start">
-            {/* ------------------------------------------------------- tips */}
             <div>
+            {/* ----------------------------------------------------- photos */}
+            <div>
+              <div className="flex flex-wrap items-baseline justify-between gap-3">
+                <h2 className="text-3xl">
+                  Photos {photos.length > 0 ? `(${photos.length})` : null}
+                </h2>
+                <a
+                  href={photoMailto}
+                  className="label text-red-bright hover:text-paper"
+                >
+                  Send a photo →
+                </a>
+              </div>
+
+              <p className="measure mt-3 text-base leading-relaxed text-mute">
+                See it before you commit to it. Every photo here is a real
+                shot of this stretch, from someone who actually ran it.
+              </p>
+
+              {photos.length > 0 ? (
+                <ul className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
+                  {photos.map((photo) => (
+                    <li key={photo.id}>
+                      <div className="relative aspect-square border border-line">
+                        <Image
+                          src={photo.image}
+                          alt={photo.alt}
+                          fill
+                          sizes="(min-width: 640px) 33vw, 50vw"
+                          className="object-cover"
+                        />
+                      </div>
+                      <p className="mt-2 font-mono text-xs text-mute">
+                        {photo.credit}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="mt-8 border border-dashed border-line p-8 text-center">
+                  <p className="text-lg">No photos of this one yet.</p>
+                  <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-mute">
+                    Be the first to show what it actually looks like.
+                  </p>
+                  <div className="mt-5">
+                    <ButtonLink href={photoMailto}>
+                      Send the first photo
+                    </ButtonLink>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* ------------------------------------------------------- tips */}
+            <div className="mt-14">
               <div className="flex flex-wrap items-baseline justify-between gap-3">
                 <h2 className="text-3xl">
                   Tips {tips.length > 0 ? `(${tips.length})` : null}
@@ -184,6 +257,7 @@ export default async function SegmentPage({ params }: Props) {
               <div className="mt-10">
                 <ResponsibleRunning />
               </div>
+            </div>
             </div>
 
             {/* ---------------------------------------------------- sidebar */}
