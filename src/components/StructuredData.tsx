@@ -8,10 +8,22 @@ import { siteConfig } from '@/config/site';
  * sample content, and publishing sample dates and locations as machine-readable
  * facts would push them into search results as though they were confirmed.
  *
- * No `image` on events yet: every event picture is generated placeholder SVG,
- * and search engines want a real photograph in a raster format. Add it here the
- * day real photography lands.
+ * We do not record a numeric entry price per event (ticketStatus is the only
+ * thing we track and verify), so `offers` deliberately omits `price` and
+ * `priceCurrency` rather than guessing a figure — availability and the entry
+ * link are still real, verified fields. Likewise there is no `performer`:
+ * these are open-entry races with no fixed competitor or act to name, and
+ * schema.org has nothing honest to put there.
  */
+const availabilityFor: Record<(typeof events)[number]['ticketStatus'], string> =
+  {
+    'Entries open': 'https://schema.org/InStock',
+    'Entries not yet open': 'https://schema.org/PreOrder',
+    'Sold out': 'https://schema.org/SoldOut',
+    'Free to join': 'https://schema.org/InStock',
+    'Waiting list': 'https://schema.org/LimitedAvailability',
+  };
+
 export function StructuredData() {
   const base = siteConfig.url.replace(/\/$/, '');
 
@@ -22,9 +34,14 @@ export function StructuredData() {
       '@id': `${base}/events/#${event.id}`,
       name: event.name,
       startDate: event.date,
-      ...(event.endDate ? { endDate: event.endDate } : {}),
+      // Real end date when the organiser gives one (a multi-day event); a
+      // same-day race genuinely ends on its start date even without a known
+      // finish time, so that is what we fall back to rather than guessing a
+      // time.
+      endDate: event.endDate ?? event.date,
       description: event.description,
       url: event.url,
+      image: `${base}${event.image}`,
       eventStatus: 'https://schema.org/EventScheduled',
       eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
       location: {
@@ -36,7 +53,16 @@ export function StructuredData() {
           addressCountry: 'GB',
         },
       },
-      organizer: { '@type': 'Organization', name: event.organiser },
+      organizer: {
+        '@type': 'Organization',
+        name: event.organiser,
+        url: new URL(event.url).origin,
+      },
+      offers: {
+        '@type': 'Offer',
+        url: event.url,
+        availability: availabilityFor[event.ticketStatus],
+      },
     }));
 
   const graph = {
