@@ -208,10 +208,10 @@ export const articles: Article[] = [
     title: 'The ultra I didn\u2019t run',
     category: 'Club story',
     excerpt:
-      'The Classic Quarter was going to be my first ultra. Six weeks out, my back went. Four months later I am starting again from close to nothing \u2014 and building this thing in the meantime.',
+      'The Classic Quarter was going to be my first ultra. Six weeks out, my back went. Four months later I am starting again from close to nothing, and building this thing in the meantime.',
     author: 'Ben',
     date: '2026-08-30',
-    readingMinutes: 4,
+    readingMinutes: 6,
     image: '/images/stories/the-ultra-i-did-not-run.webp',
     imageAlt:
       'A runner sitting against a granite South West Coast Path waymarker, sea and cliffs behind, stretching out one leg',
@@ -220,7 +220,7 @@ export const articles: Article[] = [
     body: [
       {
         type: 'paragraph',
-        text: 'The Classic Quarter 2026 was going to be my first ultra. Lizard Point to Land\u2019s End, forty-four miles along the bottom edge of Cornwall. I had spent a couple of years building towards something like it without ever quite admitting that was what I was doing \u2014 a couple of marathons, more halves than I can be bothered to count, and a Cousin Jack, which is eighteen miles of the Penwith coast path and the first time I properly understood what this terrain does to a pace chart. The Quarter was the next step up. I had the training in. I was ready for it.',
+        text: 'The Classic Quarter 2026 was going to be my first ultra. Lizard Point to Land\u2019s End, forty-four miles along the bottom edge of Cornwall. I had spent a couple of years building towards something like it without ever quite admitting that was what I was doing: a couple of marathons, more halves than I can be bothered to count, and a Cousin Jack, which is eighteen miles of the Penwith coast path and the first time I properly understood what this terrain does to a pace chart. The Quarter was the next step up. I had the training in. I was ready for it.',
       },
       {
         type: 'paragraph',
@@ -252,15 +252,19 @@ export const articles: Article[] = [
       },
       {
         type: 'paragraph',
-        text: 'I am signed up for the 2027 Classic Quarter. Between now and then the plan is to cover as much of the Cornish coast path as I possibly can \u2014 not as training blocks, but as a thing to tick off. Which is exactly how the tracker on this site came about. I wanted to know how much of it I had actually done, section by section, and there was no good way to find out. So we built one.',
+        text: 'I am signed up for the 2027 Classic Quarter. It goes straight through Penzance and Newlyn, where I spent my teens and where my family still live, and finishes at Land\u2019s End, where I grew up. A route built out of my own childhood, more or less.',
       },
       {
         type: 'paragraph',
-        text: 'I should say where I am writing this from, because it matters. I live in Amsterdam. I grew up near Land\u2019s End, just outside Sennen, and this site is unashamedly a way of keeping a line open to home. Building a map of the Cornish coast from a flat country with no cliffs in it is either very sensible or slightly ridiculous, and I have stopped trying to work out which.',
+        text: 'Between now and then I am hoping to complete a lot of the coast path myself. Another excuse to visit home. It is also exactly how the tracker on this site came about: I wanted to know how much of it I had actually done, section by section, and there was no good way to find out. So I built one.',
       },
       {
         type: 'paragraph',
-        text: 'The other half of it is the friends. A lot of them are in PZ×RC, a group that formed out of a shared love of running the coast path and a need to fill the old party days with something new. With the odd party day still chucked in, in fairness. They are the reason a tracker is worth building at all \u2014 nobody ticks off two hundred and ninety-four miles on their own.',
+        text: 'I should say where I am writing this from, because it matters. I live in Amsterdam, which as far as I can tell has zero cliffs and not many hills either. Building a map of the Cornish coast from somewhere that flat is probably a bit ridiculous. But it\u2019s an honest reason for a site to exist: it keeps a line open to home, and it scratches an itch for the kind of nature I only really appreciated once I didn\u2019t have it on my doorstep anymore.',
+      },
+      {
+        type: 'paragraph',
+        text: 'The other half of it is the friends. I\u2019ve always run, on and off, but it only became a proper habit about three years ago, which, if the rest of the internet is anything to go by, is roughly when most of us in our thirties discovered running. A few of us from home ended up doing the same thing at the same time, and that\u2019s more or less how PZ (x) RC started: a group of friends using running as an excuse to stay in touch and get outside on the coast, some of us taking it more seriously than others. The full name is PZ (x) Wasters RC. It\u2019s a nod to the fact that most of us have simply swapped nights out for early mornings on the cliffs. Some of the time, anyway. They are the reason a tracker is worth building at all: nobody ticks off two hundred and ninety-four miles on their own.',
       },
       {
         type: 'note',

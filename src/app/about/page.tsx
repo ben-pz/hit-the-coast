@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import type { Metadata } from 'next';
 import { Container } from '@/components/Container';
 import { PageHeader } from '@/components/PageHeader';
@@ -10,7 +9,7 @@ import { siteConfig } from '@/config/site';
 export const metadata: Metadata = {
   title: 'About Hit the Coast',
   description:
-    'Built by Ben Hearn, who grew up near Land’s End and now lives in Amsterdam. Why this site exists, and the Classic Quarter comeback behind it.',
+    'Built by Ben Hearn, who grew up near Land’s End and now lives in Amsterdam. Why this site exists, and what it is for.',
   alternates: { canonical: '/about' },
   openGraph: {
     title: `About | ${siteConfig.titleSuffix}`,
@@ -69,19 +68,6 @@ export default function AboutPage() {
                 on my doorstep anymore.
               </p>
               <p>
-                I’ve always run, on and off, but it only became a proper habit
-                about three years ago, which, if the rest of the internet is
-                anything to go by, is roughly when most of us in our thirties
-                discovered running. A few of us from home ended up doing the
-                same thing at the same time, and that’s more or less how PZ
-                (x) RC started: a group of friends using running as an excuse
-                to stay in touch and get outside on the coast, some of us
-                taking it more seriously than others. The full name is PZ (x)
-                Wasters RC. It’s a nod to the fact that most of us have simply
-                swapped nights out for early mornings on the cliffs. Some of
-                the time, anyway.
-              </p>
-              <p>
                 The other reason this exists is the coast path itself. It’s
                 officially the King Charles III England Coast Path now, and
                 it’s apparently the longest managed coastal path in the world.
@@ -93,23 +79,8 @@ export default function AboutPage() {
                 beautiful coastline anywhere, and you don’t need permission to
                 run on any of them.
               </p>
-              <p>
-                Personally, I’m mid-comeback. The Classic Quarter (Lizard
-                Point to Land’s End) was meant to be my first ultra in 2026,
-                and I’d wanted to run it for years: it goes straight through
-                Penzance and Newlyn, where I spent my teens and where my
-                family still live, and finishes at Land’s End, where I grew
-                up. A route built out of my own childhood, more or less. Six
-                weeks out, my back went. Four months where I could barely
-                walk, let alone run. I’m hoping to complete a lot of the coast
-                myself in the build-up to the{' '}
-                <Link href="/events" className="text-red-bright hover:text-paper">
-                  Classic Quarter
-                </Link>
-                , still a long way off. Another excuse to visit home.
-              </p>
 
-              <h2 className="pt-6 text-3xl">Why we built this site</h2>
+              <h2 className="pt-6 text-3xl">Why I built this site</h2>
               <p>
                 Because finding a coastal race in England is still stupidly hard.
                 The information is scattered across a dozen organiser sites, half
@@ -120,17 +91,17 @@ export default function AboutPage() {
               <p>
                 And because the friendly stuff is almost invisible. A four-mile
                 stretch of coast with a mate is what actually gets people
-                outdoors, but it is buried underneath the ultras. We wanted them
+                outdoors, but it is buried underneath the ultras. I wanted them
                 side by side, treated as equally worth doing.
               </p>
               <p>
-                The King Charles III England Coast Path — inaugurated in March
-                2026, around 2,700 miles when complete — makes the whole thing
-                more possible than it has ever been. Not every stretch is
-                finished, and we will not pretend otherwise. But a continuous
-                right of way around the edge of the country is a genuinely
-                exciting thing for runners, and somebody should be writing about
-                it properly.
+                The King Charles III England Coast Path was inaugurated in
+                March 2026 and will run to around 2,700 miles when complete,
+                which makes the whole thing more possible than it has ever
+                been. Not every stretch is finished, and I will not pretend
+                otherwise. But a continuous right of way around the edge of
+                the country is a genuinely exciting thing for runners, and
+                somebody should be writing about it properly.
               </p>
 
               <h2 className="pt-6 text-3xl">What comes next</h2>
