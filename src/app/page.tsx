@@ -100,7 +100,7 @@ export default function HomePage() {
               </p>
             </div>
             <div>
-              <h3 className="text-lg text-red-bright">Leave a tip</h3>
+              <h3 className="text-lg text-red-bright">Share your thoughts</h3>
               <p className="mt-3 text-sm leading-relaxed text-mute">
                 Where to park, which crossing works at which tide, what the
                 ground is really like. {totalTips} so far and every one read by a

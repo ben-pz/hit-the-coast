@@ -115,6 +115,26 @@ export const events: CoastalEvent[] = [
     ticketStatus: 'Entries open',
     verified: true,
   },
+  {
+    // Checked against bysvykenevents.com/lighthouse, 31 August 2026.
+    id: 'lighthouse',
+    name: 'Lighthouse Marathon & Ultra',
+    date: '2026-11-07',
+    location: 'Land’s End to Godrevy, Cornwall (marathon starts at Pendeen)',
+    region: 'Cornwall',
+    type: 'Trail race',
+    distanceKm: 42,
+    distanceLabel: 'Marathon 26.2 miles · Ultra 35 miles',
+    description:
+      'Point to point along the far west of the coast path, stitching together three lighthouses: Longships, Pendeen and Godrevy. The marathon starts at Pendeen and covers 26.2 miles with nearly 4,000 feet of climbing; the ultra starts further back at Land’s End and runs 35 miles with over 6,000 feet. Both finish at Godrevy. Mud, sand, rock and tarmac, with a few dunes to finish on.',
+    organiser: 'Bys Vyken Events',
+    url: 'https://www.bysvykenevents.com/lighthouse',
+    image: '/images/events/lighthouse.webp',
+    imageAlt: 'A lighthouse on the Cornish coast, on the Lighthouse Marathon & Ultra route',
+    featured: false,
+    ticketStatus: 'Entries open',
+    verified: true,
+  },
 ];
 
 export function distanceCategoryOf(event: CoastalEvent): DistanceCategory {
@@ -126,4 +146,16 @@ export const featuredEvents = events.filter((event) => event.featured);
 /** Sorted soonest-first. */
 export function sortByDate(list: CoastalEvent[]): CoastalEvent[] {
   return [...list].sort((a, b) => a.date.localeCompare(b.date));
+}
+
+/**
+ * Featured events first (soonest-first among themselves), then everything
+ * else (soonest-first). Keeps the checked, well-known races at the top of
+ * the directory as the list grows, rather than a new event jumping ahead of
+ * them purely because its date is sooner.
+ */
+export function sortForDisplay(list: CoastalEvent[]): CoastalEvent[] {
+  const featured = sortByDate(list.filter((event) => event.featured));
+  const rest = sortByDate(list.filter((event) => !event.featured));
+  return [...featured, ...rest];
 }

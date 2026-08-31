@@ -58,7 +58,7 @@ export const siteConfig = {
 } as const;
 
 export const mainNav = [
-  { label: 'The Coast', href: '/coast' },
+  { label: 'Coast Tracker', href: '/coast' },
   { label: 'Events', href: '/events' },
   { label: 'Routes', href: '/routes' },
   { label: 'Stories & Gear', href: '/stories' },

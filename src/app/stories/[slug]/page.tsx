@@ -6,7 +6,7 @@ import { Container } from '@/components/Container';
 import { ArticleBody } from '@/components/ArticleBody';
 import { ArticleCard } from '@/components/cards';
 import { NewsletterForm } from '@/components/NewsletterForm';
-import { Tag } from '@/components/ui';
+import { ButtonLink, Callout, Tag } from '@/components/ui';
 import { articles, getArticle } from '@/data/articles';
 import { formatLongDate } from '@/lib/format';
 import { siteConfig } from '@/config/site';
@@ -107,6 +107,25 @@ export default async function ArticlePage({ params }: Props) {
               earn a commission, at no extra cost to you. It does not change what
               we say about the kit.
             </p>
+          ) : null}
+
+          {article.source ? (
+            <div className="mt-8">
+              <Callout title="From outside the club">
+                <p>
+                  This one is not ours. It is {article.source.name}&rsquo;s own
+                  writing, and we are pointing at it because it is worth your
+                  time, not rewriting it as if we reported it ourselves.
+                </p>
+                <ButtonLink
+                  href={article.source.url}
+                  variant="secondary"
+                  size="md"
+                >
+                  Read it at {article.source.name} ↗
+                </ButtonLink>
+              </Callout>
+            </div>
           ) : null}
 
           <div className="py-12 sm:py-16">

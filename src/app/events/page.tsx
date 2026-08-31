@@ -3,7 +3,7 @@ import { Container } from '@/components/Container';
 import { PageHeader } from '@/components/PageHeader';
 import { EventsExplorer } from '@/components/EventsExplorer';
 import { ButtonLink, Callout } from '@/components/ui';
-import { events, sortByDate } from '@/data/events';
+import { events, sortForDisplay } from '@/data/events';
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 export default function EventsPage() {
-  const ordered = sortByDate(events);
+  const ordered = sortForDisplay(events);
 
   return (
     <>

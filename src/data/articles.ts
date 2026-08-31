@@ -42,6 +42,13 @@ export type Article = {
   featured: boolean;
   /** Renders the affiliate-disclosure banner above the article body. */
   containsAffiliateLinks: boolean;
+  /**
+   * Set only for pieces that point at someone else's writing rather than our
+   * own reporting — a short bit of our own framing plus a clear link out.
+   * When set, the article card and the article page both mark it as an
+   * external source rather than a Hit the Coast original.
+   */
+  source?: { name: string; url: string };
   body: ArticleBlock[];
 };
 
@@ -375,6 +382,49 @@ export const articles: Article[] = [
         type: 'note',
         title: 'Conditions change',
         text: 'Do not treat this or any route on the site as safe in all conditions. Cliff paths close, weather turns, and this section in particular is genuinely serious in the wet or the dark. Check current local guidance before you set off.',
+      },
+    ],
+  },
+  {
+    slug: 'national-trust-best-coastal-runs',
+    title: 'The National Trust’s pick of the best coastal runs in Britain',
+    category: 'Route guide',
+    excerpt:
+      'The National Trust put together a list of ten coastal running spots from Devon to County Down. None of them are in Cornwall, which is rather the point — go take a look.',
+    author: 'Hit the Coast',
+    date: '2026-08-31',
+    readingMinutes: 2,
+    image: '/images/stories/best-national-trust-coastal-runs.webp',
+    imageAlt:
+      'A jogger running along the shingle at Branscombe Beach in Devon at low sun, beach huts and chalk cliffs behind. Photo: National Trust / Chris Mason',
+    featured: false,
+    containsAffiliateLinks: false,
+    source: {
+      name: 'National Trust',
+      url: 'https://www.nationaltrust.org.uk/visit/outdoor-activities/best-places-for-coastal-running',
+    },
+    body: [
+      {
+        type: 'paragraph',
+        text: 'This site is about Cornwall, at least for now, so when the National Trust put together a list of the best coastal running spots in the country, we are not the ones who wrote it. Better to send you to the people who did than to rewrite their work as if it were ours.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Their list runs to ten places from Devon to County Down: forty kilometres of coastline visible at once from Baggy Point, otters at Bosherston Lakes on the Stackpole estate in Pembrokeshire, guillemots and razorbills off the cliffs at Whitehaven in Cumbria, kittiwakes and fulmars along The Leas above Souter Lighthouse in Tyne and Wear. Worth a look if your running ever takes you outside Cornwall.',
+      },
+      {
+        type: 'quote',
+        text: 'Leave the treadmill behind and embrace the fresh sea air on these coastal trails.',
+        attribution: 'National Trust',
+      },
+      {
+        type: 'paragraph',
+        text: 'We will keep building our own Cornish routes properly. But a good list already exists here, and pointing at it beats writing a worse version ourselves.',
+      },
+      {
+        type: 'note',
+        title: 'Photo credit',
+        text: 'Jogger on Branscombe Beach, Devon — photographed by Chris Mason for the National Trust.',
       },
     ],
   },

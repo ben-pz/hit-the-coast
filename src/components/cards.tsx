@@ -190,6 +190,9 @@ export function ArticleCard({
           <span className="label text-mute">
             {article.readingMinutes} min read
           </span>
+          {article.source ? (
+            <Tag tone="quiet">↗ From {article.source.name}</Tag>
+          ) : null}
         </div>
 
         <h3 className="mt-4 text-xl">
