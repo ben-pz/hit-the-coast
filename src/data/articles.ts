@@ -209,7 +209,7 @@ export const articles: Article[] = [
     category: 'Club story',
     excerpt:
       'The Classic Quarter was going to be my first ultra. Six weeks out, my back went. Four months later I am starting again from close to nothing \u2014 and building this thing in the meantime.',
-    author: 'Benjamin',
+    author: 'Ben',
     date: '2026-08-30',
     readingMinutes: 4,
     image: '/images/stories/the-ultra-i-did-not-run.webp',

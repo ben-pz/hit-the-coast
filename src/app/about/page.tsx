@@ -8,14 +8,13 @@ import { NewsletterForm } from '@/components/NewsletterForm';
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'About PZ×RC and the coastal running mission',
+  title: 'About Hit the Coast',
   description:
-    'PZ×RC started in Penzance with a group of mates and a shared love of the coast path. Here is the club, why we are building a home for coastal running in England, and who is writing it.',
+    'Built by Ben Hearn, who grew up near Land’s End and now lives in Amsterdam. Why this site exists, and the Classic Quarter comeback behind it.',
   alternates: { canonical: '/about' },
   openGraph: {
-    title: `About ${siteConfig.clubName} | ${siteConfig.titleSuffix}`,
-    description:
-      'How a group of mates in Penzance became a running club, and why we are mapping England’s coast.',
+    title: `About | ${siteConfig.titleSuffix}`,
+    description: 'One runner, a long way from Cornwall, mapping the coast he grew up on.',
     url: '/about',
   },
 };
@@ -43,9 +42,9 @@ export default function AboutPage() {
   return (
     <>
       <PageHeader
-        eyebrow={`About ${siteConfig.clubName}`}
-        title="A running club that started as a bad idea"
-        intro="We started running for better mornings and stayed for the cliffs, the weather and the people. PZ×RC began in Cornwall. Now we want to help more runners find their place on England’s coast."
+        eyebrow="About"
+        title="Keeping a line open to home"
+        intro="For runners and walkers, and anyone who loves this coast, near or far. Built by one runner a long way from Cornwall."
       />
 
       <section className="py-12 sm:py-16">
@@ -53,56 +52,61 @@ export default function AboutPage() {
           <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr]">
             <div className="measure space-y-6 text-lg leading-relaxed text-paper/90">
               <p>
-                There was no founding meeting. There was a group of mates in
-                Penzance with a long and distinguished record of excellent
-                Friday nights, who worked out — slowly, and not all at once —
-                that running the coast path together was better than the
-                alternative.
+                This is for runners and walkers, for anyone who loves the coast
+                whether they live on top of it or a thousand miles from it. A
+                target to tick off. A reason to get out on the evenings and
+                weekends instead of the sofa. All 2,700 miles of the England
+                Coast Path, one stretch at a time.
               </p>
               <p>
-                That is genuinely the whole origin story: a shared love of the
-                path, and a need to put something in the space where the big
-                nights used to be. With the odd big night still chucked in, in
-                fairness. Nobody is pretending otherwise.
+                I’m Ben. I grew up just outside Sennen, near the cliffs at
+                Land’s End, and I now live in Amsterdam, which as far as I can
+                tell has zero cliffs and not many hills either. Building a map
+                of the Cornish coast from somewhere that flat is probably a bit
+                ridiculous. But it’s an honest reason for a site to exist: it
+                keeps a line open to home, and it scratches an itch for the
+                kind of nature I only really appreciated once I didn’t have it
+                on my doorstep anymore.
               </p>
               <p>
-                What kept it going was the coast. Once you have run out towards
-                Land’s End at seven in the morning with the sea doing something
-                ridiculous below you, the pub is still fine — it is just no
-                longer the best thing available on a weekend. That is not a moral
-                position, and we are not going to lecture anybody about how they
-                spend their evenings. It is just what happened to us.
+                I’ve always run, on and off, but it only became a proper habit
+                about three years ago, which, if the rest of the internet is
+                anything to go by, is roughly when most of us in our thirties
+                discovered running. A few of us from home ended up doing the
+                same thing at the same time, and that’s more or less how PZ
+                (x) RC started: a group of friends using running as an excuse
+                to stay in touch and get outside on the coast, some of us
+                taking it more seriously than others. The full name is PZ (x)
+                Wasters RC. It’s a nod to the fact that most of us have simply
+                swapped nights out for early mornings on the cliffs. Some of
+                the time, anyway.
               </p>
-
-              <h2 className="pt-6 text-3xl">Where the name comes from</h2>
               <p>
-                It is a joke about who we used to be, and we have kept it because
-                it stops anyone taking us too seriously. Including us. If you
-                turn up to a club run expecting a lecture on lactate threshold,
-                you will be disappointed. If you turn up expecting to be told
-                where the good chips are, you are in the right place.
+                The other reason this exists is the coast path itself. It’s
+                officially the King Charles III England Coast Path now, and
+                it’s apparently the longest managed coastal path in the world.
+                2,700 miles, continuous, and ours to use. I’ve been to plenty
+                of places where the best bits of coastline sit behind a fence
+                or a hotel. We don’t have that problem here, and I don’t think
+                enough people clock how lucky that is. Some of the Cornish
+                stretches on this tracker are genuinely among the most
+                beautiful coastline anywhere, and you don’t need permission to
+                run on any of them.
               </p>
-
-              <h2 className="pt-6 text-3xl">Who is writing this</h2>
               <p>
-                Mostly Benjamin, who grew up just outside Sennen, near Land’s
-                End, and now lives in Amsterdam. Building a map of the Cornish
-                coast from a country with no cliffs in it is either very sensible
-                or slightly ridiculous, and the jury is still out — but it is an
-                honest reason for a site to exist: keeping a line open to home.
-                The 2027{' '}
+                Personally, I’m mid-comeback. The Classic Quarter (Lizard
+                Point to Land’s End) was meant to be my first ultra in 2026,
+                and I’d wanted to run it for years: it goes straight through
+                Penzance and Newlyn, where I spent my teens and where my
+                family still live, and finishes at Land’s End, where I grew
+                up. A route built out of my own childhood, more or less. Six
+                weeks out, my back went. Four months where I could barely
+                walk, let alone run. I’m hoping to complete a lot of the coast
+                myself in the build-up to the{' '}
                 <Link href="/events" className="text-red-bright hover:text-paper">
                   Classic Quarter
-                </Link>{' '}
-                is the thing at the end of it, after a back injury took out the
-                2026 attempt. That story is{' '}
-                <Link
-                  href="/stories/the-ultra-i-did-not-run"
-                  className="text-red-bright hover:text-paper"
-                >
-                  written up here
                 </Link>
-                .
+                , still a long way off. Another excuse to visit home.
               </p>
 
               <h2 className="pt-6 text-3xl">Why we built this site</h2>
