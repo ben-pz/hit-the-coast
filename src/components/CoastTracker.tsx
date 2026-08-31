@@ -167,12 +167,26 @@ export function CoastTracker({ compact = false }: { compact?: boolean }) {
             const complete = areaDone === areaTotal;
 
             return (
-              <section key={group.area} className="mt-12">
-                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line pb-3">
-                  <h2 className="text-2xl">
+              <details key={group.area} open className="group mt-12">
+                <summary className="flex cursor-pointer list-none flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line pb-3 [&::-webkit-details-marker]:hidden">
+                  <h2 className="flex items-center gap-2.5 text-2xl">
+                    <svg
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      aria-hidden="true"
+                      className="h-4 w-4 shrink-0 text-mute transition-transform duration-200 group-open:rotate-90"
+                    >
+                      <path
+                        d="M6 4l4 4-4 4"
+                        stroke="currentColor"
+                        strokeWidth="1.75"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
                     {group.area}
                     {complete ? (
-                      <span className="ml-3 align-middle text-base text-red">
+                      <span className="align-middle text-base text-red">
                         ✦ complete
                       </span>
                     ) : null}
@@ -181,7 +195,7 @@ export function CoastTracker({ compact = false }: { compact?: boolean }) {
                     {areaDone % 1 === 0 ? areaDone : areaDone.toFixed(1)} /{' '}
                     {areaTotal} miles
                   </p>
-                </div>
+                </summary>
 
                 <ul className="divide-y divide-line border-b border-line">
                   {group.visible.map((segment) => (
@@ -193,7 +207,7 @@ export function CoastTracker({ compact = false }: { compact?: boolean }) {
                     />
                   ))}
                 </ul>
-              </section>
+              </details>
             );
           })}
 
