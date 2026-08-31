@@ -214,7 +214,7 @@ export const articles: Article[] = [
     readingMinutes: 6,
     image: '/images/stories/the-ultra-i-did-not-run.webp',
     imageAlt:
-      'A runner sitting against a granite South West Coast Path waymarker, sea and cliffs behind, stretching out one leg',
+      'Placeholder photo: the Cornish coast path along granite cliffs, overlooking a turquoise bay and a rocky headland',
     featured: true,
     containsAffiliateLinks: false,
     body: [
