@@ -156,6 +156,29 @@ export const events: CoastalEvent[] = [
     priceGBP: 52,
     verified: true,
   },
+  {
+    // Checked against bysvykenevents.com/fsm, 2 September 2026.
+    id: 'fordh-sen-mighal',
+    name: 'Fordh Sen Mighal',
+    date: '2026-12-05',
+    location: 'Lelant to Marazion, Cornwall',
+    region: 'Cornwall',
+    type: 'Trail race',
+    distanceKm: 18,
+    distanceLabel: '11 miles',
+    description:
+      'Point to point along the European cultural route from Lelant to Marazion, taking in Trencrom, Ludgvan and more along the way. Registration at St Uny’s Church in Lelant from 8am, 10am start, five-hour cutoff. Multi-terrain underfoot throughout.',
+    organiser: 'Bys Vyken Events',
+    url: 'https://www.bysvykenevents.com/fsm',
+    image: '/images/events/fordh-sen-mighal.webp',
+    imageAlt:
+      'A knight in a black cloak raising a sword on granite rocks on the Cornish moor',
+    featured: false,
+    ticketStatus: 'Entries open',
+    priceGBP: 32,
+    offerValidFrom: '2026-09-01',
+    verified: true,
+  },
 ];
 
 export function distanceCategoryOf(event: CoastalEvent): DistanceCategory {
