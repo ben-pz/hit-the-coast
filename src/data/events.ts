@@ -179,6 +179,29 @@ export const events: CoastalEvent[] = [
     offerValidFrom: '2026-09-01',
     verified: true,
   },
+  {
+    // Checked against endurancelife.com/north-cornwall, 2 September 2026.
+    id: 'north-cornwall',
+    name: 'North Cornwall',
+    date: '2027-01-09',
+    location: 'Polzeath, North Cornwall',
+    region: 'Cornwall',
+    type: 'Trail race',
+    distanceKm: 51,
+    distanceLabel: '10K · Half Marathon · Marathon · Ultra',
+    elevationM: 1999,
+    description:
+      'Starts and finishes on Polzeath beach, heading north-east around the Pentire Peninsula through unspoilt coastline, fishing villages and valleys. Four distances on the day: 10K, half marathon, marathon and ultra. The ultra covers 31.4 miles with 6,558 feet of climbing over trail, sand, rock and grass, classified by Endurancelife as severe terrain.',
+    organiser: 'Endurancelife',
+    url: 'https://www.endurancelife.com/north-cornwall',
+    image: '/images/events/north-cornwall.webp',
+    imageAlt:
+      'An aerial view of a fenced coast path winding along cliffs near Pentire Point, a rocky headland and blue sea beyond',
+    featured: false,
+    ticketStatus: 'Entries open',
+    priceGBP: 71,
+    verified: true,
+  },
 ];
 
 export function distanceCategoryOf(event: CoastalEvent): DistanceCategory {
