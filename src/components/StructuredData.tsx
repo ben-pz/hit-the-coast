@@ -8,12 +8,12 @@ import { siteConfig } from '@/config/site';
  * sample content, and publishing sample dates and locations as machine-readable
  * facts would push them into search results as though they were confirmed.
  *
- * We do not record a numeric entry price per event (ticketStatus is the only
- * thing we track and verify), so `offers` deliberately omits `price` and
- * `priceCurrency` rather than guessing a figure — availability and the entry
- * link are still real, verified fields. Likewise there is no `performer`:
- * these are open-entry races with no fixed competitor or act to name, and
- * schema.org has nothing honest to put there.
+ * `price` and `validFrom` on `offers` only appear when `priceGBP` /
+ * `offerValidFrom` are set on the event — several of these races price by
+ * tier, or don't publish a single clear number or date at all, and a wrong
+ * figure in search results is worse than a missing one. Likewise there is no
+ * `performer`: these are open-entry races with no fixed competitor or act to
+ * name, and schema.org has nothing honest to put there.
  */
 const availabilityFor: Record<(typeof events)[number]['ticketStatus'], string> =
   {
@@ -62,6 +62,10 @@ export function StructuredData() {
         '@type': 'Offer',
         url: event.url,
         availability: availabilityFor[event.ticketStatus],
+        ...(event.priceGBP != null
+          ? { price: event.priceGBP, priceCurrency: 'GBP' }
+          : {}),
+        ...(event.offerValidFrom ? { validFrom: event.offerValidFrom } : {}),
       },
     }));
 

@@ -30,6 +30,16 @@ export type CoastalEvent = {
   featured: boolean;
   ticketStatus: TicketStatus;
   /**
+   * Standard entry price for the primary distance (see `distanceLabel`),
+   * in GBP. Leave unset rather than guessing — several of these events price
+   * by tier (early bird, multi-event discount, fundraiser) or don't publish
+   * a price on their own page at all, and a wrong number in search results
+   * is worse than a missing one.
+   */
+  priceGBP?: number;
+  /** ISO date entries opened, where the organiser states one unambiguously. */
+  offerValidFrom?: string;
+  /**
    * VERIFICATION FLAG.
    *
    * Set to true only when the date, distance and entry link have been checked
@@ -91,6 +101,9 @@ export const events: CoastalEvent[] = [
       'A group of runners packed together on the start line at St Just before Classic Jack, in low winter sun',
     featured: true,
     ticketStatus: 'Entries not yet open',
+    // No priceGBP: Classic Jack shows two prices (£40 and £43) with nothing
+    // on the page explaining the difference, so we are not guessing which.
+    offerValidFrom: '2026-11-01',
     verified: true,
   },
   {
@@ -113,6 +126,11 @@ export const events: CoastalEvent[] = [
       'A runner adjusting a sleeve on an exposed cliff path, hair blown sideways, sea and headland behind',
     featured: true,
     ticketStatus: 'Entries open',
+    // Standard solo entry — the flagship distance in distanceLabel. Pair and
+    // team-of-four cost more, and there are separate multi-event-discount
+    // and fundraiser rates; this is the plain single-race price everyone
+    // else pays.
+    priceGBP: 100,
     verified: true,
   },
   {
@@ -133,6 +151,9 @@ export const events: CoastalEvent[] = [
     imageAlt: 'A lighthouse on the Cornish coast, on the Lighthouse Marathon & Ultra route',
     featured: false,
     ticketStatus: 'Entries open',
+    // £52, reduced from £65 — no date given for when that discount started
+    // or ends, so no offerValidFrom.
+    priceGBP: 52,
     verified: true,
   },
 ];
