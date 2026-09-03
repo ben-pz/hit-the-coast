@@ -167,7 +167,7 @@ export function CoastTracker({ compact = false }: { compact?: boolean }) {
             const complete = areaDone === areaTotal;
 
             return (
-              <details key={group.area} open className="group mt-12">
+              <details key={group.area} className="group mt-12">
                 <summary className="flex cursor-pointer list-none flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line pb-3 [&::-webkit-details-marker]:hidden">
                   <h2 className="flex items-center gap-2.5 text-2xl">
                     <svg
