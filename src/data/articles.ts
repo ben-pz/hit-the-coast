@@ -120,7 +120,7 @@ export const articles: Article[] = [
     excerpt:
       'A few mates swapped the occasional boozy night for an early-morning run. More people joined, the distances got longer and things got slightly out of hand.',
     author: 'Hit the Coast',
-    date: '2026-07-22',
+    date: '2026-08-25',
     readingMinutes: 4,
     image: '/images/stories/how-pzx-wasters-started.webp',
     imageAlt:
