@@ -158,22 +158,25 @@ export default function HomePage() {
             <div>
               <span className="label text-red-deep">Who this is for</span>
               <h2 className="mt-5 text-4xl sm:text-5xl">
-                Four miles counts just as much as forty.
+                Four miles count just as much as forty.
               </h2>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-mute-dark">
-                Covering the whole Cornish coast takes most people years, and
-                every single mile of it counts the same whether you ran it or
-                walked the steep bits. There is no clock. That is the point.
+                Whether you run, walk or do a bit of both, every mile along
+                the Cornish coast counts. Choose a section, track the ground
+                you have covered and gradually join the whole route
+                together, at your own pace and in your own time.
+              </p>
+              <p className="mt-4 max-w-xl text-lg leading-relaxed text-mute-dark">
+                Explore coastal races and events, discover new routes and,
+                coming soon, find practical tips and recommendations from
+                the people and businesses that know the coast best.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <ButtonLink
-                  href="/stories/first-coast-path-run-nine-things"
-                  variant="onPaper"
-                >
-                  Start here if you’re new
+                <ButtonLink href="/coast" variant="onPaper">
+                  Explore the coast
                 </ButtonLink>
                 <Link
-                  href="/coast"
+                  href="/stories/first-coast-path-run-nine-things"
                   className="label self-center text-red-deep hover:text-ink"
                 >
                   Find your first segment →
@@ -184,20 +187,20 @@ export default function HomePage() {
             <div className="grid gap-4 sm:grid-cols-2">
               {[
                 {
-                  title: 'Never run off-road',
-                  body: 'Hayle to St Ives is six miles, both ends on the railway line. Start there.',
+                  title: 'New to the coast path?',
+                  body: 'Start with a manageable section and build from there. We will help you find your first route.',
                 },
                 {
-                  title: 'Road runner, curious',
-                  body: 'Expect your pace to fall off a cliff, not your fitness. Ascent is the number that matters.',
+                  title: 'Road runner, coast curious?',
+                  body: 'Forget your usual pace. On the coast, elevation, terrain and the view matter far more than the clock.',
                 },
                 {
-                  title: 'Chasing something big',
-                  body: 'Forty-five segments and 294 miles. Nobody has done the lot yet.',
+                  title: 'Chasing something big?',
+                  body: 'Take on all 45 segments and 294 miles, tracking your progress as you work your way around the Cornish coast.',
                 },
                 {
-                  title: 'Just want company',
-                  body: 'Half the segments are better with someone to talk to. Pick one, send it to a mate, compare notes afterwards.',
+                  title: 'Looking for your next challenge?',
+                  body: 'Discover races, organised runs and other events taking place along the coast.',
                 },
               ].map((item) => (
                 <div
