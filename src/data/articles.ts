@@ -118,7 +118,7 @@ export const articles: Article[] = [
     title: 'How PZ×RC started, more or less',
     category: 'Club story',
     excerpt:
-      'Nobody set out to found a running club. It began with a group of mates in Penzance, a shared love of the coast path, and a need to put something in the space where the big nights used to be.',
+      'A few mates swapped the occasional boozy night for an early-morning run. More people joined, the distances got longer and things got slightly out of hand.',
     author: 'Hit the Coast',
     date: '2026-07-22',
     readingMinutes: 4,
@@ -130,37 +130,29 @@ export const articles: Article[] = [
     body: [
       {
         type: 'paragraph',
-        text: 'There was no founding meeting. There was a group of mates in Penzance who had spent a long time being very good at Friday nights and rather less good at Saturday mornings, and who worked out \u2014 slowly, and not all at once \u2014 that running the coast path together was better than the alternative.',
+        text: 'There was no founding meeting or grand plan. PZ×RC started with a group of mates around Penzance who enjoyed running together, especially when it involved the coast path.',
       },
       {
         type: 'paragraph',
-        text: 'That is genuinely the whole origin story. A shared love of the path, and a need to put something in the space where the big nights used to be. With the odd big night still chucked in, in fairness. Nobody has ever pretended otherwise.',
+        text: 'Gradually, the group grew. Friends brought friends, new friendships formed and running became a regular reason to get together. The pub was never abandoned entirely; it just gained some competition.',
       },
+      { type: 'heading', text: 'From casual runs to questionable decisions' },
       {
-        type: 'quote',
-        text: 'We started running for better mornings and stayed for the cliffs, the weather and the people.',
+        type: 'paragraph',
+        text: 'Some of the group have completed 100-mile races. Others take things at a more sensible pace. Most have entered an ultra, got carried away during training and then spent more time discussing injuries than actually racing.',
       },
       {
         type: 'paragraph',
-        text: 'The coast did the rest. Once you have run out to Land’s End at seven in the morning with the sea doing something ridiculous below you, the pub is still fine, but it is no longer the best thing available on a weekend. That is not a moral position. It is just what happened.',
+        text: 'There are no membership forms, subscriptions or fixed club nights. It is simply a group of friends who live in the same area and share a love of running, getting outdoors and occasionally taking on something far more ambitious than originally planned.',
       },
-      { type: 'heading', text: 'What we are now' },
+      { type: 'heading', text: 'From PZ×RC to Hit the Coast' },
       {
         type: 'paragraph',
-        text: 'No fixed club night, no membership form, no subs. Some of us race ultras. Some of us have never run further than 5K and have no plans to. Both are entirely the point.',
-      },
-      {
-        type: 'paragraph',
-        text: 'The name is a joke about who we used to be. We have kept it because it stops anyone taking us too seriously, including us.',
-      },
-      { type: 'heading', text: 'Why we built this site' },
-      {
-        type: 'paragraph',
-        text: 'Because finding a coastal race in England is still stupidly hard. The information is scattered across a dozen organiser sites, half of them last updated in 2019. And because the good beginner-friendly social runs — the ones that actually get people outdoors — are almost invisible next to the ultras.',
+        text: 'PZ×RC is what inspired Hit the Coast. It showed me how running can build a community, create new friendships and give people a reason to explore more of the coastline around them.',
       },
       {
         type: 'paragraph',
-        text: 'So: one place. Races, club runs, routes, and honest writing about the kit. Starting in Cornwall because that is where we know, and heading round the coast from there.',
+        text: 'This site is an attempt to share that feeling and help more people discover the coast path, one stretch at a time.',
       },
     ],
   },

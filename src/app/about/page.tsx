@@ -67,6 +67,20 @@ export default function AboutPage() {
                 water stops, terrain and the weather conditions to watch out
                 for.
               </p>
+
+              <h2 className="pt-6 text-3xl">
+                From {siteConfig.clubName} to Hit the Coast
+              </h2>
+              <p>
+                {siteConfig.clubName} is what inspired Hit the Coast. It showed
+                me how running can build a community, create new friendships
+                and give people a reason to explore more of the coastline
+                around them.
+              </p>
+              <p>
+                This site is an attempt to share that feeling and help more
+                people discover the coast path, one stretch at a time.
+              </p>
               <p>
                 Know your stretch of coast? Organise an event?{' '}
                 <a
