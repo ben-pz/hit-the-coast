@@ -2,7 +2,7 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { Container } from '@/components/Container';
 import { PageHeader } from '@/components/PageHeader';
-import { ButtonLink, Callout, DataList, SectionHeader } from '@/components/ui';
+import { ButtonLink, Callout, DataList } from '@/components/ui';
 import { NewsletterForm } from '@/components/NewsletterForm';
 import { siteConfig } from '@/config/site';
 
@@ -17,25 +17,6 @@ export const metadata: Metadata = {
     url: '/about',
   },
 };
-
-const principles = [
-  {
-    title: 'Nobody gets dropped',
-    body: 'When we run together the faster ones loop back. It is not a race. Some of us are quite bad at this and intend to stay that way.',
-  },
-  {
-    title: 'Honest before impressive',
-    body: 'If a route is horrible in February we say so. If a jacket leaked we say that too. Being useful matters more than being aspirational.',
-  },
-  {
-    title: 'Beginners are the point',
-    body: 'Ultras get all the attention. The runs that change people’s lives are usually a friendly 5K somewhere beautiful with someone to talk to.',
-  },
-  {
-    title: 'Respect the coast',
-    body: 'Cliffs, tides and weather do not care how fit you are. We would rather write a boring safety note than a memorial.',
-  },
-];
 
 export default function AboutPage() {
   return (
@@ -135,26 +116,6 @@ export default function AboutPage() {
           </div>
 
           <div className="mt-20 border-t border-line pt-16">
-            <SectionHeader
-              eyebrow="How we do things"
-              title="Four things we try to get right"
-            />
-            <div className="grid gap-6 sm:grid-cols-2">
-              {principles.map((item) => (
-                <div
-                  key={item.title}
-                  className="border border-line bg-ink-800 p-6"
-                >
-                  <h3 className="text-xl text-red-bright">{item.title}</h3>
-                  <p className="mt-3 text-base leading-relaxed text-mute">
-                    {item.body}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-16">
             <Callout title="What this site is not, yet">
               <p>
                 There is no ticketing, no membership system and no shop. Events,

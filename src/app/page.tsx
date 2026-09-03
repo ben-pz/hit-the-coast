@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { Container } from '@/components/Container';
-import { ButtonLink, Callout, SectionHeader, Tag } from '@/components/ui';
+import { ButtonLink, Callout, SectionHeader } from '@/components/ui';
 import { CoastTracker } from '@/components/CoastTracker';
 import { ArticleCard, EventCard } from '@/components/cards';
 import { NewsletterForm } from '@/components/NewsletterForm';
@@ -231,49 +231,6 @@ export default function HomePage() {
             {upcoming.map((event) => (
               <EventCard key={event.id} event={event} />
             ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* -------------------------------------------------------- The story */}
-      <section className="border-t border-line py-20">
-        <Container width="wide">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            <div className="relative aspect-[4/3] border border-line">
-              <Image
-                src="/images/brand/about-club-portrait.webp"
-                alt="Three PZ×RC runners climbing coast-path steps in fancy dress \u2014 one in a Santa suit, one in a three-piece suit"
-                fill
-                sizes="(min-width: 1024px) 560px, 100vw"
-                className="object-cover"
-              />
-            </div>
-            <div>
-              <span className="label text-red">The club</span>
-              <h2 className="mt-5 text-4xl">
-                We started running for better mornings.
-              </h2>
-              <div className="mt-6 space-y-4 text-base leading-relaxed text-mute">
-                <p>
-                  The {siteConfig.clubName} began with a group of mates in
-                  Penzance who worked out, slowly, that running the coast path
-                  together beat the alternative — and who needed something to
-                  put in the space where the big nights used to be.
-                </p>
-                <p>
-                  We went anyway, and the coast did the rest. We built the
-                  tracker because we wanted to know how much of it we had
-                  actually done — and then realised everyone else would want to
-                  know too.
-                </p>
-              </div>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <ButtonLink href="/about" variant="secondary">
-                  Read the full story
-                </ButtonLink>
-                <Tag>Penzance, Cornwall</Tag>
-              </div>
-            </div>
           </div>
         </Container>
       </section>
