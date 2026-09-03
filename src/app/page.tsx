@@ -61,10 +61,13 @@ export default function HomePage() {
             </h1>
 
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-paper/85 sm:text-xl">
-              England’s coast path, broken into {segmentCount} runnable
-              segments. Tick them off one at a time and watch your map fill in —
-              {' '}{roundedMiles} miles of Cornwall to start, the rest of the
-              country to follow.
+              Cornwall’s coast path, divided into {segmentCount} segments.
+            </p>
+            <p className="mt-4 max-w-xl text-lg leading-relaxed text-paper/85 sm:text-xl">
+              Complete them in your own time or find a coastal event that
+              helps you tick off part of the route. Track every segment and
+              watch your map fill in: {roundedMiles} miles of Cornwall to
+              start, with the rest of England to follow.
             </p>
 
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
