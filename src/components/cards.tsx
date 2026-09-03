@@ -19,16 +19,28 @@ function CardArt({
   priority = false,
   sizes = '(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw',
 }: {
-  src: string;
-  alt: string;
+  src?: string;
+  alt?: string;
   priority?: boolean;
   sizes?: string;
 }) {
+  if (!src) {
+    return (
+      <div className="relative flex aspect-[3/2] items-center justify-center overflow-hidden bg-ink-800">
+        <div
+          className="contours pointer-events-none absolute inset-0 opacity-60"
+          aria-hidden="true"
+        />
+        <span className="label relative text-mute">Photo coming soon</span>
+      </div>
+    );
+  }
+
   return (
     <div className="relative aspect-[3/2] overflow-hidden bg-ink-800">
       <Image
         src={src}
-        alt={alt}
+        alt={alt ?? ''}
         fill
         sizes={sizes}
         priority={priority}

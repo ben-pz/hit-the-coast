@@ -25,8 +25,9 @@ export type CoastalEvent = {
   organiser: string;
   /** External entry / info page. */
   url: string;
-  image: string;
-  imageAlt: string;
+  /** Leave unset rather than using a stock or unrelated photo. */
+  image?: string;
+  imageAlt?: string;
   featured: boolean;
   ticketStatus: TicketStatus;
   /**
@@ -200,6 +201,146 @@ export const events: CoastalEvent[] = [
     featured: false,
     ticketStatus: 'Entries open',
     priceGBP: 71,
+    verified: true,
+  },
+  {
+    // Checked against endurancelife.com/dorset, 3 September 2026.
+    id: 'dorset',
+    name: 'Dorset',
+    date: '2026-12-05',
+    location: 'Swanage, Dorset',
+    region: 'Dorset & the Jurassic Coast',
+    type: 'Trail race',
+    distanceKm: 52,
+    distanceLabel: '10K · Half Marathon · Marathon · Ultra',
+    elevationM: 1346,
+    description:
+      'Part of the Endurancelife Coastal Trail Series, following the Jurassic Coast Path, a UNESCO World Heritage site, out from Swanage. Four distances on the day: 10K, half marathon, marathon and ultra. The ultra covers 32.3 miles with 4,416 feet of climbing over trail and grass, with the sea in view for most of it. Marathon and ultra distances count as UTMB qualifiers.',
+    organiser: 'Endurancelife',
+    url: 'https://www.endurancelife.com/dorset',
+    featured: false,
+    ticketStatus: 'Entries open',
+    priceGBP: 71,
+    verified: true,
+  },
+  {
+    // Checked against endurancelife.com/south-devon, 3 September 2026.
+    id: 'south-devon',
+    name: 'South Devon',
+    date: '2027-01-23',
+    location: 'Beesands, South Devon',
+    region: 'Devon',
+    type: 'Trail race',
+    distanceKm: 54,
+    distanceLabel: '10K · Half Marathon · Marathon · Ultra',
+    elevationM: 1645,
+    description:
+      'Coastal Trail Series race through an Area of Outstanding Natural Beauty around Beesands, starting on sandy coves and rocky shoreline before turning inland into the Devon hills. Four distances: 10K, half marathon, marathon and ultra. The ultra runs 33.8 miles with 5,397 feet of climbing over grass and rock, classified as severe terrain. Marathon and ultra count as UTMB qualifiers.',
+    organiser: 'Endurancelife',
+    url: 'https://www.endurancelife.com/south-devon',
+    featured: false,
+    ticketStatus: 'Entries open',
+    priceGBP: 71,
+    verified: true,
+  },
+  {
+    // Checked against endurancelife.com/northumberland, 3 September 2026.
+    id: 'northumberland',
+    name: 'Northumberland',
+    date: '2027-02-20',
+    location: 'Bamburgh, Northumberland',
+    region: 'Northumberland & the North East',
+    type: 'Trail race',
+    distanceKm: 58,
+    distanceLabel: '10K · Half Marathon · Marathon · Ultra',
+    elevationM: 497,
+    description:
+      'A linear Coastal Trail Series course past Bamburgh Castle, over sweeping sandy beaches, rolling dunes and isolated islands, the flattest race in the series and classified as moderate terrain. Four distances: 10K, half marathon, marathon and ultra. The ultra covers 36.1 miles with 1,631 feet of climbing. Marathon and ultra count as UTMB qualifiers.',
+    organiser: 'Endurancelife',
+    url: 'https://www.endurancelife.com/northumberland',
+    featured: false,
+    ticketStatus: 'Entries open',
+    priceGBP: 71,
+    verified: true,
+  },
+  {
+    // Checked against endurancelife.com/sussex, 3 September 2026.
+    id: 'sussex',
+    name: 'Sussex',
+    date: '2027-03-06',
+    location: 'Eastbourne, Sussex',
+    region: 'Sussex, Kent & the South East',
+    type: 'Trail race',
+    distanceKm: 52,
+    distanceLabel: '10K · Half Marathon · Marathon · Ultra',
+    elevationM: 1605,
+    description:
+      'Coastal Trail Series race from Eastbourne over the Seven Sisters chalk cliffs and the South Downs, with English Channel views the length of the course. Four distances: 10K, half marathon, marathon and ultra. The ultra covers 32.5 miles with 5,266 feet of climbing over chalk and forest. Marathon and ultra count as UTMB qualifiers.',
+    organiser: 'Endurancelife',
+    url: 'https://www.endurancelife.com/sussex',
+    featured: false,
+    ticketStatus: 'Entries open',
+    priceGBP: 71,
+    verified: true,
+  },
+  {
+    // Checked against endurancelife.com/exmoor, 3 September 2026.
+    id: 'exmoor',
+    name: 'Exmoor',
+    date: '2027-05-08',
+    location: 'Martinhoe, Exmoor',
+    region: 'Devon',
+    type: 'Trail race',
+    distanceKm: 51,
+    distanceLabel: '10K · Half Marathon · Marathon · Ultra',
+    elevationM: 2068,
+    description:
+      'Widely reckoned the toughest race in the Coastal Trail Series: stiff climbs and long descents through open moorland and wooded combes, past historical ruins and dizzying cliffs above Martinhoe. Four distances: 10K, half marathon, marathon and ultra. The ultra covers 31.8 miles with 6,785 feet of climbing, more ascent than any other race in the series over a shorter distance. Marathon and ultra count as UTMB qualifiers.',
+    organiser: 'Endurancelife',
+    url: 'https://www.endurancelife.com/exmoor',
+    featured: false,
+    ticketStatus: 'Entries open',
+    priceGBP: 71,
+    verified: true,
+  },
+  {
+    // Checked against bysvykenevents.com/hell, 3 September 2026.
+    id: 'run-like-hell',
+    name: 'Run Like Hell',
+    date: '2027-04-17',
+    location: 'Portreath, Cornwall',
+    region: 'Cornwall',
+    type: 'Trail race',
+    distanceKm: 15,
+    distanceLabel: '9.5 miles',
+    description:
+      'An out-and-back trail race along the rugged north Cornwall cliffs from Portreath Beach, on a well-maintained multi-terrain footpath. 10am start, registration from 8am, three-hour cutoff. A discounted entry is offered to anyone who cycles or runs to the start. Entries open 1 January 2027.',
+    organiser: 'Bys Vyken Events',
+    url: 'https://www.bysvykenevents.com/hell',
+    featured: false,
+    ticketStatus: 'Entries not yet open',
+    priceGBP: 21,
+    offerValidFrom: '2027-01-01',
+    verified: true,
+  },
+  {
+    // Checked against bysvykenevents.com/bownder, 3 September 2026.
+    id: 'penn-an-wlas',
+    name: 'Penn An Wlas',
+    date: '2027-07-11',
+    location: 'Land’s End, Cornwall',
+    region: 'Cornwall',
+    type: 'Trail race',
+    distanceKm: 16,
+    distanceLabel: '9.7 miles',
+    description:
+      'A one-loop, roughly 10-mile multi-terrain race starting and finishing at Land’s End. The route heads out through Sennen Cove and Gwynver, turns inland via Sennen, Bottoms and Polgigga, then returns along the coast path via Nanjizal: road, grass and gravel track, with a few genuine hills. Entries opened 1 March 2026 and close two weeks before the race.',
+    organiser: 'Bys Vyken Events',
+    url: 'https://www.bysvykenevents.com/bownder',
+    featured: false,
+    ticketStatus: 'Entries open',
+    priceGBP: 24,
+    offerValidFrom: '2026-03-01',
     verified: true,
   },
 ];

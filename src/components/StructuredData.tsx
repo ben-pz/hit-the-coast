@@ -41,7 +41,7 @@ export function StructuredData() {
       endDate: event.endDate ?? event.date,
       description: event.description,
       url: event.url,
-      image: `${base}${event.image}`,
+      ...(event.image ? { image: `${base}${event.image}` } : {}),
       eventStatus: 'https://schema.org/EventScheduled',
       eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
       location: {
