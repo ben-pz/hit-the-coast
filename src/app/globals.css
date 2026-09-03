@@ -153,6 +153,21 @@
     );
   }
 
+  /* Soft-edged paper section: fades in from ink above and out to ink below,
+     instead of a hard colour cut. Holds at paper-dim (not paper) so the
+     jump from the dark sections either side is gentler — paper-dim still
+     keeps mute-dark text just inside AA contrast (~4.5:1), so don't mute
+     the flat middle any further without also changing that text colour. */
+  .fade-into-paper {
+    background-image: linear-gradient(
+      to bottom,
+      var(--color-ink-800) 0,
+      var(--color-paper-dim) 6rem,
+      var(--color-paper-dim) calc(100% - 6rem),
+      var(--color-ink) 100%
+    );
+  }
+
   /* Tactile lift used on cards and tiles. */
   .lift {
     transition:

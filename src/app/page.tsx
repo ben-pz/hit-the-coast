@@ -155,7 +155,7 @@ export default function HomePage() {
       </section>
 
       {/* ------------------------------------------------- Everyone welcome */}
-      <section className="bg-paper py-20 text-ink">
+      <section className="fade-into-paper py-20 text-ink">
         <Container width="wide">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div>
@@ -208,7 +208,7 @@ export default function HomePage() {
               ].map((item) => (
                 <div
                   key={item.title}
-                  className="border border-paper-line bg-paper-dim p-5"
+                  className="border border-paper-line bg-paper p-5"
                 >
                   <h3 className="text-base">{item.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-mute-dark">
