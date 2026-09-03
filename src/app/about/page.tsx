@@ -82,7 +82,7 @@ export default function AboutPage() {
               <div className="relative aspect-[4/5] border border-line">
                 <Image
                   src="/images/brand/about-club-portrait.webp"
-                  alt="Three PZ×RC runners climbing coast-path steps in fancy dress \u2014 one in a Santa suit, one in a three-piece suit"
+                  alt="Three PZ×RC runners taking a selfie on coast-path steps in fancy dress, two in Santa suits and one in a three-piece suit"
                   fill
                   priority
                   sizes="(min-width: 1024px) 380px, 100vw"
@@ -91,13 +91,23 @@ export default function AboutPage() {
               </div>
 
               <div>
-                <h2 className="label mb-4 text-red">The club, in numbers</h2>
+                <h2 className="label mb-4 text-red">
+                  {siteConfig.clubName} — The club, in numbers
+                </h2>
                 <DataList
                   items={[
                     { label: 'Based', value: siteConfig.basedIn },
-                    { label: 'Coast covered', value: 'Cornwall, 45 segments' },
-                    { label: 'Runs', value: 'Whenever the weather allows' },
-                    { label: 'Cost', value: 'Free' },
+                    {
+                      label: 'Coast covered',
+                      value: 'Cornwall, 45 segments and counting',
+                    },
+                    { label: 'Runs', value: 'Whenever, whatever the weather' },
+                    {
+                      label: 'Membership',
+                      value: 'Mates, friends of mates and anyone willing',
+                    },
+                    { label: 'Pace', value: 'Depends who turns up' },
+                    { label: 'Cost', value: 'Free, obviously' },
                   ]}
                 />
                 <p className="mt-4 text-xs leading-relaxed text-mute">
