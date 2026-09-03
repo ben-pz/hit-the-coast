@@ -218,6 +218,9 @@ export const events: CoastalEvent[] = [
       'Part of the Endurancelife Coastal Trail Series, following the Jurassic Coast Path, a UNESCO World Heritage site, out from Swanage. Four distances on the day: 10K, half marathon, marathon and ultra. The ultra covers 32.3 miles with 4,416 feet of climbing over trail and grass, with the sea in view for most of it. Marathon and ultra distances count as UTMB qualifiers.',
     organiser: 'Endurancelife',
     url: 'https://www.endurancelife.com/dorset',
+    image: '/images/events/dorset.svg',
+    imageAlt:
+      'Placeholder artwork: an abstract coastal contour map with a marked route',
     featured: false,
     ticketStatus: 'Entries open',
     priceGBP: 71,
@@ -238,6 +241,9 @@ export const events: CoastalEvent[] = [
       'Coastal Trail Series race through an Area of Outstanding Natural Beauty around Beesands, starting on sandy coves and rocky shoreline before turning inland into the Devon hills. Four distances: 10K, half marathon, marathon and ultra. The ultra runs 33.8 miles with 5,397 feet of climbing over grass and rock, classified as severe terrain. Marathon and ultra count as UTMB qualifiers.',
     organiser: 'Endurancelife',
     url: 'https://www.endurancelife.com/south-devon',
+    image: '/images/events/south-devon.svg',
+    imageAlt:
+      'Placeholder artwork: an abstract coastal contour map with a marked route',
     featured: false,
     ticketStatus: 'Entries open',
     priceGBP: 71,
@@ -258,6 +264,9 @@ export const events: CoastalEvent[] = [
       'A linear Coastal Trail Series course past Bamburgh Castle, over sweeping sandy beaches, rolling dunes and isolated islands, the flattest race in the series and classified as moderate terrain. Four distances: 10K, half marathon, marathon and ultra. The ultra covers 36.1 miles with 1,631 feet of climbing. Marathon and ultra count as UTMB qualifiers.',
     organiser: 'Endurancelife',
     url: 'https://www.endurancelife.com/northumberland',
+    image: '/images/events/northumberland.svg',
+    imageAlt:
+      'Placeholder artwork: an abstract coastal contour map with a marked route',
     featured: false,
     ticketStatus: 'Entries open',
     priceGBP: 71,
@@ -278,6 +287,9 @@ export const events: CoastalEvent[] = [
       'Coastal Trail Series race from Eastbourne over the Seven Sisters chalk cliffs and the South Downs, with English Channel views the length of the course. Four distances: 10K, half marathon, marathon and ultra. The ultra covers 32.5 miles with 5,266 feet of climbing over chalk and forest. Marathon and ultra count as UTMB qualifiers.',
     organiser: 'Endurancelife',
     url: 'https://www.endurancelife.com/sussex',
+    image: '/images/events/sussex.svg',
+    imageAlt:
+      'Placeholder artwork: an abstract coastal contour map with a marked route',
     featured: false,
     ticketStatus: 'Entries open',
     priceGBP: 71,
@@ -298,6 +310,9 @@ export const events: CoastalEvent[] = [
       'Widely reckoned the toughest race in the Coastal Trail Series: stiff climbs and long descents through open moorland and wooded combes, past historical ruins and dizzying cliffs above Martinhoe. Four distances: 10K, half marathon, marathon and ultra. The ultra covers 31.8 miles with 6,785 feet of climbing, more ascent than any other race in the series over a shorter distance. Marathon and ultra count as UTMB qualifiers.',
     organiser: 'Endurancelife',
     url: 'https://www.endurancelife.com/exmoor',
+    image: '/images/events/exmoor.svg',
+    imageAlt:
+      'Placeholder artwork: an abstract coastal contour map with a marked route',
     featured: false,
     ticketStatus: 'Entries open',
     priceGBP: 71,
@@ -317,6 +332,9 @@ export const events: CoastalEvent[] = [
       'An out-and-back trail race along the rugged north Cornwall cliffs from Portreath Beach, on a well-maintained multi-terrain footpath. 10am start, registration from 8am, three-hour cutoff. A discounted entry is offered to anyone who cycles or runs to the start. Entries open 1 January 2027.',
     organiser: 'Bys Vyken Events',
     url: 'https://www.bysvykenevents.com/hell',
+    image: '/images/events/run-like-hell.svg',
+    imageAlt:
+      'Placeholder artwork: an abstract coastal contour map with a marked route',
     featured: false,
     ticketStatus: 'Entries not yet open',
     priceGBP: 21,
@@ -337,6 +355,9 @@ export const events: CoastalEvent[] = [
       'A one-loop, roughly 10-mile multi-terrain race starting and finishing at Land’s End. The route heads out through Sennen Cove and Gwynver, turns inland via Sennen, Bottoms and Polgigga, then returns along the coast path via Nanjizal: road, grass and gravel track, with a few genuine hills. Entries opened 1 March 2026 and close two weeks before the race.',
     organiser: 'Bys Vyken Events',
     url: 'https://www.bysvykenevents.com/bownder',
+    image: '/images/events/penn-an-wlas.svg',
+    imageAlt:
+      'Placeholder artwork: an abstract coastal contour map with a marked route',
     featured: false,
     ticketStatus: 'Entries open',
     priceGBP: 24,

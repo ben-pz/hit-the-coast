@@ -157,7 +157,15 @@ function build(slug, options = {}) {
 }
 
 const targets = [
-  ['events', []],
+  ['events', [
+    'dorset',
+    'south-devon',
+    'northumberland',
+    'sussex',
+    'exmoor',
+    'run-like-hell',
+    'penn-an-wlas',
+  ]],
   ['routes', [
     'lands-end-to-sennen-and-back',
     'st-ives-to-zennor',
@@ -172,9 +180,9 @@ const targets = [
     'trail-shoes-for-cornish-granite',
     'st-ives-to-zennor-route-guide',
   ]],
-  // No 'events' or 'brand' entries any more, and two stories are gone from the
-  // list above: those slugs carry real photographs now. Adding a slug back here
-  // would overwrite the photograph with generated artwork.
+  // No 'brand' entries any more, and two stories and six events are gone from
+  // the lists above: those slugs carry real photographs now. Adding a slug
+  // back here would overwrite the photograph with generated artwork.
   ['brand', []],
 ];
 
