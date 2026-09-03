@@ -46,6 +46,10 @@ next-env.d.ts
 # static export output
 /out/
 
-# packaged archives (kept on disk, not in the repo)
+# packaged archives
 *.tar.gz
 *.zip
+
+# screenshots and other files saved from the Claude desktop app — not site
+# content, just chat attachments that happen to live inside this folder
+/Claude outputs/
