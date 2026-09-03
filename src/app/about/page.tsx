@@ -43,7 +43,7 @@ export default function AboutPage() {
       <PageHeader
         eyebrow="About"
         title="Keeping a line open to home"
-        intro="For runners and walkers, and anyone who loves this coast, near or far. Built by one runner a long way from Cornwall."
+        intro="For runners, walkers and anyone who loves the coast, near or far."
       />
 
       <section className="py-12 sm:py-16">
@@ -51,71 +51,49 @@ export default function AboutPage() {
           <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr]">
             <div className="measure space-y-6 text-lg leading-relaxed text-paper/90">
               <p>
-                This is for runners and walkers, for anyone who loves the coast
-                whether they live on top of it or a thousand miles from it. A
-                target to tick off. A reason to get out on the evenings and
-                weekends instead of the sofa. All 2,700 miles of the England
-                Coast Path, one stretch at a time.
+                I’m Ben. I grew up near Sennen, just outside Land’s End, and
+                now live in Amsterdam: a city with no cliffs and very few
+                hills. Hit the Coast is my way of staying connected to
+                Cornwall and sharing the landscape I only fully appreciated
+                once it was no longer on my doorstep.
               </p>
               <p>
-                I’m Ben. I grew up just outside Sennen, near the cliffs at
-                Land’s End, and I now live in Amsterdam, which as far as I can
-                tell has zero cliffs and not many hills either. Building a map
-                of the Cornish coast from somewhere that flat is probably a bit
-                ridiculous. But it’s an honest reason for a site to exist: it
-                keeps a line open to home, and it scratches an itch for the
-                kind of nature I only really appreciated once I didn’t have it
-                on my doorstep anymore.
-              </p>
-              <p>
-                The other reason this exists is the coast path itself. It’s
-                officially the King Charles III England Coast Path now, and
-                it’s apparently the longest managed coastal path in the world.
-                2,700 miles, continuous, and ours to use. I’ve been to plenty
-                of places where the best bits of coastline sit behind a fence
-                or a hotel. We don’t have that problem here, and I don’t think
-                enough people clock how lucky that is. Some of the Cornish
-                stretches on this tracker are genuinely among the most
-                beautiful coastline anywhere, and you don’t need permission to
-                run on any of them.
+                The aim is simple: help people explore the England Coast Path
+                one stretch at a time. Run it, walk it, track your progress or
+                find a coastal event that gives you a reason to get outside.
               </p>
 
-              <h2 className="pt-6 text-3xl">Why I built this site</h2>
+              <h2 className="pt-6 text-3xl">Why I built it</h2>
               <p>
-                Because finding a coastal race in England is still stupidly hard.
-                The information is scattered across a dozen organiser sites, half
-                of them last updated years ago, and there is no decent way to ask
-                the obvious question: what is on, near the sea, at a distance I
-                can actually do, in the month I am free?
+                Finding coastal races and reliable route information is harder
+                than it should be. Details are scattered across organiser
+                websites, while shorter, more accessible adventures are often
+                overshadowed by ultramarathons.
               </p>
               <p>
-                And because the friendly stuff is almost invisible. A four-mile
-                stretch of coast with a mate is what actually gets people
-                outdoors, but it is buried underneath the ultras. I wanted them
-                side by side, treated as equally worth doing.
-              </p>
-              <p>
-                The King Charles III England Coast Path was inaugurated in
-                March 2026 and will run to around 2,700 miles when complete,
-                which makes the whole thing more possible than it has ever
-                been. Not every stretch is finished, and I will not pretend
-                otherwise. But a continuous right of way around the edge of
-                the country is a genuinely exciting thing for runners, and
-                somebody should be writing about it properly.
+                Hit the Coast brings them together. A four-mile walk with a
+                friend belongs alongside a hundred-mile race; both are worth
+                doing.
               </p>
 
               <h2 className="pt-6 text-3xl">What comes next</h2>
               <p>
-                Cornwall first, because that is what we know. Then outward, one
-                region at a time, as we find people who know their bit of coast
-                the way we know ours — the parking, the tides, where the water
-                is, which section is miserable in a north-easterly. That is the
-                bar for a route on this site.
+                Cornwall comes first, then we will work our way around
+                England’s 2,700-mile coast path, one region at a time.
               </p>
               <p>
-                If that is you, get in touch. If you organise events, send them
-                over. If you just want to know where to start, the newsletter is
-                the easiest way to keep up.
+                I want every guide to include genuine local knowledge: parking,
+                water stops, terrain and the weather conditions to watch out
+                for.
+              </p>
+              <p>
+                Know your stretch of coast? Organise an event?{' '}
+                <a
+                  href={`mailto:${siteConfig.email.general}`}
+                  className="underline underline-offset-4 hover:text-paper"
+                >
+                  Get in touch.
+                </a>
               </p>
             </div>
 
